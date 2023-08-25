@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "237356412741",
+    "project_id": "sabroson-vendor",
+    "storage_bucket": "sabroson-vendor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237356412741:android:ffdcd319f904d4e53a182c",
+        "android_client_info": {
+          "package_name": "com.sabroson.vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237356412741-9og0rgfsl60tfrgc9ftm8rkmijtatvc0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sabroson.vendor",
+            "certificate_hash": "a88b766ebe08c535516406fab3741781973c03ad"
+          }
+        },
+        {
+          "client_id": "237356412741-jkpdqhqe7pvejmmcvlggp0n7cnp25fhq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sabroson.vendor",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "237356412741-pp7veqmq3fonasoij0atctpeqd4sq7df.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sabroson.vendor",
+            "certificate_hash": "6e35fcb20bda370ed0025e8c1df6109a03d09b6e"
+          }
+        },
+        {
+          "client_id": "237356412741-mvv975rjatb6dvd0tq14dpdvp375r2vn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWWb_K6Ib6czajpbCBFY28n-bpyFpCmX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237356412741-mvv975rjatb6dvd0tq14dpdvp375r2vn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "237356412741-3bahvm1ehjtt9e7o4jf2sordmkiaqalo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sabroson.vendor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

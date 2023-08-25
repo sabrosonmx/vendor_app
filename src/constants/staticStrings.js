@@ -1,0 +1,20 @@
+export default {
+  VENDOR: 'Vendor',
+  PRODUCT: 'Product',
+  DISPATCHER: 'Dispatcher',
+  CATEGORY: 'Category',
+  BRAND: 'Brand',
+  CELEBRITY: 'Celebrity',
+  SUBCATEGORY: 'Subcategory',
+  ORDERS: 'Orders',
+  PRODUCTS: 'Products',
+  REVENUE: 'Revenue',
+  ACTIVE: 'active',
+  PAST: 'past',
+  SCHEDULE: 'schedule',
+  PICKUPANDDELIEVRY: 'Pickup/Delivery',
+  RETURNREQUEST: 'Return Request',
+  ONDEMANDSERVICE: 'On Demand Service',
+  VIEW_ALL_VENDORS: 'veiwAllVendors',
+  LAUNDRY:"Laundry"
+};

@@ -1,0 +1,6 @@
+<resources>
+    <!-- <string name="app_name">Royo Orders 2.0</string> -->
+    <string name="facebook_app_id">330961768556975</string>
+      <string name="fb_login_protocol_scheme">fb330961768556975</string>
+       <string name="google_api_key_id">AIzaSyB85kLYYOmuAhBUPd7odVmL6gnQsSGWU-4</string>
+</resources>
