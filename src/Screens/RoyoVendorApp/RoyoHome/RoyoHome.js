@@ -591,32 +591,32 @@ const RoyoHome = (props) => {
         <View>
           <View style={styles.dashboard}>
             <DashboardCount
-              heading="Pending Order"
-              desc="pending orders"
+              heading={strings.PENDING_ORDERS}
+              desc={strings.PENDING_ORDERS}
               count={ordersCount?.pending}
               index={0}
               image={imagePath.timerRoyo}
               onPress={() => onPressDashboard(0)}
             />
             <DashboardCount
-              heading="Active Order"
-              desc="Active orders"
+              heading={strings.ACTIVE_ORDERS}
+              desc={strings.ACTIVE_ORDERS}
               count={ordersCount?.active}
               index={1}
               image={imagePath.activeRoyo}
               onPress={() => onPressDashboard(1)}
             />
             <DashboardCount
-              heading="Cancelled Order"
-              desc="orders cancelled"
+              heading={strings.CANCELLED_ORDER}
+              desc={strings.ORDER_CANCELLED}
               count={ordersCount?.cancelled}
               index={2}
               image={imagePath.cancelledRoyo}
               onPress={() => onPressDashboard(2)}
             />
             <DashboardCount
-              heading="Delivered order"
-              desc="orders delivered"
+              heading={strings.DELIVERED_ORDERS}
+              desc={strings.ORDERS_DELIVERED}
               count={ordersCount?.delivered}
               index={3}
               image={imagePath.deliveredRoyo}
@@ -717,7 +717,7 @@ const RoyoHome = (props) => {
                 ...styles.font18Semibold,
                 marginVertical: moderateScaleVertical(16),
               }}>
-              {'Recent Orders'}
+              {strings.RECENTORDERS}
             </Text>
             <FlatList
               onEndReached={onEndReachedDelayed}

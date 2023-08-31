@@ -680,7 +680,7 @@ const RoyoProducts = (props) => {
           btnTextStyle={{
             color: colors.white,
           }}
-          btnText={'Add Product'}
+          btnText={strings.ADD_PRODUCT}
         />
       </View>
     );

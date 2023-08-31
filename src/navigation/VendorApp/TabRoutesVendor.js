@@ -1,25 +1,26 @@
 import {
   BottomTabBar,
-  createBottomTabNavigator,
+  createBottomTabNavigator
 } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {Image, Platform, StyleSheet, Text, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { Image, Platform, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import imagePath from '../../constants/imagePath';
 import colors from '../../styles/colors';
 import fontFamily from '../../styles/fontFamily';
 import {
   moderateScale,
   moderateScaleVertical,
-  width,
+  width
 } from '../../styles/responsiveSize';
 // import {getTabBarVisibility} from '../../utils/helperFunctions';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import navigationStrings from '../navigationStrings';
 import AccountStackVendor from './AccountStackVendor';
 import HomeStackVendor from './HomeStackVendor';
 import OrderStackVendor from './OrderStackVendor';
 import ProductStackVendor from './ProductStackVendor';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import strings from '../../constants/lang';
 
 const Tab = createBottomTabNavigator();
 let showBottomBar_ = true;
@@ -122,7 +123,7 @@ const TabRoutesVendor = ({barColor = colors.themeColor2}) => {
                   fontFamily: focused ? fontFamily.bold : fontFamily.regular,
                   paddingVertical: moderateScale(8),
                 }}>
-                Home
+                {strings.HOME}
               </Text>
             );
           },
@@ -154,7 +155,7 @@ const TabRoutesVendor = ({barColor = colors.themeColor2}) => {
                   fontFamily: focused ? fontFamily.bold : fontFamily.regular,
                   paddingVertical: moderateScale(8),
                 }}>
-                Orders
+                {strings.ORDERS}
               </Text>
             );
           },
@@ -189,7 +190,7 @@ const TabRoutesVendor = ({barColor = colors.themeColor2}) => {
                   fontFamily: focused ? fontFamily.bold : fontFamily.regular,
                   paddingVertical: moderateScale(8),
                 }}>
-                Product
+                {strings.PRODUCTS}
               </Text>
             );
           },
@@ -212,6 +213,7 @@ const TabRoutesVendor = ({barColor = colors.themeColor2}) => {
               />
             );
           },
+          // unmountOnBlur:true,
           tabBarLabel: ({focused}) => {
             return (
               <Text
@@ -221,7 +223,7 @@ const TabRoutesVendor = ({barColor = colors.themeColor2}) => {
                   fontFamily: focused ? fontFamily.bold : fontFamily.regular,
                   paddingVertical: moderateScale(8),
                 }}>
-                Account
+                {strings.ACCOUNT}
               </Text>
             );
           },

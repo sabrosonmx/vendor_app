@@ -32,6 +32,7 @@ import _, {debounce} from 'lodash';
 import { Text } from 'react-native';
 import RejectResonModal from '../../../Components/RejectResonModal';
 import { useFocusEffect } from '@react-navigation/native';
+import strings from '../../../constants/lang';
 
 let dataLimit = 20;
 let vendorLimit = 50;
@@ -368,7 +369,7 @@ const onSubmit = ()=>{
       <Header
         headerStyle={{marginVertical: moderateScaleVertical(16)}}
         // centerTitle="Orders | Foodies hub  "
-        centerTitle={'Orders | ' + storeSelectedVendor?.name || ''}
+        centerTitle={`${strings.ORDERS} |   ${storeSelectedVendor?.name} `|| ''}
         onPressCenterTitle={() => _reDirectToVendorList()}
         onPressImageAlongwithTitle={() => _reDirectToVendorList()}
         noLeftIcon
@@ -380,7 +381,7 @@ const onSubmit = ()=>{
           tabTextStyle={{
             marginTop: moderateScaleVertical(0),
           }}
-          screenName={['New', 'Confirmed', 'Cancelled', 'Completed']}
+          screenName={[ strings.NEW, strings.CONFIRMED, strings.CANCELLED, strings.COMPLETED]}
           selectedScreen={(index) => selectedOrder(index)}
           selectedScreenIndex={activeIndex}
         />

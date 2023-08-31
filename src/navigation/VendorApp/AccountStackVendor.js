@@ -6,6 +6,7 @@ import {
   RoyoAccounts,
   RoyoPaymentSetting,
   RoyoTransactions,
+  Settings,
   VendorList,
 } from '../../Screens';
 import navigationStrings from '../navigationStrings';
@@ -49,6 +50,11 @@ export default function () {
       <Stack.Screen
         name={navigationStrings.QR_ORDER_DETAIL}
         component={QrOrderDetail}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name={navigationStrings.SETTIGS}
+        component={Settings}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -98,6 +98,7 @@ export default function ShortCode({ route, navigation }) {
   const initApiHit = async () => {
     const res = await getItem('setPrimaryLanguage');
 
+    console.log(res,'resresresres');
     let header = {};
 
     if (!!res?.primary_language?.id) {

@@ -1,22 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {Alert} from 'react-native';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Share,
-  SafeAreaView,
-} from 'react-native';
-import {useSelector} from 'react-redux';
-import ButtonComponent from '../../../Components/ButtonComponent';
+import React, { useEffect, useState } from 'react';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import { useSelector } from 'react-redux';
 import Header from '../../../Components/Header';
-import {loaderOne} from '../../../Components/Loaders/AnimatedLoaderFiles';
+import { loaderOne } from '../../../Components/Loaders/AnimatedLoaderFiles';
 import WrapperContainer from '../../../Components/WrapperContainer';
 import imagePath from '../../../constants/imagePath';
 import strings from '../../../constants/lang';
-import {resetStackAndNavigate} from '../../../navigation/NavigationService';
+import { resetStackAndNavigate } from '../../../navigation/NavigationService';
 import navigationStrings from '../../../navigation/navigationStrings';
 import actions from '../../../redux/actions';
 import colors from '../../../styles/colors';
@@ -24,12 +15,9 @@ import fontFamily from '../../../styles/fontFamily';
 import {
   moderateScale,
   moderateScaleVertical,
-  textScale,
-  width,
+  textScale
 } from '../../../styles/responsiveSize';
-import {showError} from '../../../utils/helperFunctions';
-import QRCodeScanner from 'react-native-qrcode-scanner';
-import {RNCamera} from 'react-native-camera';
+import { showError } from '../../../utils/helperFunctions';
 
 const RoyoAccounts = (props) => {
   const {navigation} = props;
@@ -167,37 +155,74 @@ const RoyoAccounts = (props) => {
   };
   const data = [
     {
-      text: 'Transactions',
+      text: strings.TRANSACTIONS,
       image: imagePath.transactionsRoyo,
       onPress: () =>
         navigation.navigate(navigationStrings.ROYO_VENDOR_TRANSACTIONS),
     },
+    {
+      text: strings.LANGUAGES,
+      image: imagePath.settings,
+      onPress: () =>
+        navigation.navigate(navigationStrings.SETTIGS),
+    },
     businessType == 'laundry' && {
-      text: 'Scan QR',
+      text: strings.SCAN_QR,
       image: imagePath.paymentSettinRoyo,
       onPress: () => {
         actions.saveScannedQrValue('');
         navigation.navigate(navigationStrings.QR_ORDERS);
       },
     },
+  
     {
-      text: 'Signout',
+      text: strings.SIGN_OUT,
       image: imagePath.signoutRoyo,
       onPress: userlogout,
     },
   ];
 
+
+  const updateVendorProfile = () => {
+    updateState({
+      isLoading: true,
+    });
+    actions
+    .updateVendorProfile(
+      {
+        vendor_id: vendorDetail?.id,
+        show_slot : !!vendorDetail?.show_slot ? 0 : 1
+      },
+      {
+        code: appData?.profile?.code,
+        currency: currencies?.primary_currency?.id,
+        language: languages?.primary_language?.id,
+      },
+    )
+    .then(res => {
+      console.log('updateVendorProfile', res, 'res');
+      updateState({
+        isRefreshing: false,
+        isLoading: false,
+        vendorDetail: res?.data,
+      });
+    })
+    .catch(error => {
+      console.log('updateVendorProfile', error, 'res');
+    });
+  };
+
   return (
     <WrapperContainer
       bgColor="white"
-      // isLoadingB={isLoading}
+      isLoadingB={isLoading}
       source={loaderOne}
       statusBarColor="white"
       barStyle="dark-content">
       <Header
         headerStyle={{marginVertical: moderateScaleVertical(16)}}
         // centerTitle="Accounts | Foodies hub  "
-        centerTitle={`Accounts | ${selectedVendor?.name} `}
+        centerTitle={`${strings.ACCOUNT}| ${selectedVendor?.name} `}
         noLeftIcon
         imageAlongwithTitle={imagePath.dropdownTriangle}
         showImageAlongwithTitle
@@ -205,7 +230,15 @@ const RoyoAccounts = (props) => {
         onPressImageAlongwithTitle={() => _reDirectToVendorList()}
       />
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View
+          style={[
+            styles.header,
+            {
+              backgroundColor: !!vendorDetail?.show_slot
+                ? colors.lightGreen
+                : colors.greyA,
+            },
+          ]}>
           {vendorDetail?.logo?.proxy_url ? (
             <Image
               source={{
@@ -224,7 +257,23 @@ const RoyoAccounts = (props) => {
             </View>
           )}
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Text style={styles.font16Semibold}>{selectedVendor?.name}</Text>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={styles.font16Semibold}>{selectedVendor?.name}</Text>
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={updateVendorProfile}>
+                <FastImage
+                  source={
+                    !!vendorDetail?.show_slot
+                      ? imagePath.icToggleon
+                      : imagePath.icToggleoff
+                  }
+                  resizeMode='contain'
+                  style={{height:moderateScale(30),width:moderateScale(30)}}
+                />
+              </TouchableOpacity>
+            </View>
             <Text
               style={{
                 fontSize: 13,
@@ -244,10 +293,17 @@ const RoyoAccounts = (props) => {
                 key={index}
                 style={{
                   flexDirection: 'row',
-                  marginTop: moderateScaleVertical(5),
+                  marginTop: moderateScaleVertical(10),
                   alignItems: 'center',
                 }}>
-                <Image source={val.image} />
+                <Image
+                  source={val.image}
+                  style={{
+                    height: moderateScale(18),
+                    width: moderateScale(18),
+                    resizeMode: 'contain',
+                  }}
+                />
                 <Text style={styles.font15Semibold}>{val.text}</Text>
               </TouchableOpacity>
             );

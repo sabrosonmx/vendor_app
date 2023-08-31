@@ -24,6 +24,7 @@ import {
   ALL_VENDOR_ORDERS,
   GET_ORDER_QRCODE,
   CLEAR_ORDER_FROM_BAG,
+  UPDATE_VENDOR_PROFILE,
 } from '../../config/urls';
 import {apiGet, apiPost} from '../../utils/utils';
 import store from '../store';
@@ -318,6 +319,10 @@ export function getOrderByQrScan(query, headers = {}) {
 export function clearBagOrders(query, headers = {}) {
   return apiGet(CLEAR_ORDER_FROM_BAG + query, {}, headers);
 }
+export function updateVendorProfile(data, headers = {}) {
+  return apiPost(UPDATE_VENDOR_PROFILE ,data, headers);
+}
+
 
 export function saveScannedQrValue(data) {
   dispatch({

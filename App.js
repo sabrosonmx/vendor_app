@@ -281,8 +281,12 @@ const App = () => {
       //Language
       const getLanguage = await getItem('language');
 
+      console.log(getLanguage,'getLanguagegetLanguagegetLanguage');
       if (!!getLanguage) {
         strings.setLanguage(getLanguage);
+      } else {
+        strings.setLanguage('es');
+        console.log('truecasbdjvsbkldf');
       }
 
       //saveShortCode

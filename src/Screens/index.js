@@ -20,4 +20,6 @@ export {default as VendorList} from './VendorList/VendorList';
 export {default as ProductDetail} from './ProductDetail/ProductDetail';
 export {default as OrderDetail} from './OrderDetail/OrderDetail';
 export {default as QrOrders} from './RoyoVendorApp/QrOrders/QrOrders';
-export {default as QrOrderDetail} from './RoyoVendorApp/QrOrders/QrOrderDetail';
+export { default as QrOrderDetail } from './RoyoVendorApp/QrOrders/QrOrderDetail';
+export {default as Settings} from './RoyoVendorApp/Settings/Settings';
+
