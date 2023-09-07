@@ -123,7 +123,7 @@ const App = () => {
     } else {
       setTimeout(() => {
         SplashScreen.hide();
-      }, 3000);
+      }, 5000);
     }
     if (Platform.OS == 'android') {
       AsyncStorage.getItem('autoConnectEnabled').then(res => {

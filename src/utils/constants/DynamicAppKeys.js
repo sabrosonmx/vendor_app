@@ -7,8 +7,8 @@ const shortCodes = {
 
 const appIds = {
   sabroson: Platform.select({
-    ios: 'com.sabroson.vendor',
-    android: 'com.sabroson.vendor',
+    ios: 'com.sabroson.vendorApp',
+    android: 'com.sabroson.vendorApp',
   }), 
 };
 

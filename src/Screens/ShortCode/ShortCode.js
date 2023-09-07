@@ -294,7 +294,7 @@ export default function ShortCode({ route, navigation }) {
               justifyContent: 'center',
               width: '100%',
               height: '100%',
-              backgroundColor: 'rgba(0,0,0,0.5',
+              backgroundColor: colors.grayOpacity51,
             }}>
             <View style={{ position: 'absolute', bottom: moderateScale(100) }}>
               {LoadingScreen && (

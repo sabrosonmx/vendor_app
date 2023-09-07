@@ -190,15 +190,17 @@ const RoyoAccounts = (props) => {
 
 
   const updateVendorProfile = () => {
+    console.log(vendorDetail?.show_slot,'vendorDetail?.show_slot');
     updateState({
       isLoading: true,
     });
+    let data ={
+      vendor_id: vendorDetail?.id,
+      is_available: !!vendorDetail?.is_available ? 0 : 1
+    } 
     actions
       .updateVendorProfile(
-        {
-          vendor_id: vendorDetail?.id,
-          show_slot: !!vendorDetail?.show_slot ? 0 : 1
-        },
+        data,
         {
           code: appData?.profile?.code,
           currency: currencies?.primary_currency?.id,
@@ -206,7 +208,7 @@ const RoyoAccounts = (props) => {
         },
       )
       .then(res => {
-        console.log('updateVendorProfile', res, 'res');
+        console.log('updateVendorProfile', res, 'res',vendorDetail?.show_slot,data);
         updateState({
           isRefreshing: false,
           isLoading: false,
@@ -240,7 +242,7 @@ const RoyoAccounts = (props) => {
           style={[
             styles.header,
             {
-              backgroundColor: !!vendorDetail?.show_slot
+              backgroundColor: !!vendorDetail?.is_available
                 ? colors.lightGreen
                 : colors.greyA,
             },
@@ -271,7 +273,7 @@ const RoyoAccounts = (props) => {
                 onPress={updateVendorProfile}>
                 <FastImage
                   source={
-                    !!vendorDetail?.show_slot
+                    !!vendorDetail?.is_available
                       ? imagePath.icToggleon
                       : imagePath.icToggleoff
                   }

@@ -440,7 +440,6 @@ export default function VendorScheduling() {
                         </TouchableOpacity>
                     </View>
                     <View>
-
                         <Text style={{
                             // paddingTop: moderateScaleVertical(10),
                             fontFamily: fontFamily?.regular,

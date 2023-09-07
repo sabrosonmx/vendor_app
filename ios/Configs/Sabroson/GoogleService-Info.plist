@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>237356412741-3bahvm1ehjtt9e7o4jf2sordmkiaqalo.apps.googleusercontent.com</string>
+	<string>772520628110-j72j6rrk95qb7fkkc88q6qgsr7bpfqd7.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.237356412741-3bahvm1ehjtt9e7o4jf2sordmkiaqalo</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>237356412741-9og0rgfsl60tfrgc9ftm8rkmijtatvc0.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.772520628110-j72j6rrk95qb7fkkc88q6qgsr7bpfqd7</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAtm-QRVrOPT-tH03qlucXyGlxNWQw5fiE</string>
+	<string>AIzaSyAqRaO8GO4SfbtolfB1LmY94qQZ_mv-6kU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>237356412741</string>
+	<string>772520628110</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sabroson.vendor</string>
+	<string>com.sabroson.vendorApp</string>
 	<key>PROJECT_ID</key>
-	<string>sabroson-vendor</string>
+	<string>saborson-vendor</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sabroson-vendor.appspot.com</string>
+	<string>saborson-vendor.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:237356412741:ios:dda67ed0d0ad76823a182c</string>
+	<string>1:772520628110:ios:3380054e6f3d20bc245edf</string>
 </dict>
 </plist>
