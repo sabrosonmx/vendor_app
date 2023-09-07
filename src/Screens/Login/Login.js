@@ -90,6 +90,7 @@ export default function Login({ navigation }) {
       isSelectLanguageModal: false,
       isLangSelected: false,
       allLangs: [],
+      cmsLinks:{}
     },
   });
 
@@ -119,6 +120,7 @@ export default function Login({ navigation }) {
     isSelectLanguageModal,
     isLangSelected,
     allLangs,
+    cmsLinks
   } = state;
 
   //Naviagtion to specific screen
@@ -520,18 +522,21 @@ export default function Login({ navigation }) {
         console.log('All Cms links', res);
         updateState({ isLoadingB: false, isLoading: false, isRefreshing: false });
         if (res && res?.data) {
-          updateState({ cmsLinks: res?.data });
+          res?.data.map((item,inx)=>{
+            item.slug == 'inscribe-tu-negocio' && 
+            updateState({ cmsLinks: item });
+          }) 
         }
       })
       .catch(errorMethod);
   };
 
-
+console.log(cmsLinks,'cmsLinkscmsLinks')
   const vendorRegistartion = () => {
     navigation.navigate(navigationStrings.WEBLINKS, {
-      id: 10,
-      slug: "inscribe-tu-negocio",
-      title: "Vendor Registration"
+      id: cmsLinks?.id,
+      slug: cmsLinks?.slug,
+      title: cmsLinks?.title
     })
   }
 

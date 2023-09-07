@@ -447,7 +447,7 @@ export default function VendorScheduling() {
                             marginHorizontal: moderateScale(10),
                             fontSize: textScale(14)
                         }}>
-                            Start Time (24 hours Format)
+                          {strings?.START_TIME}
                         </Text>
                         <TextInput placeholder='00:00' style={{
                             borderWidth: .5,
@@ -479,7 +479,7 @@ export default function VendorScheduling() {
                             marginHorizontal: moderateScale(10),
                             fontSize: textScale(14)
                         }}>
-                            End Time (24 hours Format)
+                             {strings?.END_TIME}
                         </Text>
                         <TextInput placeholder='00:30' style={{
                             borderWidth: .5,
@@ -499,7 +499,7 @@ export default function VendorScheduling() {
                             margin: moderateScale(10),
                             fontSize: textScale(14)
                         }}>
-                            Slot for
+                            {strings.SLOTS_FOR}
                         </Text>
                         {data.map((item, inx) => {
                             return (
@@ -530,7 +530,7 @@ export default function VendorScheduling() {
                                 marginHorizontal: moderateScale(10),
                                 fontSize: textScale(14)
                             }}>
-                                Select Days of Week
+                                {strings.SELECT_DAYS_OF_WEEK}
                             </Text>
                             {
                                 isEmpty(singleSlotData) && weekdays.map((item, inx) => {

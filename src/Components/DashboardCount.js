@@ -29,15 +29,15 @@ const DashboardCount = ({
                     ...commonStyles.boldFont14,
                     marginTop: moderateScaleVertical(18),
                 }}>
-                {heading}
+               {count} {heading}
             </Text>
-            <Text
+            {/* <Text
                 style={{
                     ...styles.font14Regular,
                     marginVertical: moderateScaleVertical(4),
                 }}>
                 {count} {desc}
-            </Text>
+            </Text> */}
         </TouchableOpacity>
     );
 };

@@ -616,7 +616,7 @@ const RoyoHome = (props) => {
             />
             <DashboardCount
               heading={strings.DELIVERED_ORDERS}
-              desc={strings.ORDERS_DELIVERED}
+              desc={strings.DELIVERED_ORDERS}
               count={ordersCount?.delivered}
               index={3}
               image={imagePath.deliveredRoyo}
