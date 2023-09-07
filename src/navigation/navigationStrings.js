@@ -128,4 +128,5 @@ export default {
   KONGOPAY: 'KongoPay',
   QR_ORDERS: 'QrOrders',
   QR_ORDER_DETAIL: 'QrOrderDetail',
+  VENDOR_SCHEDULING: 'VendorScheduling'
 };

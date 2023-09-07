@@ -8,6 +8,7 @@ import {
   RoyoTransactions,
   Settings,
   VendorList,
+  VendorScheduling,
 } from '../../Screens';
 import navigationStrings from '../navigationStrings';
 import OrderStackVendor from './OrderStackVendor';
@@ -55,6 +56,11 @@ export default function () {
        <Stack.Screen
         name={navigationStrings.SETTIGS}
         component={Settings}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name={navigationStrings.VENDOR_SCHEDULING}
+        component={VendorScheduling}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

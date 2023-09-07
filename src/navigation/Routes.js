@@ -17,7 +17,7 @@ import TabRoutesVendor from './VendorApp/TabRoutesVendor';
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
-
+ 
   return (
     // <AppearanceProvider>
       <NavigationContainer

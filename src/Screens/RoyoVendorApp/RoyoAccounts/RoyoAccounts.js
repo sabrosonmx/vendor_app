@@ -20,7 +20,7 @@ import {
 import { showError } from '../../../utils/helperFunctions';
 
 const RoyoAccounts = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
 
   const [state, setState] = useState({
     selectedVendor: null,
@@ -30,17 +30,17 @@ const RoyoAccounts = (props) => {
     vendorDetail: {},
   });
 
-  const {selectedVendor, vendor_list, isLoading, isRefreshing, vendorDetail} =
+  const { selectedVendor, vendor_list, isLoading, isRefreshing, vendorDetail } =
     state;
-  const {appData, currencies, languages} = useSelector(
+  const { appData, currencies, languages } = useSelector(
     (state) => state?.initBoot,
   );
   let businessType = appData?.profile?.preferences?.business_type || null;
 
   const userData = useSelector((state) => state.auth.userData);
-  const updateState = (data) => setState((state) => ({...state, ...data}));
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
-  const {storeSelectedVendor} = useSelector((state) => state?.order);
+  const { storeSelectedVendor } = useSelector((state) => state?.order);
   useEffect(() => {
     updateState({
       selectedVendor: storeSelectedVendor,
@@ -51,10 +51,10 @@ const RoyoAccounts = (props) => {
     _getListOfVendor();
     // _getVendorProfile(selectedVendor);
   }, []);
-
+  console.log(appData, 'appDataappData')
   useEffect(() => {
     console.log('check selectedVendor', selectedVendor);
-    updateState({isLoading: true});
+    updateState({ isLoading: true });
     _getVendorProfile(selectedVendor);
   }, [selectedVendor]);
 
@@ -62,8 +62,8 @@ const RoyoAccounts = (props) => {
     let vendordId = !!storeSelectedVendor?.id
       ? storeSelectedVendor?.id
       : selectedVendor?.id
-      ? selectedVendor?.id
-      : '';
+        ? selectedVendor?.id
+        : '';
     console.log('res__getRevnueData>>>profile>>account', vendordId);
     let data = {};
     data['vendor_id'] = vendordId;
@@ -124,8 +124,8 @@ const RoyoAccounts = (props) => {
     let vendordId = !!storeSelectedVendor?.id
       ? storeSelectedVendor?.id
       : selectedVendor?.id
-      ? selectedVendor?.id
-      : '';
+        ? selectedVendor?.id
+        : '';
     actions
       ._getListOfVendorOrders(
         `?limit=${1}&page=${1}&selected_vendor_id=${vendordId}`,
@@ -150,10 +150,16 @@ const RoyoAccounts = (props) => {
       .catch(errorMethod);
   };
   const errorMethod = (error) => {
-    updateState({isLoading: false, isRefreshing: false});
+    updateState({ isLoading: false, isRefreshing: false });
     showError(error?.message || error?.error);
   };
   const data = [
+    appData?.profile?.preferences?.off_scheduling_at_cart != 1 && {
+      text: strings.VENDOR_SCHEDULING,
+      image: imagePath.time,
+      onPress: () =>
+        navigation.navigate(navigationStrings.VENDOR_SCHEDULING),
+    },
     {
       text: strings.TRANSACTIONS,
       image: imagePath.transactionsRoyo,
@@ -174,7 +180,7 @@ const RoyoAccounts = (props) => {
         navigation.navigate(navigationStrings.QR_ORDERS);
       },
     },
-  
+
     {
       text: strings.SIGN_OUT,
       image: imagePath.signoutRoyo,
@@ -188,28 +194,28 @@ const RoyoAccounts = (props) => {
       isLoading: true,
     });
     actions
-    .updateVendorProfile(
-      {
-        vendor_id: vendorDetail?.id,
-        show_slot : !!vendorDetail?.show_slot ? 0 : 1
-      },
-      {
-        code: appData?.profile?.code,
-        currency: currencies?.primary_currency?.id,
-        language: languages?.primary_language?.id,
-      },
-    )
-    .then(res => {
-      console.log('updateVendorProfile', res, 'res');
-      updateState({
-        isRefreshing: false,
-        isLoading: false,
-        vendorDetail: res?.data,
+      .updateVendorProfile(
+        {
+          vendor_id: vendorDetail?.id,
+          show_slot: !!vendorDetail?.show_slot ? 0 : 1
+        },
+        {
+          code: appData?.profile?.code,
+          currency: currencies?.primary_currency?.id,
+          language: languages?.primary_language?.id,
+        },
+      )
+      .then(res => {
+        console.log('updateVendorProfile', res, 'res');
+        updateState({
+          isRefreshing: false,
+          isLoading: false,
+          vendorDetail: res?.data,
+        });
+      })
+      .catch(error => {
+        console.log('updateVendorProfile', error, 'res');
       });
-    })
-    .catch(error => {
-      console.log('updateVendorProfile', error, 'res');
-    });
   };
 
   return (
@@ -220,7 +226,7 @@ const RoyoAccounts = (props) => {
       statusBarColor="white"
       barStyle="dark-content">
       <Header
-        headerStyle={{marginVertical: moderateScaleVertical(16)}}
+        headerStyle={{ marginVertical: moderateScaleVertical(16) }}
         // centerTitle="Accounts | Foodies hub  "
         centerTitle={`${strings.ACCOUNT}| ${selectedVendor?.name} `}
         noLeftIcon
@@ -256,9 +262,9 @@ const RoyoAccounts = (props) => {
               <Text style={styles.addLogo}>{strings.ADD_LOGO}</Text>
             </View>
           )}
-          <View style={{flex: 1, justifyContent: 'center'}}>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={styles.font16Semibold}>{selectedVendor?.name}</Text>
               <TouchableOpacity
                 activeOpacity={0.9}
@@ -270,7 +276,7 @@ const RoyoAccounts = (props) => {
                       : imagePath.icToggleoff
                   }
                   resizeMode='contain'
-                  style={{height:moderateScale(30),width:moderateScale(30)}}
+                  style={{ height: moderateScale(30), width: moderateScale(30) }}
                 />
               </TouchableOpacity>
             </View>
@@ -285,7 +291,7 @@ const RoyoAccounts = (props) => {
           </View>
           {/* <Image style={{alignSelf: 'center'}} source={imagePath.edit1Royo} /> */}
         </View>
-        <View style={{marginTop: moderateScaleVertical(22)}}>
+        <View style={{ marginTop: moderateScaleVertical(22) }}>
           {data.map((val, index) => {
             return (
               <TouchableOpacity

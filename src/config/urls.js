@@ -1,5 +1,5 @@
 //  export const API_BASE_URL = 'https://api.royoorders.com/api/v1';
-// export const API_BASE_URL = 'http://192.168.103.254:8001/api/v1';
+// export const API_BASE_URL = 'http://192.168.102.169:8001/api/v1';
 export const API_BASE_URL = 'https://sabroson.com.mx/api/v1';
 
 export const getApiUrl = (endpoint) => API_BASE_URL + endpoint;
@@ -179,3 +179,9 @@ export const ALL_VENDOR_DATA = getApiUrl(
 export const GET_ORDER_QRCODE = getApiUrl('/mystore/vendor/bagOrders');
 export const CLEAR_ORDER_FROM_BAG = getApiUrl('/mystore/vendor/clearBagOrders');
 export const UPDATE_VENDOR_PROFILE=getApiUrl('/update-vendor-profile')
+
+export const ADD_VENDOR_SLOTS=getApiUrl('/vendor-slot-store')
+export const UPDATE_VENDOR_SLOTS=getApiUrl('/vendor-slot-update')
+export const DELETE_VENDOR_SLOTS=getApiUrl('/vendor-slot-destroy')
+export const GET_VENDOR_SLOTS=getApiUrl('/vendor-slots')
+// vendor-slots?vendor_id=121

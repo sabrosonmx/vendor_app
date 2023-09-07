@@ -22,4 +22,5 @@ export {default as OrderDetail} from './OrderDetail/OrderDetail';
 export {default as QrOrders} from './RoyoVendorApp/QrOrders/QrOrders';
 export { default as QrOrderDetail } from './RoyoVendorApp/QrOrders/QrOrderDetail';
 export {default as Settings} from './RoyoVendorApp/Settings/Settings';
+export {default as VendorScheduling} from './RoyoVendorApp/VendorScheduling/VendorScheduling';
 

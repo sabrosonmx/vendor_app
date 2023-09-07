@@ -25,6 +25,10 @@ import {
   GET_ORDER_QRCODE,
   CLEAR_ORDER_FROM_BAG,
   UPDATE_VENDOR_PROFILE,
+  ADD_VENDOR_SLOTS,
+  DELETE_VENDOR_SLOTS,
+  GET_VENDOR_SLOTS,
+  UPDATE_VENDOR_SLOTS,
 } from '../../config/urls';
 import {apiGet, apiPost} from '../../utils/utils';
 import store from '../store';
@@ -322,8 +326,18 @@ export function clearBagOrders(query, headers = {}) {
 export function updateVendorProfile(data, headers = {}) {
   return apiPost(UPDATE_VENDOR_PROFILE ,data, headers);
 }
-
-
+export function addVendorSlot(data, headers = {}) {
+  return apiPost(ADD_VENDOR_SLOTS ,data, headers);
+}
+export function deleteVendorSlot(data, headers = {}) {
+  return apiPost(DELETE_VENDOR_SLOTS ,data, headers);
+}
+export function getVendorSlot(query ='',data, headers = {}) {
+  return apiGet(GET_VENDOR_SLOTS + query ,data, headers);
+}
+export function updateVendorSlot(data, headers = {}) {
+  return apiPost(UPDATE_VENDOR_SLOTS  ,data, headers);
+}
 export function saveScannedQrValue(data) {
   dispatch({
     type: types.SCANNED_QR_VALUE,

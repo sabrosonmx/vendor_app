@@ -21,6 +21,7 @@ import HomeStackVendor from './HomeStackVendor';
 import OrderStackVendor from './OrderStackVendor';
 import ProductStackVendor from './ProductStackVendor';
 import strings from '../../constants/lang';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 let showBottomBar_ = true;
@@ -38,6 +39,9 @@ const getTabBarVisibility = (route, navigation, screen) => {
 };
 
 const TabRoutesVendor = ({barColor = colors.themeColor2}) => {
+  const {themeColors, } = useSelector(
+    (state) => state?.initBoot,
+  );
   const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
@@ -83,7 +87,7 @@ const TabRoutesVendor = ({barColor = colors.themeColor2}) => {
           bottom: 0,
         },
         tabStyle: {
-          backgroundColor: barColor,
+          backgroundColor:themeColors.primary_color,
           justifyContent: 'center',
           alignItems: 'center',
           paddingTop: moderateScale(8),

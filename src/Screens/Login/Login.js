@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
-import {cloneDeep} from 'lodash';
-import React, {useEffect, useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { cloneDeep, isEmpty } from 'lodash';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   I18nManager,
@@ -11,20 +11,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useDarkMode} from 'react-native-dynamic';
+import RNRestart from 'react-native-restart';
+
+import { useDarkMode } from 'react-native-dynamic';
 import DeviceInfo from 'react-native-device-info';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useSelector} from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSelector } from 'react-redux';
 import BorderTextInput from '../../Components/BorderTextInput';
 import ButtonComponent from '../../Components/ButtonComponent';
 import TransparentButtonWithTxtAndIcon from '../../Components/ButtonComponent';
 import GradientButton from '../../Components/GradientButton';
-import {loaderOne} from '../../Components/Loaders/AnimatedLoaderFiles';
+import { loaderOne } from '../../Components/Loaders/AnimatedLoaderFiles';
 import PhoneNumberInput from '../../Components/PhoneNumberInput';
 import WrapperContainer from '../../Components/WrapperContainer';
 import imagePath from '../../constants/imagePath';
-import strings from '../../constants/lang';
-import {resetStackAndNavigate} from '../../navigation/NavigationService';
+import strings, { changeLaguage } from '../../constants/lang';
+import { resetStackAndNavigate } from '../../navigation/NavigationService';
 import navigationStrings from '../../navigation/navigationStrings';
 import actions from '../../redux/actions';
 import colors from '../../styles/colors';
@@ -32,25 +34,27 @@ import {
   moderateScale,
   moderateScaleVertical,
 } from '../../styles/responsiveSize';
-import {MyDarkTheme} from '../../styles/theme';
-import {enums} from '../../utils/enums';
-import {showError} from '../../utils/helperFunctions';
+import { MyDarkTheme } from '../../styles/theme';
+import { enums } from '../../utils/enums';
+import { showError } from '../../utils/helperFunctions';
 import {
   fbLogin,
   googleLogin,
   handleAppleLogin,
   _twitterSignIn,
 } from '../../utils/socialLogin';
-import {checkIsAdmin} from '../../utils/utils';
+import { checkIsAdmin, setItem } from '../../utils/utils';
 import validator from '../../utils/validations';
 import stylesFunc from './styles';
+import LanguageModal from '../../Components/LanguageModal';
+import Header from '../../Components/Header';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const navigation_ = useNavigation();
-  const {appData, themeColors, currencies, languages, appStyle} = useSelector(
+  const { appData, themeColors, currencies, languages, appStyle } = useSelector(
     (state) => state?.initBoot,
   );
-  const {apple_login, fb_login, twitter_login, google_login} = useSelector(
+  const { apple_login, fb_login, twitter_login, google_login } = useSelector(
     (state) => state?.initBoot?.appData?.profile?.preferences,
   );
   const theme = useSelector((state) => state?.initBoot?.themeColor);
@@ -81,6 +85,11 @@ export default function Login({navigation}) {
       focus: false,
       countryName: '',
       isShowPassword: false,
+      getLanguage: '',
+      isLoading: false,
+      isSelectLanguageModal: false,
+      isLangSelected: false,
+      allLangs: [],
     },
   });
 
@@ -89,11 +98,11 @@ export default function Login({navigation}) {
   useEffect(() => {
     clonedState = cloneDeep(state);
   }, []);
-
+  console.log(languages, 'languageslanguageslanguages')
   //Update states
-  const updateState = (data) => setState((state) => ({...state, ...data}));
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
   //Styles in app
-  const styles = stylesFunc({themeColors, fontFamily});
+  const styles = stylesFunc({ themeColors, fontFamily });
 
   //all states used in this screen
   const {
@@ -105,25 +114,30 @@ export default function Login({navigation}) {
     email,
     number,
     isShowPassword,
+    getLanguage,
+    // isLoading,
+    isSelectLanguageModal,
+    isLangSelected,
+    allLangs,
   } = state;
 
   //Naviagtion to specific screen
   const moveToNewScreen = (screenName, data) => () => {
-    navigation.navigate(screenName, {data});
+    navigation.navigate(screenName, { data });
   };
   //On change textinput
   const _onChangeText = (key) => (val) => {
-    updateState({[key]: val});
+    updateState({ [key]: val });
   };
 
   //Validate form
   const isValidData = () => {
     const error = email.focus
-      ? validator({email: email.value, password})
+      ? validator({ email: email.value, password })
       : validator({
-          phoneNumber: mobilNo.phoneNo,
-          callingCode: mobilNo.callingCode,
-        });
+        phoneNumber: mobilNo.phoneNo,
+        callingCode: mobilNo.callingCode,
+      });
     if (error) {
       showError(error);
       return;
@@ -176,7 +190,7 @@ export default function Login({navigation}) {
       countryData: mobilNo.focus ? mobilNo.cca2 : '',
       is_vendor_app: 1,
     };
-    updateState({isLoading: true});
+    updateState({ isLoading: true });
     console.log('chck login data >>>', data);
     actions
       .VendorLoginUsername(data, {
@@ -186,7 +200,7 @@ export default function Login({navigation}) {
         systemuser: DeviceInfo.getUniqueId(),
       })
       .then((res) => {
-        console.log(res,"resLoginnnnnnn")
+        console.log(res, "resLoginnnnnnn")
         if (!!res.data) {
           if (!!res?.data?.is_phone) {
             navigation.navigate(navigationStrings.OTP_VERIFICATION, {
@@ -203,13 +217,35 @@ export default function Login({navigation}) {
             );
           }
           // checkIsAdmin(navigation_, navigation, res.data);
-          
+
         }
-        updateState({isLoading: false});
+        updateState({ isLoading: false });
         // getCartDetail();
       })
       .catch(errorMethod);
   };
+
+
+  useEffect(() => {
+    if (!isEmpty(languages)) {
+      console.log('hihihii')
+      const all_languages = [...languages?.all_languages];
+
+      all_languages?.forEach((itm, indx) => {
+        if (languages?.primary_language?.id === itm?.id) {
+          all_languages[indx].isActive = true;
+          updateState({
+            allLangs: [...all_languages],
+          });
+        } else {
+          all_languages[indx].isActive = false;
+          updateState({
+            allLangs: [...all_languages],
+          });
+        }
+      });
+    }
+  }, []);
 
   //Login api fucntion
   const _onLogin = async () => {
@@ -229,7 +265,7 @@ export default function Login({navigation}) {
       dialCode: mobilNo.focus ? mobilNo.callingCode : '',
       countryData: mobilNo.focus ? mobilNo.cca2 : '',
     };
-    updateState({isLoading: true});
+    updateState({ isLoading: true });
     console.log('chck login data >>>', data);
     actions
       .loginUsername(data, {
@@ -239,19 +275,19 @@ export default function Login({navigation}) {
         systemuser: DeviceInfo.getUniqueId(),
       })
       .then((res) => {
-        console.log(res,"resssloginnn")
+        console.log(res, "resssloginnn")
         if (!!res.data) {
 
           res.data.is_phone
             ? navigation.navigate(navigationStrings.OTP_VERIFICATION, {
-                username: mobilNo?.phoneNo,
-                dialCode: mobilNo?.callingCode,
-                countryData: mobilNo?.cca2,
-                data: res.data,
-              })
+              username: mobilNo?.phoneNo,
+              dialCode: mobilNo?.callingCode,
+              countryData: mobilNo?.cca2,
+              data: res.data,
+            })
             : checkIfEmailVerification(res.data);
         }
-        updateState({isLoading: false});
+        updateState({ isLoading: false });
         getCartDetail();
       })
       .catch(errorMethod);
@@ -272,14 +308,14 @@ export default function Login({navigation}) {
       .then((res) => {
         actions.cartItemQty(res);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
   //Error handling in api
   const errorMethod = (error) => {
     console.log(error, 'error>error11111');
-  
-    
-    updateState({isLoading: false});
+
+
+    updateState({ isLoading: false });
     if (error?.data && !error?.data?.user_exists) {
       Alert.alert('', error?.message, [
         {
@@ -339,14 +375,14 @@ export default function Login({navigation}) {
         console.log(res, 'res>>>SOCIAL');
         if (!!res.data) {
           !!res.data?.client_preference?.verify_email ||
-          !!res.data?.client_preference?.verify_phone
+            !!res.data?.client_preference?.verify_phone
             ? !!res.data?.verify_details?.is_email_verified &&
               !!res.data?.verify_details?.is_phone_verified
               ? checkIsAdmin()
               : moveToNewScreen(navigationStrings.VERIFY_ACCOUNT, {})()
             : checkIsAdmin();
         }
-        updateState({isLoading: false});
+        updateState({ isLoading: false });
         getCartDetail();
       })
       .catch(errorMethod);
@@ -354,44 +390,44 @@ export default function Login({navigation}) {
 
   //Apple Login Support
   const openAppleLogin = () => {
-    updateState({isLoading: false});
+    updateState({ isLoading: false });
     handleAppleLogin()
       .then((res) => {
         _saveSocailLogin(res, 'apple');
         // updateState({isLoading: false});
       })
       .catch((err) => {
-        updateState({isLoading: false});
+        updateState({ isLoading: false });
       });
   };
 
   //Gmail Login Support
   const openGmailLogin = () => {
-    updateState({isLoading: true});
+    updateState({ isLoading: true });
     googleLogin()
       .then((res) => {
         console.log(res, 'google');
         if (res?.user) {
           _saveSocailLogin(res.user, 'google');
         } else {
-          updateState({isLoading: false});
+          updateState({ isLoading: false });
         }
       })
       .catch((err) => {
         console.log(err, 'error in gmail login');
-        updateState({isLoading: false});
+        updateState({ isLoading: false });
       });
   };
   const _responseInfoCallback = (error, result) => {
-    updateState({isLoading: true});
+    updateState({ isLoading: true });
     if (error) {
-      updateState({isLoading: false});
+      updateState({ isLoading: false });
     } else {
       if (result && result?.id) {
         console.log(result, 'fbresult');
         _saveSocailLogin(result, 'facebook');
       } else {
-        updateState({isLoading: false});
+        updateState({ isLoading: false });
       }
     }
   };
@@ -408,7 +444,7 @@ export default function Login({navigation}) {
           _saveSocailLogin(res, 'twitter');
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   const _onCountryChange = (data) => {
     updateState({
@@ -424,6 +460,102 @@ export default function Login({navigation}) {
     return;
   };
 
+  const selectedLangTitle = !isEmpty(allLangs) ? allLangs.find((itm) => itm.isActive === true) : {};
+  // const selectedLangTitle ={}
+  const _onBackdropPress = () => {
+    updateState({ isSelectLanguageModal: false });
+  };
+  const _selectLang = () => {
+    updateState({ isSelectLanguageModal: true });
+  };
+  const _onLangSelect = (item, indx) => {
+    const langs = [...allLangs];
+    langs.forEach((item, index) => {
+      if (index === indx) {
+        langs[index].isActive = true;
+        updateState({
+          allLangs: [...langs],
+        });
+      } else {
+        langs[index].isActive = false;
+        updateState({
+          allLangs: [...langs],
+        });
+      }
+    });
+  };
+
+  const onSubmitLang = async (lang, languagesData) => {
+    if (lang == '') {
+      showAlertMessageError(strings.SELECT);
+      return;
+    } else {
+      if (lang === 'ar' || lang === 'he') {
+        I18nManager.forceRTL(true);
+        setItem('language', lang);
+        changeLaguage(lang);
+        RNRestart.Restart();
+      } else {
+        I18nManager.forceRTL(false);
+        setItem('language', lang);
+        changeLaguage(lang);
+        RNRestart.Restart();
+      }
+    }
+  };
+  useEffect(() => {
+    getListOfAllCmsLinks()
+  }, [])
+  const getListOfAllCmsLinks = () => {
+    actions
+      .getListOfAllCmsLinks(
+        {},
+        {
+          code: appData?.profile?.code,
+          currency: currencies?.primary_currency?.id,
+          language: languages?.primary_language?.id,
+        },
+      )
+      .then((res) => {
+        console.log('All Cms links', res);
+        updateState({ isLoadingB: false, isLoading: false, isRefreshing: false });
+        if (res && res?.data) {
+          updateState({ cmsLinks: res?.data });
+        }
+      })
+      .catch(errorMethod);
+  };
+
+
+  const vendorRegistartion = () => {
+    navigation.navigate(navigationStrings.WEBLINKS, {
+      id: 10,
+      slug: "inscribe-tu-negocio",
+      title: "Vendor Registration"
+    })
+  }
+
+  const updateLanguage = (item) => {
+    const data = languages?.all_languages?.filter((x) => x.id == item.id)[0];
+
+    if (data.sort_code !== languages?.primary_language.sort_code) {
+      let languagesData = {
+        ...languages,
+        primary_language: data,
+      };
+
+      // updateState({isLoading: true});
+      setItem('setPrimaryLanguage', languagesData);
+      setTimeout(() => {
+        actions.updateLanguage(data);
+        onSubmitLang(data.sort_code, languagesData);
+      }, 1000);
+    }
+  };
+  const _updateLang = (selectedLangTitle) => {
+    updateState({ isSelectLanguageModal: false });
+    updateLanguage(selectedLangTitle);
+  };
   /*************************** Check Input Handler */
   const checkInputHandler = (data = '') => {
     let re = /^[0-9]{1,45}$/;
@@ -470,7 +602,7 @@ export default function Login({navigation}) {
   };
 
   const showHidePassword = () => {
-    updateState({isShowPassword: !isShowPassword});
+    updateState({ isShowPassword: !isShowPassword });
   };
 
   return (
@@ -478,6 +610,41 @@ export default function Login({navigation}) {
       isLoadingB={isLoading}
       source={loaderOne}
       bgColor={isDarkMode ? MyDarkTheme.colors.background : colors.white}>
+      <Header
+        rightViewStyle={{ flex: 0.1 }}
+        noLeftIcon={true}
+        // leftIcon={imagePath.icBackb}
+        // centerTitle={'Vendor Scheduling'}
+        righttextview={{ flex: 0.28 }}
+        headerStyle={
+          {
+
+            shadowColor: colors.greyColor,
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 1,
+            shadowRadius: 4,
+            backgroundColor: colors.white,
+            elevation: 8,
+            backgroundColor: isDarkMode ? MyDarkTheme.colors.background : colors.white
+          }
+        }
+        isRightText
+        rightTxt={
+          !!selectedLangTitle
+            ? selectedLangTitle.sort_code
+            : 'en'
+        }
+        rightTxtContainerStyle={{
+          backgroundColor: themeColors.primary_color,
+          height: moderateScale(30),
+          width: moderateScale(30),
+          borderRadius: moderateScale(30),
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onPressRightTxt={_selectLang}
+        rightTxtStyle={{ color: colors.white, textTransform: 'uppercase' }}
+      />
       {/* <View style={styles.headerContainer}>
         {!enums.isVendorStandloneApp && (
           <TouchableOpacity
@@ -508,11 +675,11 @@ export default function Login({navigation}) {
           flex: 1,
           marginHorizontal: moderateScale(24),
         }}>
-        <View style={{height: moderateScaleVertical(28)}} />
+        <View style={{ height: moderateScaleVertical(28) }} />
         <Text
           style={
             isDarkMode
-              ? [styles.header, {color: MyDarkTheme.colors.text}]
+              ? [styles.header, { color: MyDarkTheme.colors.text }]
               : styles.header
           }>
           {strings.LOGIN_YOUR_ACCOUNT}
@@ -521,13 +688,13 @@ export default function Login({navigation}) {
         <Text
           style={
             isDarkMode
-              ? [styles.txtSmall, {color: MyDarkTheme.colors.text}]
+              ? [styles.txtSmall, { color: MyDarkTheme.colors.text }]
               : styles.txtSmall
           }>
           {strings.ENTE_REGISTERED_EMAIL}
         </Text>
-        <View style={{height: moderateScaleVertical(30)}} />
-       
+        <View style={{ height: moderateScaleVertical(30) }} />
+
         {!phoneInput && (
           <>
             <BorderTextInput
@@ -557,7 +724,7 @@ export default function Login({navigation}) {
           </>
         )}
         {phoneInput && (
-          <View style={{marginBottom: moderateScale(18)}}>
+          <View style={{ marginBottom: moderateScale(18) }}>
             <PhoneNumberInput
               onCountryChange={_onCountryChange}
               onChangePhone={(data) => checkInputHandler(data)}
@@ -583,11 +750,20 @@ export default function Login({navigation}) {
             {strings.FORGOT}
           </Text>
         </View>
-        <ButtonComponent 
-         btnText={strings.LOGIN_ACCOUNT}
-         containerStyle={{marginTop: moderateScaleVertical(10),backgroundColor:themeColors.primary_color}}
-         onPress={ _onLoginVendor }
+        <ButtonComponent
+          btnText={strings.LOGIN_ACCOUNT}
+          containerStyle={{ marginTop: moderateScaleVertical(10), backgroundColor: themeColors.primary_color }}
+          onPress={_onLoginVendor}
         />
+
+        <View style={{ marginTop: moderateScaleVertical(40) }}>
+
+          <ButtonComponent
+            btnText={strings.REGISTER_YOUR_BUSINESS}
+            containerStyle={{ marginTop: moderateScaleVertical(10), backgroundColor: themeColors.primary_color }}
+            onPress={vendorRegistartion}
+          />
+        </View>
         {/* <GradientButton
           containerStyle={{marginTop: moderateScaleVertical(10)}}
           onPress={ _onLoginVendor }
@@ -719,7 +895,18 @@ export default function Login({navigation}) {
             </Text>
           </View>
         )} */}
+        {isSelectLanguageModal && (
+          <LanguageModal
+            isSelectLanguageModal={isSelectLanguageModal}
+            onBackdropPress={_onBackdropPress}
+            _onLangSelect={_onLangSelect}
+            isLangSelected={isLangSelected}
+            allLangs={allLangs}
+            _updateLang={_updateLang}
+          />
+        )}
       </KeyboardAwareScrollView>
+
     </WrapperContainer>
   );
 }

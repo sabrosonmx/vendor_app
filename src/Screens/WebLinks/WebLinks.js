@@ -184,7 +184,7 @@ export default function WebLinks({navigation, route}) {
     updateState({isLoading: true});
     getCmsPageDetail();
   }, []);
-
+console.log(paramData,'paramDataparamData')
   // //Get list of all payment method
   const getCmsPageDetail = () => {
     let data = {};

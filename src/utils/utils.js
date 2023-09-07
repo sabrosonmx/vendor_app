@@ -97,6 +97,7 @@ export async function apiReq(
   requestOptions = {},
 ) {
   console.log(endPoint, 'endPoint');
+  console.log(data, 'data>>>>>>>>>>>');
   return new Promise(async (res, rej) => {
     const getTokenHeader = await getHeaders();
 
