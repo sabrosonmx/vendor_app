@@ -97,8 +97,10 @@ export default function VendorScheduling() {
     const [isDatePickerStart, setIsDatePickerStart] = useState(false)
     const [selectedDate, setSelectedDate] = useState(new Date())
     const [selectSlotType, setSelectSlotType] = useState(2)
-    let data = [{ id: 2, tittle: !isEmpty(singleSlotData) ? `Edit for all ${moment(selectedDate).format('ddd')}` : strings.DAY }, { id: 1, tittle: strings.DATE }]
-    let weekdays = [
+    let data = [{ id: 2, tittle: !isEmpty(singleSlotData) ? `${strings.EDIT_FOR_ALL} ${moment(selectedDate).lang(languages?.primary_language?.sort_code).format('ddd')}` : strings.DAY }, { id: 1, tittle: strings.DATE }]
+    console.log(singleSlotData,"***********")
+
+ let weekdays = [
         { id: 1, tittle: strings.SUNDAY },
         { id: 2, tittle: strings.MONDAY },
         { id: 3, tittle: strings.TUESDAY },
@@ -122,7 +124,7 @@ export default function VendorScheduling() {
         console.log(inputDate, 'datedatedate inputDate')
         // var inputDate = new Date(date);
         var date = day ? !!inputDate ? new Date(inputDate) : new Date(day) : new Date()
-        console.log(date, 'datedatedate')
+        console.log(new Date(), 'datedatedate')
         setMarkedDate(inputDate || moment(date).format('YYYY-MM-DD'))
         setSelectedDate(date)
         const dayOfWeek = date.toLocaleString('en-US', { weekday: 'short' });
@@ -160,7 +162,7 @@ export default function VendorScheduling() {
                     setSlotDateData(res?.data?.slot_dates)
                 }
                 else {
-                    console.log('hihihihihi111')
+                    console.log(!!day?.dateString,'hihihihihi111')
                     if (!!day?.dateString) {
                         setSlotModal(true)
                         setSlotData([])
@@ -419,7 +421,6 @@ export default function VendorScheduling() {
                 <View style={{ margin: moderateScale(10), backgroundColor: 'white', borderRadius: moderateScale(15) }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", margin: moderateScale(10) }}>
                         <View>
-
                             <Text style={{
                                 paddingTop: moderateScaleVertical(10),
                                 fontFamily: fontFamily?.medium,
@@ -501,6 +502,7 @@ export default function VendorScheduling() {
                             {strings.SLOTS_FOR}
                         </Text>
                         {data.map((item, inx) => {
+                            console.log(item,"*(**(*(*(*(*(*(*(*")
                             return (
                                 <TouchableOpacity style={{
                                     flexDirection: 'row',
@@ -517,7 +519,8 @@ export default function VendorScheduling() {
                                         fontFamily: fontFamily?.regular,
                                         marginHorizontal: moderateScale(10),
                                         fontSize: textScale(14)
-                                    }}>{item?.tittle}</Text></TouchableOpacity>)
+                                    }}>{item?.tittle}</Text>
+                                    </TouchableOpacity>)
                         })}
                     </View>
                     {selectSlotType == 2 ?
@@ -592,7 +595,7 @@ export default function VendorScheduling() {
                         borderWidth: 1, margin: moderateScale(10)
                     }}
                         onPress={deleteVendorSlot}>
-                        <Text style={{ fontSize: textScale(15), color: 'white' }}> Delete slot </Text>
+                        <Text style={{ fontSize: textScale(15), color: 'white' }}>{strings.DELETE_STORE}</Text>
                     </TouchableOpacity> : <></>}
                     <View style={{ flexDirection: "row", justifyContent: "space-between", margin: moderateScale(15) }}>
                         <TouchableOpacity style={{
