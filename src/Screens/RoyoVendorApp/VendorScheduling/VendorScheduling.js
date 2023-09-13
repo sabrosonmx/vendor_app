@@ -120,6 +120,7 @@ export default function VendorScheduling() {
     const getVendorsSlots = (day) => {
         // setSlotModal(true)
         console.log(day, 'dayday')
+        // alert(JSON.stringify(day))
         let inputDate = day?.dateString
         console.log(inputDate, 'datedatedate inputDate')
         // var inputDate = new Date(date);
@@ -128,9 +129,10 @@ export default function VendorScheduling() {
         setMarkedDate(inputDate || moment(date).format('YYYY-MM-DD'))
         setSelectedDate(date)
         const dayOfWeek = date.toLocaleString('en-US', { weekday: 'short' });
-        console.log(dayOfWeek, 'dayOfWeekdayOfWeek')
-        var dayWeek = 1
-        switch (dayOfWeek) {
+        let data = dayOfWeek?.split(',')[0]
+        // alert(data)
+        var dayWeek 
+        switch (data) {
             case "Sun": dayWeek = 1
                 break;
 
@@ -147,7 +149,9 @@ export default function VendorScheduling() {
             case "Sat": dayWeek = 7
                 break;
         }
+     
         let queryData = `?vendor_id=${storeSelectedVendor?.id}&date=${moment(date).format('YYYY-MM-DD')}&day=${dayWeek}`
+        // alert(queryData)
         let headers = {
             code: appData?.profile?.code,
             currency: currencies?.primary_currency?.id,
@@ -342,6 +346,7 @@ export default function VendorScheduling() {
                 current={new Date()}
                 minDate={new Date()}
                 onDayPress={getVendorsSlots}
+                // onDayLongPress={getVendorsSlots}
                 markedDates={{
                     [markedDate]: {
                         selected: true,

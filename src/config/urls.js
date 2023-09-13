@@ -1,5 +1,5 @@
 //  export const API_BASE_URL = 'https://api.royoorders.com/api/v1';
-// export const API_BASE_URL = 'http://192.168.102.169:8001/api/v1';
+// export const API_BASE_URL = 'http://192.168.100.199:8001/api/v1';
 export const API_BASE_URL = 'https://sabroson.com.mx/api/v1';
 
 export const getApiUrl = (endpoint) => API_BASE_URL + endpoint;

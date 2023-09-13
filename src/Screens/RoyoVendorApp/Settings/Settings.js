@@ -19,8 +19,10 @@ import actions from '../../../redux/actions';
 import colors from '../../../styles/colors';
 import commonStylesFunc from '../../../styles/commonStyles';
 import {
+  height,
   moderateScale,
-  moderateScaleVertical
+  moderateScaleVertical,
+  width
 } from '../../../styles/responsiveSize';
 import { MyDarkTheme } from '../../../styles/theme';
 import { setItem } from '../../../utils/utils';
@@ -45,12 +47,14 @@ export default function Settings({ route, navigation }) {
     country: 'uk',
     appCurrencies: currencies,
     appLanguages: languages,
+    isSplashImage:false,
   });
 
   const {
     isLoading,
     appCurrencies,
     appLanguages,
+    isSplashImage,
   } = state;
 
   const fontFamily = appStyle?.fontSizeData;
@@ -75,6 +79,7 @@ export default function Settings({ route, navigation }) {
     const data = languages.all_languages.filter((x) => x.id == item.id)[0];
     // console.log(data, "setLang")
     if (data.sort_code !== languages.primary_language.sort_code) {
+      updateState({isSplashImage:true});
       let languagesData = {
         ...languages,
         primary_language: data,
@@ -82,7 +87,7 @@ export default function Settings({ route, navigation }) {
       // updateState({isLoading: true});
       setItem('setPrimaryLanguage', languagesData);
       setTimeout(() => {
-        updateState({ isLoading: false });
+        updateState({isSplashImage:false, isLoading: false });
         actions.updateLanguage(data);
         onSubmitLang(data.sort_code, languagesData);
       }, 1000);
@@ -111,6 +116,7 @@ export default function Settings({ route, navigation }) {
             I18nManager.forceRTL(false);
             setItem('language', lang);
             changeLaguage(lang);
+            alert('111')
             RNRestart.Restart();
           }
           BluetoothManager.disconnect(JSON.parse(res).boundAddress).then(
@@ -121,11 +127,13 @@ export default function Settings({ route, navigation }) {
             I18nManager.forceRTL(true);
             setItem('language', lang);
             changeLaguage(lang);
+            alert('222222')
             RNRestart.Restart();
           } else {
             I18nManager.forceRTL(false);
             setItem('language', lang);
             changeLaguage(lang);
+            updateState({isSplashImage:false,});
             RNRestart.Restart();
           }
         }
@@ -137,7 +145,11 @@ export default function Settings({ route, navigation }) {
   };
 
 
-
+if (isSplashImage) {
+  return <View style={{flex:1}}>
+        <Image style={{height:height, width:width}} source={imagePath.ic_splash} />
+  </View>
+}
 
 
 

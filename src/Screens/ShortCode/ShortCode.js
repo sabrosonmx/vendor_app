@@ -15,6 +15,7 @@ import actions from '../../redux/actions';
 import store from '../../redux/store';
 import colors from '../../styles/colors';
 import {
+  height,
   moderateScale,
   moderateScaleVertical,
   width,
@@ -24,6 +25,7 @@ import { enums } from '../../utils/enums';
 import { getUrlRoutes, showError } from '../../utils/helperFunctions';
 import { getItem, setItem } from '../../utils/utils';
 import styles from './styles';
+import FastImage from 'react-native-fast-image';
 
 const fs = RNFetchBlob.fs;
 
@@ -61,13 +63,13 @@ export default function ShortCode({ route, navigation }) {
 
     (async () => {
       const saveShortCode = await getItem('saveShortCode');
-      switch (getBundleId()) {       
-          case appIds.sabroson:
+      switch (getBundleId()) {
+        case appIds.sabroson:
           updateState({
             shortCode: shortCodes.sabroson,
             isShortcodePrefilled: true,
           });
-          break;        
+          break;
       }
     })();
   }, []);
@@ -98,7 +100,7 @@ export default function ShortCode({ route, navigation }) {
   const initApiHit = async () => {
     const res = await getItem('setPrimaryLanguage');
 
-    console.log(res,'resresresres');
+    console.log(res, 'resresresres');
     let header = {};
 
     if (!!res?.primary_language?.id) {
@@ -296,10 +298,14 @@ export default function ShortCode({ route, navigation }) {
               height: '100%',
               backgroundColor: colors.grayOpacity51,
             }}>
-            <View style={{ position: 'absolute', bottom: moderateScale(100) }}>
+            <View style={{ position: 'absolute', }}>
+
               {LoadingScreen && (
-                <MaterialIndicator size={50} color={colors.greyMedium} />
+                <FastImage style={{height:height, width:width}} source={imagePath.ic_splash} >
+                  <MaterialIndicator size={50} color={colors.greyMedium} />
+                </FastImage>
               )}
+
             </View>
           </View>
           <Image source={{ uri: 'Splash' }} style={{ flex: 1, zIndex: -1 }} />
