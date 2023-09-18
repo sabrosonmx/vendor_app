@@ -1202,5 +1202,6 @@ EDIT_FOR_ALL:"Edit for all",
   CLOSE:'close',
   SAVE:"Save",
   DELETE_SLOT:'Delete Slot',
-  REGISTER_YOUR_BUSINESS:'Register Your Business'
+  REGISTER_YOUR_BUSINESS:'Register Your Business',
+  SLOT_DATE:'  Slot Date'
 };

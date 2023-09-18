@@ -975,5 +975,7 @@ export default {
   ORDER:'Orders',
   THANKS_FOR_ORDERING_WITH_US:'Thank you For Ordering With Us',
   TOLL_FEE:"Toll Fee",
-  SERVICE_CHARGES:"Service Charges"
+  SERVICE_CHARGES:"Service Charges",
+  SLOT_DATE:'Selecciona la fecha',
+  SELECT_DATE:'Seleccionar fecha',
 };

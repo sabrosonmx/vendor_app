@@ -10,7 +10,7 @@ import actions from './src/redux/actions';
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   const {data, notification} = remoteMessage;
-
+  console.log("received in background messages",remoteMessage)
   if (
     Platform.OS == 'android' &&
     notification.android.sound == 'notification'

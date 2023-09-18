@@ -1001,7 +1001,9 @@ EDIT_FOR_ALL:"Editar para todos los",
     CLOSES:'Cerrar',
     SAVE:"Guardar",
     DELETE_SLOT:'Eliminar horario',
-    REGISTER_YOUR_BUSINESS:'Registra tu negocio'
+    REGISTER_YOUR_BUSINESS:'Registra tu negocio',
+    SLOT_DATE:'Selecciona la fecha',
+    SELECT_DATE:'Seleccionar fecha',
 
   };
   

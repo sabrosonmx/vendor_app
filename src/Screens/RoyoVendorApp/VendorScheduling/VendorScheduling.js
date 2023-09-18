@@ -578,7 +578,7 @@ export default function VendorScheduling() {
                                 marginHorizontal: moderateScale(10),
                                 fontSize: textScale(14)
                             }}>
-                                Slot Date
+                            {strings.SLOT_DATE}
                             </Text>
                             <TouchableOpacity style={{
                                 borderWidth: .5,
@@ -635,6 +635,7 @@ export default function VendorScheduling() {
 
             </Modal>
             {!!isDatePicker && <DatePicker
+            title={strings.SELECT_DATE}
                 open={isDatePicker}
                 mode={"date"}
                 minimumDate={new Date()}
@@ -652,9 +653,12 @@ export default function VendorScheduling() {
                     width: width - 20,
                     height: height / 4.4,
                 }}
+                cancelText={strings.CANCEL}
+                confirmText={strings.CONFIRM}
                 onConfirm={date => onDateSet(date)}
                 onCancel={() => setIsDatePicker(false)}
-            />}
+            />
+            }
             {/* {!!isDatePickerStart && <DatePicker
                 open={isDatePickerStart}
                 mode={"time"}
