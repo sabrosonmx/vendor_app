@@ -102,9 +102,9 @@ export const _getListOfVendorOrders = (query = '', data, headers = {}) => {
 };
 
 //Get Vendor Transactions
-export const getVendorTransactions = (data, headers = {}) => {
+export const getVendorTransactions = (query , data, headers = {}) => {
   return new Promise((resolve, reject) => {
-    apiPost(GET_VENDOR_TRANSACTIONS, data, headers)
+    apiPost(GET_VENDOR_TRANSACTIONS + query, data, headers)
       .then((res) => {
         resolve(res);
       })

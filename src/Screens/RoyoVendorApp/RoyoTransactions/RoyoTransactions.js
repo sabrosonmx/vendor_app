@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import MultiScreen from '../../../Components/MultiScreen';
 import colors from '../../../styles/colors';
 import fontFamily from '../../../styles/fontFamily';
@@ -10,19 +10,19 @@ import {
 } from '../../../styles/responsiveSize';
 import WrapperContainer from '../../../Components/WrapperContainer';
 import imagePath from '../../../constants/imagePath';
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 import Header from '../../../Components/Header';
-import {showMessage} from 'react-native-flash-message';
-import {showError} from '../../../utils/helperFunctions';
+import { showMessage } from 'react-native-flash-message';
+import { showError } from '../../../utils/helperFunctions';
 import actions from '../../../redux/actions';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import navigationStrings from '../../../navigation/navigationStrings';
-import {isEmpty} from 'lodash';
-import {loaderOne} from '../../../Components/Loaders/AnimatedLoaderFiles';
+import { debounce, isEmpty } from 'lodash';
+import { loaderOne } from '../../../Components/Loaders/AnimatedLoaderFiles';
 import strings from '../../../constants/lang';
 
 const RoyoTransactions = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
 
   const [state, setState] = useState({
     selectedVendor: null,
@@ -34,6 +34,9 @@ const RoyoTransactions = (props) => {
     completedOrdersArr: [],
     pendingOrdersArr: [],
     refunddOrdersArr: [],
+    pageNo: 1,
+    loadMore: false,
+    totalProductLength:0,
   });
 
   const {
@@ -46,13 +49,16 @@ const RoyoTransactions = (props) => {
     refunddOrdersArr,
     pendingOrdersArr,
     totalAmtRecieved,
+    pageNo,
+    loadMore,
+    totalProductLength,
   } = state;
-  const {appData, currencies, languages} = useSelector(
+  const { appData, currencies, languages } = useSelector(
     (state) => state?.initBoot,
   );
-  const updateState = (data) => setState((state) => ({...state, ...data}));
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
-  const {storeSelectedVendor} = useSelector((state) => state?.order);
+  const { storeSelectedVendor } = useSelector((state) => state?.order);
   useEffect(() => {
     updateState({
       // selectedTab: null,
@@ -67,6 +73,12 @@ const RoyoTransactions = (props) => {
     _getVendorTransactions(0);
   }, []);
 
+  useEffect(() => {
+    _getVendorTransactions(activeIndex)
+    console.log(refunddOrdersArr ,'ksgdfgsdfisdg');
+  }, [pageNo]);
+  
+
   const _reDirectToVendorList = () => {
     navigation.navigate(navigationStrings.VENDORLIST, {
       selectedVendor: selectedVendor,
@@ -78,8 +90,8 @@ const RoyoTransactions = (props) => {
     let vendordId = !!storeSelectedVendor?.id
       ? storeSelectedVendor?.id
       : selectedVendor?.id
-      ? selectedVendor?.id
-      : '';
+        ? selectedVendor?.id
+        : '';
     actions
       ._getListOfVendorOrders(
         `?limit=${1}&page=${1}&selected_vendor_id=${vendordId}`,
@@ -105,12 +117,12 @@ const RoyoTransactions = (props) => {
   };
 
   const _getVendorTransactions = (index) => {
-    updateState({isLoading: true});
+    updateState({ isLoading: true });
     let vendordId = !isEmpty(storeSelectedVendor)
       ? storeSelectedVendor?.id
       : !isEmpty(selectedVendor)
-      ? selectedVendor?.id
-      : '';
+        ? selectedVendor?.id
+        : '';
     console.log('vendor transactions active index', index);
     console.log('check vendor id in transactions >>', vendordId);
     if (!vendordId) {
@@ -122,9 +134,12 @@ const RoyoTransactions = (props) => {
 
     /** Type : complete, pending, refund */
     data['type'] = index == 2 ? 'refund' : index == 1 ? 'pending' : 'complete';
+    // data['pageNo'] = pageNo
+    data['limit'] = 10
     console.log('check vendor params in transactions >>', data);
+    let query = `?page=${pageNo}`
     actions
-      .getVendorTransactions(data, {
+      .getVendorTransactions( query, data, {
         code: appData?.profile?.code,
         currency: currencies?.primary_currency?.id,
         language: languages?.primary_language?.id,
@@ -132,34 +147,68 @@ const RoyoTransactions = (props) => {
       .then((res) => {
         console.log('vendor transactions result >> ', res);
         console.log('vendor transactions active index', index);
+        if (totalProductLength == 0) {
+          updateState({ totalProductLength: res?.data?.orders?.total });
+        }
+    console.log(index ,'index == 2 && res?.data && res?.data?.orders?.data');
         updateState({
           isLoading: false,
           isRefreshing: false,
           completedOrdersArr:
-            index == 0 && res?.data && res?.data?.orders
-              ? res?.data?.orders
+            index == 0 && res?.data && res?.data?.orders?.data
+              ?  pageNo == 1 ? res?.data?.orders?.data : [...completedOrdersArr, ...res?.data?.orders?.data]
               : completedOrdersArr,
           refunddOrdersArr:
-            index == 2 && res?.data && res?.data?.orders
-              ? res?.data?.orders
+            index == 2 && res?.data && res?.data?.orders?.data
+              ?  pageNo == 1 ? res?.data?.orders?.data : [...refunddOrdersArr, ...res?.data?.orders?.data] 
               : refunddOrdersArr,
           pendingOrdersArr:
-            index == 1 && res?.data && res?.data?.orders
-              ? res?.data?.orders
+            index == 1 && res?.data && res?.data?.orders?.data
+              ?  pageNo == 1 ?  res?.data?.orders?.data : [...pendingOrdersArr, ...res?.data?.orders?.data] 
               : pendingOrdersArr,
           totalAmtRecieved:
             res?.data && res?.data?.totalEarning
               ? Number(res?.data?.totalEarning).toFixed(2)
               : 0,
         });
+        console.log(refunddOrdersArr,'refunddOrdersArrrefunddOrdersArrrefunddOrdersArr');
       })
       .catch(errorMethod);
   };
 
   const errorMethod = (error) => {
-    updateState({isLoading: false, isRefreshing: false});
+    updateState({ isLoading: false, isRefreshing: false });
     showError(error?.message || error?.error);
   };
+
+  const getDataLength = () => {
+    switch (activeIndex) {
+      case 0:
+        return completedOrdersArr.length
+      case 1:
+        return pendingOrdersArr.length
+      case 2:
+        return refunddOrdersArr.length
+
+    }
+
+  }
+
+  const onEndReached = ({ distanceFromEnd }) => {
+
+    if (getDataLength() !== totalProductLength) {
+
+      updateState({ pageNo: pageNo + 1, loadMore: true });
+      // apiHit(pageNo + 1);
+    } else {
+      updateState({ loadMore: false });
+    }
+  };
+
+  const onEndReachedDelayed = debounce(onEndReached, 1000, {
+    leading: true,
+    trailing: false,
+  });
 
   const data = [
     imagePath.cabImage,
@@ -169,7 +218,8 @@ const RoyoTransactions = (props) => {
   ];
 
   const selectedOrder = (index) => {
-    updateState({activeIndex: index});
+    
+    updateState({ activeIndex: index, pageNo:1 });
     _getVendorTransactions(index);
   };
 
@@ -196,7 +246,7 @@ const RoyoTransactions = (props) => {
             />
           ))}
         </View>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Text style={styles.font14Medium}>
             {strings.ORDER} #{item.order_number}
           </Text>
@@ -205,7 +255,7 @@ const RoyoTransactions = (props) => {
         <Text
           style={[
             styles.font16Semibold,
-            {color: activeIndex == 2 ? colors.redColor : colors.themeColor2},
+            { color: activeIndex == 2 ? colors.redColor : colors.themeColor2 },
           ]}>
           {activeIndex == 0 ? '+' : activeIndex == 1 ? '' : '-'} $
           {Number(item.payable_amount).toFixed(2)}
@@ -221,7 +271,7 @@ const RoyoTransactions = (props) => {
       source={loaderOne}
       isLoadingB={isLoading}>
       <Header
-        headerStyle={{marginVertical: moderateScaleVertical(16)}}
+        headerStyle={{ marginVertical: moderateScaleVertical(16) }}
         leftIcon={imagePath.backRoyo}
         centerTitle={'Transactions | ' + selectedVendor?.name || ''}
         onPressCenterTitle={() => _reDirectToVendorList()}
@@ -260,8 +310,10 @@ const RoyoTransactions = (props) => {
             showsVerticalScrollIndicator={false}
             bounces={false}
             data={completedOrdersArr}
-            renderItem={({item, index}) => transactions(data, item)}
+            renderItem={({ item, index }) => transactions(data, item)}
             keyExtractor={(item, key) => key}
+            onEndReachedThreshold={0.5}
+            onEndReached={onEndReachedDelayed}
           />
         ) : null}
         {activeIndex == 1 ? (
@@ -269,8 +321,10 @@ const RoyoTransactions = (props) => {
             showsVerticalScrollIndicator={false}
             bounces={false}
             data={pendingOrdersArr}
-            renderItem={({item, index}) => transactions(data, item)}
+            renderItem={({ item, index }) => transactions(data, item)}
             keyExtractor={(item, key) => key}
+            onEndReachedThreshold={0.5}
+            onEndReached={onEndReachedDelayed}
           />
         ) : null}
         {activeIndex == 2 ? (
@@ -278,8 +332,10 @@ const RoyoTransactions = (props) => {
             showsVerticalScrollIndicator={false}
             bounces={false}
             data={refunddOrdersArr}
-            renderItem={({item, index}) => transactions(data, item)}
+            renderItem={({ item, index }) => transactions(data, item)}
             keyExtractor={(item, key) => key}
+            onEndReachedThreshold={0.5}
+            onEndReached={onEndReachedDelayed}
           />
         ) : null}
       </View>

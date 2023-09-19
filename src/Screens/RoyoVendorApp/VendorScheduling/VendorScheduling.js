@@ -20,11 +20,13 @@ import actions from '../../../redux/actions';
 import { showError } from '../../../utils/helperFunctions';
 import { isEmpty } from 'lodash';
 import { color } from 'react-native-reanimated';
+import * as RNLocalize from 'react-native-localize';
+import * as moments from 'moment-timezone'
 
 
 export default function VendorScheduling() {
     LocaleConfig.locales['es'] = {
-    
+
         monthNames: [
             'Enero',
             'Febrero',
@@ -66,10 +68,10 @@ export default function VendorScheduling() {
             'November',
             'December'
         ],
-      
+
         monthNamesShort: ['Jan', 'Feb', 'March', 'Avril', 'May', 'June', 'July.', 'Aug', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-        dayNames: ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
-        dayNamesShort: ['Sun','Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+        dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
         today: "Today"
     };
     const {
@@ -98,9 +100,9 @@ export default function VendorScheduling() {
     const [selectedDate, setSelectedDate] = useState(new Date())
     const [selectSlotType, setSelectSlotType] = useState(2)
     let data = [{ id: 2, tittle: !isEmpty(singleSlotData) ? `${strings.EDIT_FOR_ALL} ${moment(selectedDate).lang(languages?.primary_language?.sort_code).format('ddd')}` : strings.DAY }, { id: 1, tittle: strings.DATE }]
-    console.log(singleSlotData,"***********")
+    console.log(singleSlotData, "***********")
 
- let weekdays = [
+    let weekdays = [
         { id: 1, tittle: strings.SUNDAY },
         { id: 2, tittle: strings.MONDAY },
         { id: 3, tittle: strings.TUESDAY },
@@ -118,20 +120,42 @@ export default function VendorScheduling() {
     console.log(selectDays, 'selectDaysselectDays')
     LocaleConfig.defaultLocale = languages.primary_language.sort_code;
     const getVendorsSlots = (day) => {
-        // setSlotModal(true)
+
         console.log(day, 'dayday')
-        // alert(JSON.stringify(day))
+     
         let inputDate = day?.dateString
         console.log(inputDate, 'datedatedate inputDate')
-        // var inputDate = new Date(date);
+
         var date = day ? !!inputDate ? new Date(inputDate) : new Date(day) : new Date()
+        console.log(date, 'datedateasdasdf');
+        // ***********************************************
+
+
+        var mexicoTimeZone = RNLocalize.getTimeZone(); // Central Time zone
+        var dateWithTimeZone;
+
+        if (day) {
+            dateWithTimeZone = !!inputDate ? moment.tz(inputDate, mexicoTimeZone) : moment.tz(day, mexicoTimeZone);
+        } else {
+            dateWithTimeZone = moment.tz(mexicoTimeZone);
+        }
+        console.log(date,'ksdfgislfilsegr');
+        // alert(date,)
+        var formattedDate = dateWithTimeZone.toISOString(); 
+        // return alert(formattedDate)
+    
+        //  ****************************************************
         console.log(new Date(), 'datedatedate')
-        setMarkedDate(inputDate || moment(date).format('YYYY-MM-DD'))
+        setMarkedDate(inputDate || moment(formattedDate).format('YYYY-MM-DD'))
         setSelectedDate(date)
-        const dayOfWeek = date.toLocaleString('en-US', { weekday: 'short' });
+        // const dayOfWeek = date.toLocaleString('en-US', { weekday: 'short' });
+      
+        var dayOfWeek = dateWithTimeZone.format('ddd, YYYY-MM-DD, h:mm:ss A'); // Format the date
+     
+   
         let data = dayOfWeek?.split(',')[0]
-        // alert(data)
-        var dayWeek 
+
+        var dayWeek
         switch (data) {
             case "Sun": dayWeek = 1
                 break;
@@ -149,9 +173,11 @@ export default function VendorScheduling() {
             case "Sat": dayWeek = 7
                 break;
         }
-     
-        let queryData = `?vendor_id=${storeSelectedVendor?.id}&date=${moment(date).format('YYYY-MM-DD')}&day=${dayWeek}`
-        // alert(queryData)
+
+        let queryData = `?vendor_id=${storeSelectedVendor?.id}&date=${moment(formattedDate).format('YYYY-MM-DD')}&day=${dayWeek}`
+        console.log(queryData, 'ldfsdfgoshfgos');
+       
+
         let headers = {
             code: appData?.profile?.code,
             currency: currencies?.primary_currency?.id,
@@ -166,7 +192,7 @@ export default function VendorScheduling() {
                     setSlotDateData(res?.data?.slot_dates)
                 }
                 else {
-                    console.log(!!day?.dateString,'hihihihihi111')
+                    console.log(!!day?.dateString, 'hihihihihi111')
                     if (!!day?.dateString) {
                         setSlotModal(true)
                         setSlotData([])
@@ -254,7 +280,7 @@ export default function VendorScheduling() {
                 .catch((err) => console.log(err, 'erhgkrekuyg'))
         }
         else {
-            if(isEmpty(selectDays) && selectSlotType == 2){
+            if (isEmpty(selectDays) && selectSlotType == 2) {
                 showError('Please Select Days')
                 return
             }
@@ -452,7 +478,7 @@ export default function VendorScheduling() {
                             marginHorizontal: moderateScale(10),
                             fontSize: textScale(14)
                         }}>
-                          {strings?.START_TIME}
+                            {strings?.START_TIME}
                         </Text>
                         <TextInput placeholder='00:00' style={{
                             borderWidth: .5,
@@ -484,7 +510,7 @@ export default function VendorScheduling() {
                             marginHorizontal: moderateScale(10),
                             fontSize: textScale(14)
                         }}>
-                             {strings?.END_TIME}
+                            {strings?.END_TIME}
                         </Text>
                         <TextInput placeholder='00:30' style={{
                             borderWidth: .5,
@@ -507,7 +533,7 @@ export default function VendorScheduling() {
                             {strings.SLOTS_FOR}
                         </Text>
                         {data.map((item, inx) => {
-                            console.log(item,"*(**(*(*(*(*(*(*(*")
+                            console.log(item, "*(**(*(*(*(*(*(*(*")
                             return (
                                 <TouchableOpacity style={{
                                     flexDirection: 'row',
@@ -525,7 +551,7 @@ export default function VendorScheduling() {
                                         marginHorizontal: moderateScale(10),
                                         fontSize: textScale(14)
                                     }}>{item?.tittle}</Text>
-                                    </TouchableOpacity>)
+                                </TouchableOpacity>)
                         })}
                     </View>
                     {selectSlotType == 2 ?
@@ -578,7 +604,7 @@ export default function VendorScheduling() {
                                 marginHorizontal: moderateScale(10),
                                 fontSize: textScale(14)
                             }}>
-                            {strings.SLOT_DATE}
+                                {strings.SLOT_DATE}
                             </Text>
                             <TouchableOpacity style={{
                                 borderWidth: .5,
@@ -635,7 +661,7 @@ export default function VendorScheduling() {
 
             </Modal>
             {!!isDatePicker && <DatePicker
-            title={strings.SELECT_DATE}
+                title={strings.SELECT_DATE}
                 open={isDatePicker}
                 mode={"date"}
                 minimumDate={new Date()}
