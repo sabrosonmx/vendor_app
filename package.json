@@ -2,7 +2,7 @@
   "name": "Runrun",
   "version": "0.0.1",
   "private": true,
-  "scripts": {  
+  "scripts": {
     "sabroson": "react-native run-android --variant=sabrosonDebug --appIdSuffix=vendor",
     "sabrosonRelease": "cd android && ./gradlew assemblesabrosonRelease",
     "android": "react-native run-android",
@@ -50,6 +50,7 @@
     "lodash": "^4.17.20",
     "lottie-react-native": "^5.1.4",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.43",
     "patch-package": "^6.4.7",
     "prop-types": "^15.7.2",
     "qs": "^6.10.1",
