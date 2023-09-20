@@ -954,4 +954,6 @@ export default {
   SERVICE_CHARGES:"Service Charges",
   SLOT_DATE:'Selecciona la fecha',
   SELECT_DATE:'Seleccionar fecha',
+  ENTER_REASON_FOR_REJECT:'¿Cuál es la razón?',
+  ENTER_REASON:'Escribe…',
 };

@@ -97,7 +97,8 @@ export default function VendorScheduling() {
     const [isDatePicker, setIsDatePicker] = useState(false)
     const [markedDate, setMarkedDate] = useState('')
     const [isDatePickerStart, setIsDatePickerStart] = useState(false)
-    const [selectedDate, setSelectedDate] = useState(new Date())
+    // const [selectedDate, setSelectedDate] = useState(new Date())
+    const [selectedDate, setSelectedDate] = useState(moment().tz(RNLocalize.getTimeZone()))
     const [selectSlotType, setSelectSlotType] = useState(2)
     let data = [{ id: 2, tittle: !isEmpty(singleSlotData) ? `${strings.EDIT_FOR_ALL} ${moment(selectedDate).lang(languages?.primary_language?.sort_code).format('ddd')}` : strings.DAY }, { id: 1, tittle: strings.DATE }]
     console.log(singleSlotData, "***********")
@@ -119,6 +120,16 @@ export default function VendorScheduling() {
 
     console.log(selectDays, 'selectDaysselectDays')
     LocaleConfig.defaultLocale = languages.primary_language.sort_code;
+
+
+    const currentDate = new Date();
+
+// Add one day to the current date
+
+const minimumDate = currentDate.setDate(currentDate.getDate() + 1);
+// Now, currentDate contains the date one day in the future
+console.log('Current Date + 1 Day:', minimumDate);
+
     const getVendorsSlots = (day) => {
 
         console.log(day, 'dayday')
@@ -127,7 +138,7 @@ export default function VendorScheduling() {
         console.log(inputDate, 'datedatedate inputDate')
 
         var date = day ? !!inputDate ? new Date(inputDate) : new Date(day) : new Date()
-        console.log(date, 'datedateasdasdf');
+        console.log(date.toDateString(), 'datedateasdasdf');
         // ***********************************************
 
 
@@ -613,11 +624,12 @@ export default function VendorScheduling() {
                                 marginVertical: moderateScaleVertical(5),
                                 height: moderateScale(40)
                             }} onPress={() => setIsDatePicker(true)}>
-                                <Text style={{ padding: moderateScale(10) }}> {selectedDate ? moment(selectedDate).format('DD/MM/YYYY') : 'Select Date'}</Text>
+                                <Text style={{ padding: moderateScale(10) }}> {markedDate ? markedDate : 'Select Date'}</Text>
 
                             </TouchableOpacity>
                         </View>
                     }
+                    {console.log(selectedDate,'ccz')}
                     {!isEmpty(singleSlotData) ? <TouchableOpacity style={{
                         padding: moderateScale(10),
                         borderRadius: moderateScale(10),
@@ -664,7 +676,7 @@ export default function VendorScheduling() {
                 title={strings.SELECT_DATE}
                 open={isDatePicker}
                 mode={"date"}
-                minimumDate={new Date()}
+                minimumDate={new Date(minimumDate)}
                 modal
                 locale={
                     languages?.primary_language?.sort_code

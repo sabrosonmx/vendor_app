@@ -354,6 +354,10 @@ const onClose=()=>{
   updateState({[key]: val});
 };
 const onSubmit = ()=>{
+  if (reason == '' || isEmpty(reason)) {
+    alert('please enter the reason!')
+    return
+ }
   updateOrderStatus(rejectedOrder,8)
   updateState({
     isRejectResonModal:false

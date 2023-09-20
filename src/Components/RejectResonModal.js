@@ -49,11 +49,11 @@ const RejectResonModal = ({
             color: colors.black,
             marginHorizontal: moderateScale(8),
           }}>
-          Enter reason for rejecting the order
+          {strings.ENTER_REASON_FOR_REJECT}
         </Text>
         <BorderTextInput
           onChangeText={onChangeText}
-          placeholder={'Enter Reason'}
+          placeholder={strings.ENTER_REASON}
           containerStyle={{
             marginHorizontal: moderateScale(16),
             marginTop: moderateScale(16),
