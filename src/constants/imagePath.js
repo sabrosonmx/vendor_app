@@ -304,5 +304,6 @@ export default {
   activeTruck: require('../assets/images/ic_truck2.png'),
   inactiveTruck: require('../assets/images/ic_truck1.png'),
   ic_splash: require('../assets/images/ic_splash.png'),
+  icMap: require("../assets/images/VendorAppImages/ic_map.png"),
 
 };

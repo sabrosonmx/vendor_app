@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import * as MyShare from 'react-native-share';
 import {
   View,
@@ -12,7 +12,7 @@ import {
   FlatList,
   Linking,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import ButtonWithLoader from '../../../Components/ButtonWithLoader';
 import Header from '../../../Components/Header';
 import WrapperContainer from '../../../Components/WrapperContainer';
@@ -26,21 +26,24 @@ import {
   textScale,
   width,
 } from '../../../styles/responsiveSize';
-import {customMarginBottom} from '../../../utils/constants/constants';
-import {getImageUrl, showError} from '../../../utils/helperFunctions';
-import {dialCall} from '../../../utils/openNativeApp';
-import {loaderOne} from '../../../Components/Loaders/AnimatedLoaderFiles';
-import {isEmpty} from 'lodash';
+import { customMarginBottom } from '../../../utils/constants/constants';
+import { getImageUrl, showError } from '../../../utils/helperFunctions';
+import { dialCall } from '../../../utils/openNativeApp';
+import { loaderOne } from '../../../Components/Loaders/AnimatedLoaderFiles';
+import { isEmpty } from 'lodash';
 import FastImage from 'react-native-fast-image';
 import strings from '../../../constants/lang';
 import navigationStrings from '../../../navigation/navigationStrings';
+import RejectResonModal from '../../../Components/RejectResonModal';
 
 const RoyoOrderDetail = (props) => {
-  const {navigation} = props;
-  const {data, selectedVendor,index} = props.route.params;
-  const {appData, appStyle, currencies, languages} = useSelector(
+  const { navigation } = props;
+  const { data, selectedVendor, index } = props.route.params;
+  const { appData, appStyle, currencies, languages } = useSelector(
     (state) => state?.initBoot,
+
   );
+  const { preferences } = appData?.profile;
   const [state, setState] = useState({
     address: '',
     isLoadingB: false,
@@ -49,6 +52,8 @@ const RoyoOrderDetail = (props) => {
     upcoming_status: data?.order_status?.upcoming_status,
     orderInfo: {},
     userDocumentList: [],
+    isRejectResonModal: false,
+    reason: '',
   });
   const {
     showUpcomingStatus,
@@ -58,6 +63,8 @@ const RoyoOrderDetail = (props) => {
     address,
     orderInfo,
     userDocumentList,
+    isRejectResonModal,
+    reason,
   } = state;
   const shareOptions = {
     title: 'Share via',
@@ -79,6 +86,32 @@ const RoyoOrderDetail = (props) => {
       });
   };
 
+  const onWhatsapp = async () => {
+    const vendorPhoneNumber = orderInfo?.user?.phone_number.replace(/\s/g, "")
+    let url = `whatsapp://send?phone=${orderInfo?.user?.dial_code}${vendorPhoneNumber}`;
+ 
+    Linking.openURL(url)
+      .then((data) => {
+        console.log("WhatsApp Opened successfully " + data); //<---Success
+      })
+      .catch(() => {
+        alert("Make sure WhatsApp installed on your device"); //<---Error
+      });
+    if (link) {
+      Linking.canOpenURL(link)
+        .then((supported) => {
+          if (!supported) {
+            Alert.alert("Please install Whatsapp to send direct message.");
+          } else {
+            return Linking.openURL(link);
+          }
+        })
+        .catch((err) => console.error("An error occurred", err));
+    } else {
+      console.log("sendWhatsAppMessage -----> ", "message link is undefined");
+    }
+  };
+
   useEffect(() => {
     _getOrderDetailScreen();
   }, []);
@@ -89,7 +122,7 @@ const RoyoOrderDetail = (props) => {
       collectedData['vendor_id'] = selectedVendor?.id;
     }
     console.log(data, '=====res');
-    updateState({isLoadingB: true});
+    updateState({ isLoadingB: true });
     actions
       .getOrderDetail(collectedData, {
         code: appData?.profile?.code,
@@ -98,7 +131,7 @@ const RoyoOrderDetail = (props) => {
       })
       .then((res) => {
         console.log(res.data, '=====res');
-        updateState({isLoadingB: false});
+        updateState({ isLoadingB: false });
         if (res?.data) {
           updateState({
             address: res.data.address,
@@ -124,7 +157,7 @@ const RoyoOrderDetail = (props) => {
     data['order_id'] = acceptRejectData?.id;
     data['vendor_id'] = selectedVendor?.id;
     data['order_status_option_id'] = status;
-    updateState({isLoadingB: true});
+    updateState({ isLoadingB: true });
     actions
       .updateOrderStatus(data, {
         code: appData?.profile?.code,
@@ -152,7 +185,7 @@ const RoyoOrderDetail = (props) => {
       });
   };
 
-  const updateState = (data) => setState((state) => ({...state, ...data}));
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
   const toggleUpcomingStatus = () => {
     updateState({
       showUpcomingStatus: !showUpcomingStatus,
@@ -161,12 +194,12 @@ const RoyoOrderDetail = (props) => {
 
   const renderUserDetails = (item, index) => {
     return (
-      <View style={{marginTop: moderateScaleVertical(15)}}>
-        <Text style={{fontFamily: fontFamily.bold, fontSize: textScale(13)}}>
+      <View style={{ marginTop: moderateScaleVertical(15) }}>
+        <Text style={{ fontFamily: fontFamily.bold, fontSize: textScale(13) }}>
           {'• '}
           {item?.primary?.name}
         </Text>
-        <View style={{marginHorizontal: moderateScale(5), marginTop: 5}}>
+        <View style={{ marginHorizontal: moderateScale(5), marginTop: 5 }}>
           {item?.file_type == 'Text' ? (
             <Text>{item?.user_document?.file_name}</Text>
           ) : item?.file_type == 'Image' ? (
@@ -178,7 +211,7 @@ const RoyoOrderDetail = (props) => {
                   '500/500',
                 ),
               }}
-              style={{height: 70, width: 70}}
+              style={{ height: 70, width: 70 }}
             />
           ) : (
             <TouchableOpacity
@@ -199,9 +232,48 @@ const RoyoOrderDetail = (props) => {
     );
   };
 
-  const backPress = ()=>{
-   
-    navigation.navigate(navigationStrings?.VENDOR_ORDER,{index:index});
+  const backPress = () => {
+
+    navigation.navigate(navigationStrings?.VENDOR_ORDER, { index: index });
+  }
+  const onRejectPress = () => {
+    updateState({
+      isRejectResonModal: true,
+      // rejectedOrder:item,
+
+    })
+  }
+
+  // const onReject = ()=>{
+  //   if (reason == '' || isEmpty(reason)) {
+  //     alert('please enter the reason!')
+  //     return
+  //  }
+  //   // updateOrderStatus(rejectedOrder,8)
+  //   updateOrderStatus(data, 8)
+  //   updateState({
+  //     isRejectResonModal:false
+  //   })
+  // }
+
+  const onClose = () => {
+    updateState({
+      isRejectResonModal: false
+    })
+  }
+  //On change in textinput field
+  const _onChangeText = (key) => (val) => {
+    updateState({ [key]: val });
+  };
+  const onSubmit = () => {
+    if (reason == '' || isEmpty(reason)) {
+      alert('please enter the reason!')
+      return
+    }
+    updateOrderStatus(data, 8)
+    updateState({
+      isRejectResonModal: false
+    })
   }
 
   return (
@@ -212,7 +284,7 @@ const RoyoOrderDetail = (props) => {
       barStyle="dark-content"
       source={loaderOne}>
       <Header
-        headerStyle={{marginVertical: moderateScaleVertical(16)}}
+        headerStyle={{ marginVertical: moderateScaleVertical(16) }}
         leftIcon={imagePath.backRoyo}
         centerTitle={`Order #${data.order_number}`}
         onPressLeft={backPress}
@@ -228,7 +300,7 @@ const RoyoOrderDetail = (props) => {
           <View>
             <Text style={styles.jobStatus}>{strings.JOB_STATUS}</Text>
             <View style={styles.preparingBox}>
-              <Text style={{...styles.font16Semibold, color: colors.white}}>
+              <Text style={{ ...styles.font16Semibold, color: colors.white }}>
                 {current_status?.title}
               </Text>
               <TouchableOpacity
@@ -242,19 +314,19 @@ const RoyoOrderDetail = (props) => {
                 activeOpacity={1}
                 style={styles.upcomingStatus}
                 onPress={() => updateOrderStatus(data, upcoming_status?.id)}>
-                <Text style={{...styles.font16Semibold, color: colors.white}}>
+                <Text style={{ ...styles.font16Semibold, color: colors.white }}>
                   {upcoming_status?.title}
                 </Text>
 
                 <Image
-                  style={{tintColor: colors.white}}
+                  style={{ tintColor: colors.white }}
                   source={imagePath.selectedRoyo}
                 />
               </TouchableOpacity>
             ) : null}
           </View>
         ) : null}
-        <View style={{...styles.orderNumberBox, zIndex: -1}}>
+        <View style={{ ...styles.orderNumberBox, zIndex: -1 }}>
           {/* <Text style={styles.orderNumber}>Order #{data.order_number}</Text> */}
           <Text style={styles.orderNumber}>{strings.ORDERAT}:</Text>
           {/* <Text style={styles.orderTime}>{`${moment(data?.date_time).format(
@@ -273,7 +345,8 @@ const RoyoOrderDetail = (props) => {
               : []
           }
           keyExtractor={(val, index) => index}
-          renderItem={({item, index}) => {
+          renderItem={({ item, index }) => {
+            console.log(item,'kskgszdfigsdilufgs');
             return (
               <View style={styles.itemBox}>
                 <Image
@@ -286,7 +359,7 @@ const RoyoOrderDetail = (props) => {
                     ),
                   }}
                 />
-                <View style={{flex: 1, justifyContent: 'space-around'}}>
+                <View style={{ flex: 1, justifyContent: 'space-around' }}>
                   <Text style={styles.font16Medium}>
                     {item?.translation?.title}
                   </Text>
@@ -311,15 +384,24 @@ const RoyoOrderDetail = (props) => {
           ItemSeparatorComponent={() => <View style={styles.itemSeperator} />}
         />
 
-        <View style={{margin: moderateScaleVertical(16)}}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        {!!data?.specific_instructions && (
+          <View style={{ margin: moderateScaleVertical(16) }}>
+            <Text style={styles.font15Medium}>{strings.INSTRUCTIONS}</Text>
+            <Text style={styles.font15Semibold}>
+              {data?.specific_instructions}
+            </Text>
+          </View>
+        )}
+
+        <View style={{ margin: moderateScaleVertical(16) }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.font15Medium}>{strings.SUBTOTAL}</Text>
             <Text style={styles.font15Semibold}>
               {currencies?.primary_currency?.symbol}{' '}
               {Number(data.payable_amount).toFixed(2)}
             </Text>
           </View>
-        
+
           {/* <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={styles.font15Medium}>{strings.DELIVERYFEE}</Text>
             <Text style={styles.font15Semibold}>
@@ -327,12 +409,128 @@ const RoyoOrderDetail = (props) => {
               {Number(data.total_delivery_fee).toFixed(2)}
             </Text>
           </View> */}
+          {/* ************************************************************ */}
+
+          {!!data?.total_delivery_fee && !!Number(data?.total_delivery_fee) && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.font15Medium}>{strings.DELIVERYFEE}</Text>
+              <Text style={styles.font15Semibold}>
+                {currencies?.primary_currency?.symbol}{" "}
+                {Number(data?.total_delivery_fee).toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+          {!!data?.fixed_fee_amount && !!Number(data?.fixed_fee_amount) !== 0 && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.font15Medium}>
+                {preferences?.fixed_fee_nomenclature != "" &&
+                  preferences?.fixed_fee_nomenclature != null
+                  ? preferences?.fixed_fee_nomenclature
+                  : strings.FIXED_FEE}
+              </Text>
+              <Text style={styles.font15Semibold}>
+                {currencies?.primary_currency?.symbol}{" "}
+                {Number(data.fixed_fee_amount).toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+
+          {Number(data?.total_service_fee) + Number(data?.taxable_amount) !==
+            0 && (
+              <View
+                style={{ flexDirection: "row", justifyContent: "space-between" }}
+              >
+                <Text style={styles.font15Medium}>{strings.TAXES_FEES}</Text>
+                <Text style={styles.font15Semibold}>
+                  {currencies?.primary_currency?.symbol}{" "}
+                  {(
+                    Number(data?.total_service_fee) + Number(data?.taxable_amount)
+                  ).toFixed(2)}
+                </Text>
+              </View>
+            )}
+
+          {!!data?.total_container_charges &&
+            Number(data?.total_container_charges) !== 0 && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={styles.font15Medium}>
+                  {/* {strings.CONTAINER_CHARGES} */}
+                  {'container Charges'}
+                </Text>
+                <Text style={styles.font15Semibold}>
+                  {currencies?.primary_currency?.symbol}{" "}
+                  {Number(data?.total_container_charges).toFixed(2)}
+                </Text>
+              </View>
+            )}
+
+
+          {!!data?.total_discount && Number(data?.total_discount) !== 0 && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.font15Medium}>{strings.DISCOUNT}</Text>
+              <Text style={styles.font15Semibold}>
+                -{currencies?.primary_currency?.symbol}{" "}
+                {Number(data.total_discount).toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+          {!!data?.wallet_amount_used && Number(data?.wallet_amount_used) !== 0 && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.font15Medium}>{strings.WALLET}</Text>
+              <Text style={styles.font15Semibold}>
+                -{currencies?.primary_currency?.symbol}{" "}
+                {Number(data.wallet_amount_used).toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+          {!!data?.tip_amount && Number(data?.tip_amount) !== 0 && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.font15Medium}>{strings.TIP_AMOUNT}</Text>
+              <Text style={styles.font15Semibold}>
+                {currencies?.primary_currency?.symbol}{" "}
+                {Number(data.tip_amount).toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+          {!!data?.loyality_amount && Number(data?.loyality_amount) !== 0 && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.font15Medium}>{strings.LOYALTY}</Text>
+              <Text style={styles.font15Semibold}>
+                {currencies?.primary_currency?.symbol}{" "}
+                {Number(data.loyality_amount).toFixed(2)}
+              </Text>
+            </View>
+          )}
+
+          {/* ********************************************************************** */}
           <View style={styles.dashLine} />
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={styles.font15Medium}>{strings.TOTAL}</Text>
-            <Text style={{...styles.font15Semibold, color: colors.themeColor2}}>
+            <Text style={{ ...styles.font15Semibold, color: colors.themeColor2 }}>
               {`${currencies?.primary_currency?.symbol} ${Number(
-                parseFloat(data.payable_amount) 
+                parseFloat(data.payable_amount)
               ).toFixed(2)}`}
             </Text>
           </View>
@@ -346,11 +544,14 @@ const RoyoOrderDetail = (props) => {
             <Text style={styles.font14Semibold}>
               {strings.DELIEVERY_ADDRESS}
             </Text>
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity onPress={() => dialCall(1234567890)}>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity 
+                  onPress={() => dialCall(orderInfo?.user?.phone_number)}
+              // onPress={() => dialCall(1234567890)}
+              >
                 <Image source={imagePath.callRoyo} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={fun}>
+              <TouchableOpacity onPress={onWhatsapp}>
                 <Image
                   style={{
                     marginLeft: moderateScaleVertical(10),
@@ -363,8 +564,8 @@ const RoyoOrderDetail = (props) => {
                 onPress={() =>
                   Share.share({
                     // message: 'https://www.google.com',
-                    title: 'this is my title',
-                    url: 'https://www.google.com',
+                    title: 'Download the app and start your business!',
+                    url: 'https://play.google.com/store/apps/details?id=com.sabroson.vendorApp',
                   })
                 }>
                 <Image
@@ -379,8 +580,8 @@ const RoyoOrderDetail = (props) => {
 
           <View style={styles.locationBox}>
             <Image style={styles.locationImage} source={imagePath.icMap} />
-            <View style={{justifyContent: 'space-evenly'}}>
-              <Text style={{fontFamily: fontFamily.semiBold, fontSize: 16}}>
+            <View style={{ justifyContent: 'space-evenly' }}>
+              <Text style={{ fontFamily: fontFamily.semiBold, fontSize: 16 }}>
                 {data.user_name}
               </Text>
               <Text
@@ -395,16 +596,16 @@ const RoyoOrderDetail = (props) => {
               </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={{...styles.font14Semibold}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={{ ...styles.font14Semibold }}>
               {strings.PAYMENT_METHOD}
             </Text>
-            <Text style={{...styles.font14Semibold, color: colors.black}}>
+            <Text style={{ ...styles.font14Semibold, color: colors.black }}>
               {data.payment_option_title}
             </Text>
           </View>
         </View>
-        <View style={{marginHorizontal: moderateScale(20)}}>
+        <View style={{ marginHorizontal: moderateScale(20) }}>
           {!isEmpty(userDocumentList) &&
             userDocumentList.map(renderUserDetails)}
         </View>
@@ -414,11 +615,11 @@ const RoyoOrderDetail = (props) => {
               btnText={strings.REJECT}
               btnTextStyle={styles.btnText}
               btnStyle={styles.btnContainer}
-              onPress={() => updateOrderStatus(data, 8)}
+              onPress={onRejectPress}
             />
             <ButtonWithLoader
               btnText={strings.CONFIRM}
-              btnTextStyle={{...styles.btnText, color: colors.white}}
+              btnTextStyle={{ ...styles.btnText, color: colors.white }}
               btnStyle={{
                 ...styles.btnContainer,
                 backgroundColor: colors.themeColor2,
@@ -429,6 +630,16 @@ const RoyoOrderDetail = (props) => {
           </View>
         ) : null}
       </ScrollView>
+      {
+        !!isRejectResonModal && (
+          <RejectResonModal
+            isVisible={isRejectResonModal}
+            onClose={onClose}
+            onSubmit={onSubmit}
+            onChangeText={_onChangeText('reason')}
+          />
+        )
+      }
     </WrapperContainer>
   );
 };

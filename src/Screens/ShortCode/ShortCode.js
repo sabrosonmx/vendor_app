@@ -300,10 +300,10 @@ export default function ShortCode({ route, navigation }) {
             }}>
             <View style={{ position: 'absolute', }}>
 
-              {LoadingScreen && (
+              {!!LoadingScreen && (
                 <FastImage style={{height:height, width:width}} source={imagePath.ic_splash} >
                   <MaterialIndicator size={50} color={colors.greyMedium} />
-                </FastImage>
+               </FastImage>
               )}
 
             </View>

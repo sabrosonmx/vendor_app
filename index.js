@@ -19,7 +19,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     if (_data.vendors[0].vendor.auto_accept_order == 1) {
       StartPrinting(_data);
     } else {
-      actions.isVendorNotification(true);ß
+      actions.isVendorNotification(true);
     }
   }
 });
