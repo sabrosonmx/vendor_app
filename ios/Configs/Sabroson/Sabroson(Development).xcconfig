@@ -1,12 +1,12 @@
 #include "Pods/Target Support Files/Pods-available_pods-Sabroson/Pods-available_pods-Sabroson.debug.xcconfig"
 
 PROJECT_APPLE_ID = 6451238044
-PROJECT_BUNDLE_ID = com.sabroson.vendor
+PROJECT_BUNDLE_ID = com.sabroson.vendorApp
 PROJECT_APP_VERSION = 1.0
 PROJECT_BUILD_NUMBER = 1
 PROJECT_APP_NAME = Sabroson Vendor
-PROJECT_GOOGLE_CLIENT_ID = 237356412741-3bahvm1ehjtt9e7o4jf2sordmkiaqalo.apps.googleusercontent.com
-PROJECT_GOOGLE_REVERSE_CLIENT_ID = com.googleusercontent.apps.237356412741-3bahvm1ehjtt9e7o4jf2sordmkiaqalo
+PROJECT_GOOGLE_CLIENT_ID = 772520628110-j72j6rrk95qb7fkkc88q6qgsr7bpfqd7.apps.googleusercontent.com
+PROJECT_GOOGLE_REVERSE_CLIENT_ID = com.googleusercontent.apps.772520628110-j72j6rrk95qb7fkkc88q6qgsr7bpfqd7
 PROJECT_FACEBOOK_ID = 330961768556975
 PROJECT_TWITTER_ID = twitterkit-R66DHARfuoYAPowApUxNxwbPi
 PROJECT_PLIST = SabrosonInfo
