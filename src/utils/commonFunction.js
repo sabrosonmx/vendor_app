@@ -1,5 +1,6 @@
 import { Keyboard } from 'react-native';
 import { openCamera, openPicker } from './imagePicker';
+import { isEmpty } from 'lodash';
 const cameraHandler = async (data, option) => {
   Keyboard.dismiss();
   //this condition use for open camera
@@ -62,5 +63,44 @@ export const ifDataExist = (data) => {
   }
   return false
 }
+
+export const getValuebyKeyInArray = (key = '', data) => {
+  if (!isEmpty(data)) {
+    let obj = data?.find((o) => o?.key_name === key);
+    if (obj?.key_value != 0) {
+      return obj?.key_value;
+    } else {
+      return 0;
+    }
+  } else {
+    return 0;
+  }
+};
+
+export const tokenConverterPlusCurrencyNumberFormater = (
+  price = 0,
+  digitAfterDecimal = 0,
+  additionalPreferences = {},
+  currencySymbol = '',
+) => {
+  if (getValuebyKeyInArray('is_token_currency_enable', additionalPreferences)) {
+    let tokenCurrency = getValuebyKeyInArray(
+      'token_currency',
+      additionalPreferences,
+    );
+
+    // let tokenCurrency = 2;
+    return currencyNumberFormatter(
+      Number(price) * tokenCurrency,
+      digitAfterDecimal,
+    );
+  } else {
+    return `${currencySymbol} ${currencyNumberFormatter(
+      Number(price),
+      digitAfterDecimal,
+    )}`;
+  }
+};
+
 
 export {cameraHandler, currencyNumberFormatter};

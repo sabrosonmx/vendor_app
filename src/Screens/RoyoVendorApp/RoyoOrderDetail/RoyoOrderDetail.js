@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as MyShare from 'react-native-share';
 import {
   View,
@@ -35,6 +35,7 @@ import FastImage from 'react-native-fast-image';
 import strings from '../../../constants/lang';
 import navigationStrings from '../../../navigation/navigationStrings';
 import RejectResonModal from '../../../Components/RejectResonModal';
+import { tokenConverterPlusCurrencyNumberFormater } from '../../../utils/commonFunction';
 
 const RoyoOrderDetail = (props) => {
   const { navigation } = props;
@@ -43,7 +44,10 @@ const RoyoOrderDetail = (props) => {
     (state) => state?.initBoot,
 
   );
-  const { preferences } = appData?.profile;
+  const userData = useSelector((state) => state?.auth?.userData);
+  const {additional_preferences, digit_after_decimal} =
+  appData?.profile?.preferences || {};
+const {preferences} = appData?.profile;
   const [state, setState] = useState({
     address: '',
     isLoadingB: false,
@@ -276,6 +280,123 @@ const RoyoOrderDetail = (props) => {
     })
   }
 
+  const renderItem = useCallback(({ item, index }) => {
+    return (
+      <View style={styles.itemBox}>
+        <Image
+          style={styles.itemImage}
+          source={{
+            uri: getImageUrl(
+              item?.image_path?.image_fit,
+              item?.image_path?.image_path,
+              '500/500',
+            ),
+          }}
+        />
+        <View style={{ flex: 1, justifyContent: 'space-around' }}>
+          <View style={{}}>
+            <View style={{
+
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }}>
+              <View style={{ flex: 0.8 }}>
+                <Text style={styles.font16Medium}>
+                  {/* {item?.translation?.title} */}
+                  {item?.translation?.title || item?.product_addons[0]?.addon_title }
+                </Text>
+              </View>
+              {!!appData?.profile?.preferences?.update_order_product_price ? (
+                <TouchableOpacity
+                  hitSlop={{
+                    top: 50,
+                    bottom: 50,
+                    right: 50,
+                    left: 50,
+                  }}
+                  onPress={() => editOrder(item)}
+                  style={{
+
+                  }}
+                >
+                  <Image source={imagePath?.edit1Royo} />
+                </TouchableOpacity>) : <></>}
+            </View>
+
+
+
+            {/* {!userData?.is_superadmin ? (
+              <View style={{ marginVertical: moderateScaleVertical(8) }}>
+                {!!appData?.profile?.socket_url ? (
+                  <TouchableOpacity
+                    onPress={() => createRoom(item)}
+                    style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={styles.startChatText}>
+                      {strings.START_CHAT}
+                    </Text>
+                    <Image
+                      resizeMode="contain"
+                      style={styles.agentUserIcon}
+                      source={imagePath.icUserChat}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+            ) : null} */}
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View>
+              <Text style={styles.font13Regular}>
+                {item.quantity}
+                {strings.UNIT} {'x'}{' '}
+              </Text>
+              <Text style={styles.font14Regular}>
+                {tokenConverterPlusCurrencyNumberFormater(
+                  Number(item.price),
+                  digit_after_decimal,
+                  additional_preferences,
+                  currencies?.primary_currency?.symbol,
+                )}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.font16Semibold}>
+                {`${currencies?.primary_currency?.symbol} ${Number(
+                  item.quantity * item.price,
+                ).toFixed(2)}`}
+              </Text>
+            </View>
+          </View>
+          {!!item?.product_variant_sets ? <View style={{ marginTop: moderateScale(2) }} >
+            <Text style={styles.font14Regular}>
+              {item?.product_variant_sets}
+            </Text>
+          </View> : <></>
+          }
+          {item?.product_addons.length > 0
+            ? item?.product_addons.map((j) => {
+              return (
+                <View>
+                  <Text>
+                    {`(${j.option_title})`} ={' '}
+                    {`${tokenConverterPlusCurrencyNumberFormater(
+                      Number(j.price),
+                      digit_after_decimal,
+                      additional_preferences,
+                      currencies?.primary_currency?.symbol,
+                    )}`}
+                  </Text>
+                </View>
+              );
+            })
+            : null}
+        </View>
+
+      </View>
+    );
+  }, []);
+
+ 
   return (
     <WrapperContainer
       isLoading={isLoadingB}
@@ -345,41 +466,42 @@ const RoyoOrderDetail = (props) => {
               : []
           }
           keyExtractor={(val, index) => index}
-          renderItem={({ item, index }) => {
-            console.log(item,'kskgszdfigsdilufgs');
-            return (
-              <View style={styles.itemBox}>
-                <Image
-                  style={styles.itemImage}
-                  source={{
-                    uri: getImageUrl(
-                      item?.image_path?.image_fit,
-                      item?.image_path?.image_path,
-                      '500/500',
-                    ),
-                  }}
-                />
-                <View style={{ flex: 1, justifyContent: 'space-around' }}>
-                  <Text style={styles.font16Medium}>
-                    {item?.translation?.title}
-                  </Text>
-                  <Text style={styles.font13Regular}>
-                    {item.quantity}
-                    {strings.UNIT}
-                  </Text>
-                  <Text style={styles.font14Regular}>
-                    {currencies?.primary_currency?.symbol}{' '}
-                    {Number(item.price).toFixed(2)}
-                  </Text>
-                </View>
-                <Text style={styles.font16Semibold}>
-                  {`${currencies?.primary_currency?.symbol} ${Number(
-                    item.quantity * item.price,
-                  ).toFixed(2)}`}
-                </Text>
-              </View>
-            );
-          }}
+          renderItem={renderItem}
+          // renderItem={({ item, index }) => {
+          //   console.log(item,'kskgszdfigsdilufgs');
+          //   return (
+          //     <View style={styles.itemBox}>
+          //       <Image
+          //         style={styles.itemImage}
+          //         source={{
+          //           uri: getImageUrl(
+          //             item?.image_path?.image_fit,
+          //             item?.image_path?.image_path,
+          //             '500/500',
+          //           ),
+          //         }}
+          //       />
+          //       <View style={{ flex: 1, justifyContent: 'space-around' }}>
+          //         <Text style={styles.font16Medium}>
+          //           {item?.translation?.title || item?.product_addons[0]?.addon_title }
+          //         </Text>
+          //         <Text style={styles.font13Regular}>
+          //           {item.quantity}
+          //           {strings.UNIT}
+          //         </Text>
+          //         <Text style={styles.font14Regular}>
+          //           {currencies?.primary_currency?.symbol}{' '}
+          //           {Number(item.price).toFixed(2)}
+          //         </Text>
+          //       </View>
+          //       <Text style={styles.font16Semibold}>
+          //         {`${currencies?.primary_currency?.symbol} ${Number(
+          //           item.quantity * item.price,
+          //         ).toFixed(2)}`}
+          //       </Text>
+          //     </View>
+          //   );
+          // }}
           contentContainerStyle={styles.orderBox}
           ItemSeparatorComponent={() => <View style={styles.itemSeperator} />}
         />
