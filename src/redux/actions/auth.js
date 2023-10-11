@@ -30,6 +30,8 @@ import {
   PHONE_LOGIN_OTP,
   UPLOAD_PHOTO,
   VENDOR_LOGIN_BY_USERNAME,
+  DELETE_ACCOUNT,
+
 } from '../../config/urls';
 import {apiGet, apiPost, clearUserData, setUserData} from '../../utils/utils';
 import store from '../store';
@@ -380,6 +382,12 @@ export function userLogout() {
 export function userAuthCheck() {
   return apiGet(USER_AUTH_CHECK);
 }
+export const setAppSessionData = (data) => {
+  dispatch({
+    type: types.APP_SESSION_INFO,
+    payload: data,
+  });
+};
 
 //get all subscriptions
 export function getAllSubscriptions(data = {}, headers = {}) {
@@ -466,3 +474,15 @@ export function getLoyaltyInfo(data = {}, headers = {}) {
 export function imageUpload(data = {}, headers = {}) {
   return apiPost(UPLOAD_PHOTO, data, headers);
 }
+export const deleteAccount = (data, headers = {}) => {
+  return new Promise((resolve, reject) => {
+    apiGet(DELETE_ACCOUNT, data, headers)
+      .then((res) => {
+        console.log(res,"resresresres")
+        resolve(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

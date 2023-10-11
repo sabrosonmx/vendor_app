@@ -73,6 +73,7 @@ export async function getUserData() {
   return new Promise((resolve, reject) => {
     AsyncStorage.getItem('userData').then((data) => {
       resolve(JSON.parse(data));
+      console.log(JSON.parse(data),"JSON.parse(data)JSON.parse(data)")
     });
   });
 }

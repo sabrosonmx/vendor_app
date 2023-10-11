@@ -30,9 +30,9 @@ const ForegroundHandler = (props) => {
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      
+      console.log('remote message foreground', remoteMessage);
+
       const { data, messageId, notification } = remoteMessage;
-      console.log('remote message foreground',remoteMessage);
 
       /// Create a channel (required for Android)
 
@@ -45,12 +45,12 @@ const ForegroundHandler = (props) => {
         importance: AndroidImportance.HIGH,
 
       });
-      console.log(channelId,"channelIdchannelId");
+
       let displayNotificationData = {};
 
       if (!!data?.fcm_options?.image || !!notification?.android?.imageUrl) {
         if (Platform.OS == 'ios') {
-          
+          console.log('hello');
           displayNotificationData = {
             title: data?.title || notification?.title || '',
             body: data?.body || notification?.body || '',
@@ -61,13 +61,11 @@ const ForegroundHandler = (props) => {
                   url: data?.fcm_options?.image,
                 },
               ],
-              sound: notification?.sound == 'notification.wav'
-              ? 'notification.wav'
-              : 'default',
             },
             data: { ...data },
           };
         } else {
+
           displayNotificationData = {
             title: data?.title || notification?.title || '',
             body: data?.body || notification?.body || '',
@@ -83,6 +81,9 @@ const ForegroundHandler = (props) => {
                 picture: notification?.android?.imageUrl,
               },
             },
+            ios: {
+              sound: 'notification.wav',
+              },
 
             data: { ...data },
           };
@@ -93,18 +94,20 @@ const ForegroundHandler = (props) => {
           title: data?.title || notification?.title || '',
           body: data?.body || notification?.body || '',
           android: {
-            sound:  'customnotii',
+            sound: notification?.android?.sound || 'customnotii',
             channelId,
             pressAction: {
               id: 'default',
             },
             importance: AndroidImportance.HIGH
           },
-
+          ios: {
+            sound: 'notification.wav',
+            },
           data: { ...data },
         };
       }
-console.log(displayNotificationData,"displayNotificationDatadisplayNotificationDatadisplayNotificationDatadisplayNotificationData");
+
       await notifee.displayNotification(displayNotificationData);
 
       if (data?.title == 'bid_ride_request') {
@@ -137,8 +140,9 @@ console.log(displayNotificationData,"displayNotificationDatadisplayNotificationD
       //     StartPrinting(_data)
       //   }
       // }
-
+console.log(data,"datadta")
       if (Platform.OS == 'ios' && notification.sound == 'notification.wav' && data.type != 'reached_location') {
+       
         actions.isVendorNotification(true);
         actions.refreshNotification(messageId);
       }

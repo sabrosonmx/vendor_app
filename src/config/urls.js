@@ -9,6 +9,7 @@ export const VENDOR_LOGIN_BY_USERNAME = getApiUrl('/auth/login');
 export const PHONE_LOGIN_OTP = getApiUrl('/auth/verify/phoneLoginOtp');
 export const LOGIN_API = getApiUrl('/auth/login');
 export const SIGN_UP_API = getApiUrl('/auth/register');
+export const DELETE_ACCOUNT = getApiUrl('/auth/deleteUser');
 export const FORGOT_API = getApiUrl('/auth/forgotPassword');
 export const APP_INITIAL_SETTINGS = getApiUrl('/header');
 export const HOMEPAGE_DATA_URL = getApiUrl('/homepage');

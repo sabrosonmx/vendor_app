@@ -43,7 +43,7 @@ import {
   handleAppleLogin,
   _twitterSignIn,
 } from '../../utils/socialLogin';
-import { checkIsAdmin, setItem } from '../../utils/utils';
+import { checkIsAdmin, getUserData, setItem } from '../../utils/utils';
 import validator from '../../utils/validations';
 import stylesFunc from './styles';
 import LanguageModal from '../../Components/LanguageModal';
@@ -52,8 +52,7 @@ import Header from '../../Components/Header';
 export default function Login({ navigation }) {
   const navigation_ = useNavigation();
   const { appData, themeColors, currencies, languages, appStyle } = useSelector(
-    (state) => state?.initBoot,
-  );
+    (state) => state?.initBoot );
   const { apple_login, fb_login, twitter_login, google_login } = useSelector(
     (state) => state?.initBoot?.appData?.profile?.preferences,
   );
@@ -227,6 +226,11 @@ export default function Login({ navigation }) {
       .catch(errorMethod);
   };
 
+  
+
+
+ 
+  
 
   useEffect(() => {
     if (!isEmpty(languages)) {
@@ -506,7 +510,7 @@ export default function Login({ navigation }) {
     }
   };
   useEffect(() => {
-    getListOfAllCmsLinks()
+    // getListOfAllCmsLinks()
   }, [])
   const getListOfAllCmsLinks = () => {
     actions

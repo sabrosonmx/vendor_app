@@ -12,12 +12,15 @@ import navigationStrings from '../../../navigation/navigationStrings';
 import actions from '../../../redux/actions';
 import colors from '../../../styles/colors';
 import fontFamily from '../../../styles/fontFamily';
+import DeviceInfo from 'react-native-device-info';
+
 import {
   moderateScale,
   moderateScaleVertical,
   textScale
 } from '../../../styles/responsiveSize';
 import { showError } from '../../../utils/helperFunctions';
+import { API_BASE_URL } from '../../../config/urls';
 
 const RoyoAccounts = (props) => {
   const { navigation } = props;
@@ -51,7 +54,6 @@ const RoyoAccounts = (props) => {
     _getListOfVendor();
     // _getVendorProfile(selectedVendor);
   }, []);
-  console.log(appData, 'appDataappData')
   useEffect(() => {
     console.log('check selectedVendor', selectedVendor);
     updateState({ isLoading: true });
@@ -95,6 +97,48 @@ const RoyoAccounts = (props) => {
       allVendors: vendor_list,
       screenType: navigationStrings.ROYO_VENDOR_ACCOUNT,
     });
+  };
+
+  //delete functionality
+  const onDeleteAccount = () => {
+    if (!!userData?.auth_token) {
+      Alert.alert(strings.ARE_YOU_SURE_YOU_WANT_TO_DELETE, '', [
+        {
+          text: strings.CANCEL,
+          onPress: () => console.log('Cancel Pressed'),
+          // style: 'destructive',
+        },
+        {
+          text: strings.CONFIRM,
+          onPress: deleleUserAccount,
+        },
+      ]);
+    } else {
+      actions.setAppSessionData('on_login');
+    }
+  };
+
+  const deleleUserAccount = async () => {
+    try {
+      const res = await actions.deleteAccount(
+        {},
+        {
+          code: appData?.profile?.code,
+          currency: currencies?.primary_currency?.id,
+          language: languages?.primary_language?.id,
+        },
+      );
+      console.log('delete user account res', res);
+      actions.userLogout();
+      resetStackAndNavigate(navigation, navigationStrings.LOGIN)
+      actions.cartItemQty('');
+      actions.saveAddress('');
+      actions.addSearchResults('clear');
+      actions.setAppSessionData('on_login');
+    } catch (error) {
+      console.log('erro raised', error);
+      showError(error?.message);
+    }
   };
 
   const userlogout = () => {
@@ -316,6 +360,36 @@ const RoyoAccounts = (props) => {
               </TouchableOpacity>
             );
           })}
+        </View>
+        <View
+          style={{
+            zIndex: -1,
+            alignSelf: 'center',
+            marginBottom: moderateScaleVertical(90),
+            marginTop: moderateScaleVertical(24),
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+            //  ...commonStyles.regularFont11,
+              color: colors.textGrey,
+            }}>
+            App Version {`${DeviceInfo.getVersion()}`}{' '}
+            {`(${DeviceInfo.getBuildNumber()})`}{' '}
+            {API_BASE_URL == 'https://api.rostaging.com/api/v1' ? 'S' : ''}
+          </Text>
+
+          {!!userData?.auth_token ? (
+            <Text
+              onPress={onDeleteAccount}
+              style={{
+              //  ...commonStyles.regularFont11,
+                color: colors.redB,
+                marginTop: moderateScaleVertical(4),
+              }}>
+              {strings.DELETE_ACCOUNT}
+            </Text>
+          ) : null}
         </View>
       </View>
     </WrapperContainer>

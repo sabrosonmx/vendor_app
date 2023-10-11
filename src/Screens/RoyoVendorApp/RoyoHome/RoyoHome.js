@@ -52,6 +52,7 @@ import DatePickrModal from '../../../Components/DatePickrModal';
 import {retrieveSetupIntent} from '@stripe/stripe-react-native';
 import useInterval from '../../../utils/useInterval';
 import { string } from 'prop-types';
+import { getUserData } from '../../../utils/utils';
 
 let vendorLimit = 50;
 
@@ -64,7 +65,7 @@ const RoyoHome = (props) => {
   const {navigation} = props;
   const {storeSelectedVendor} = useSelector((state) => state?.order);
   const {appData, currencies, languages} = useSelector(
-    (state) => state.initBoot,
+    (state) => state.initBoot
   );
 
   const [state, setState] = useState({
@@ -85,6 +86,7 @@ const RoyoHome = (props) => {
     isRejectResonModal: false,
     rejectedOrder: null,
     reason: '',
+    userData:null
   });
 
   const {
@@ -103,6 +105,7 @@ const RoyoHome = (props) => {
     isRejectResonModal,
     rejectedOrder,
     reason,
+    userData
   } = state;
 
   const updateState = (data) => setState((state) => ({...state, ...data}));
@@ -169,6 +172,11 @@ const RoyoHome = (props) => {
     }
   };
   useEffect(() => {
+   var data=getUserData()
+  //  setState(data.)
+    console.log(data,"userDatauserDatauserData")
+  }, [])
+  useEffect(() => {
     const apiInterval = setInterval(() => {
       availVendorCount(currentVendor?.id);
       getAllVendorOrder(currentVendor?.id);
@@ -176,6 +184,7 @@ const RoyoHome = (props) => {
     return () => {
       clearInterval(apiInterval);
     };
+   
   }, [currentVendor]);
 
   const fetchVendorPagination = async () => {
