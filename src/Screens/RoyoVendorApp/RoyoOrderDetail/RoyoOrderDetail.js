@@ -520,7 +520,7 @@ const {preferences} = appData?.profile;
             <Text style={styles.font15Medium}>{strings.SUBTOTAL}</Text>
             <Text style={styles.font15Semibold}>
               {currencies?.primary_currency?.symbol}{' '}
-              {Number(data.payable_amount).toFixed(2)}
+              {Number(data?.vendors[0]?.subtotal_amount).toFixed(2)}
             </Text>
           </View>
 

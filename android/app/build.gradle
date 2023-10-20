@@ -208,7 +208,7 @@ android {
     productFlavors {
          sabroson{
             dimension "appType"
-            versionCode 3
+            versionCode 5
             versionName "1.0"
             minSdkVersion rootProject.ext.minSdkVersion
             targetSdkVersion rootProject.ext.targetSdkVersion         
