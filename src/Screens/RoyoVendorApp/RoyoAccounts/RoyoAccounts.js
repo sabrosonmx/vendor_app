@@ -56,7 +56,7 @@ const RoyoAccounts = (props) => {
   }, []);
   useEffect(() => {
     console.log('check selectedVendor', selectedVendor);
-    updateState({ isLoading: true });
+    updateState({ isLoading: false });
     _getVendorProfile(selectedVendor);
   }, [selectedVendor]);
 
