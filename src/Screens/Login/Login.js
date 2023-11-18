@@ -226,12 +226,6 @@ export default function Login({ navigation }) {
       .catch(errorMethod);
   };
 
-  
-
-
- 
-  
-
   useEffect(() => {
     if (!isEmpty(languages)) {
       console.log('hihihii')
@@ -335,7 +329,7 @@ export default function Login({ navigation }) {
         },
       ]);
     } else {
-      showError(error?.error || error?.message || error?.error || error);
+      showError(error?.message || error?.error || error);
       // setTimeout(() => {
       //   showError(error?.message || error?.error || error);
       // }, 500);
@@ -762,7 +756,7 @@ console.log(cmsLinks,'cmsLinkscmsLinks')
         <ButtonComponent
           btnText={strings.LOGIN_ACCOUNT}
           containerStyle={{ marginTop: moderateScaleVertical(10), backgroundColor: themeColors.primary_color }}
-          onPress={_onLoginVendor}
+          onPress={_onLogin}
         />
 
         <View style={{ marginTop: moderateScaleVertical(40) }}>
