@@ -213,7 +213,7 @@ android {
             minSdkVersion rootProject.ext.minSdkVersion
             targetSdkVersion rootProject.ext.targetSdkVersion         
             applicationId 'com.sabroson.vendorApp'
-            resValue "string", "app_name", "Sabroson Vendor"
+            resValue "string", "app_name", "SABROSÓN Negocios"
             resValue "string", "host_name", ""
          }
     }

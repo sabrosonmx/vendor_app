@@ -6,6 +6,7 @@ export {default as OuterScreen} from './OuterScreen/OuterScreen';
 export {default as VerifyAccount} from './VerifyAccount/VerifyAccount';
 export {default as ForgotPassword} from './ForgotPassword/ForgotPassword';
 export {default as WebLinks} from './WebLinks/WebLinks';
+export {default as Location} from './Location/Location';
 
 // vendor App screens
 export {default as RoyoHome} from './RoyoVendorApp/RoyoHome/RoyoHome';
@@ -23,4 +24,5 @@ export {default as QrOrders} from './RoyoVendorApp/QrOrders/QrOrders';
 export { default as QrOrderDetail } from './RoyoVendorApp/QrOrders/QrOrderDetail';
 export {default as Settings} from './RoyoVendorApp/Settings/Settings';
 export {default as VendorScheduling} from './RoyoVendorApp/VendorScheduling/VendorScheduling';
+
 

@@ -521,7 +521,7 @@ export default function Login({ navigation }) {
         updateState({ isLoadingB: false, isLoading: false, isRefreshing: false });
         if (res && res?.data) {
           res?.data.map((item,inx)=>{
-            item.slug == 'inscribe-tu-negocio' && 
+            (item.slug == 'inscribe-tu-negocio' || item.title == 'Vendor Registration')  && 
             updateState({ cmsLinks: item });
           }) 
         }
