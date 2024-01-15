@@ -228,7 +228,7 @@ export default function SelctFromMap({
         // zoomControlEnabled={true}
         // showsScale={true}
         onRegionChangeComplete={_onRegionChange}>
-        {/* <MarkerAnimated
+         <MarkerAnimated
           ref={markerRef}
 
           // centerOffset={(2,2)}
@@ -241,8 +241,8 @@ export default function SelctFromMap({
           coordinate={{
             latitude: region?.latitude,
             longitude: region?.longitude,
-          }}
-        /> */}
+          }} 
+        /> 
       </MapView>
       <View style={[styles.backbutton, { marginHorizontal: moderateScale(15) }]}>
         <TouchableOpacity onPress={mapClose}>

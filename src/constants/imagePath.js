@@ -294,6 +294,8 @@ export default {
 
   markerPin: require('../assets/images/markerPin.png'),
 
+  blackNav: require('../assets/images/ic_nav.png'),
+
 
   
 

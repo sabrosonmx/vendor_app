@@ -893,12 +893,12 @@ export default function WebLinks({ navigation, route }) {
               containerStyle={styles.containerStyle}
             />
 
-            <BorderTextInput
+            {/* <BorderTextInput
               placeholder={`${strings.ENTER_TITLE}*`}
               label={'Title'}
               onChangeText={_onChangeText('title')}
               containerStyle={styles.containerStyle}
-            />
+            /> */}
 
             <BorderTextInput
               secureTextEntry={true}
@@ -1070,7 +1070,8 @@ export default function WebLinks({ navigation, route }) {
                 marginHorizontal: moderateScale(10),
                 marginVertical: moderateScaleVertical(16),
               }}>
-              <View
+             
+            { !!appData?.profile?.preferences?.dinein_check && <View
                 style={{
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -1094,8 +1095,9 @@ export default function WebLinks({ navigation, route }) {
                   size="small"
                   onToggle={() => updateState({ isDineIn: !isDineIn })}
                 />
-              </View>
-              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              </View>}
+             
+              { !!appData?.profile?.preferences?.takeaway_check &&  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text
                   style={{
                     marginBottom: moderateScaleVertical(8),
@@ -1115,8 +1117,9 @@ export default function WebLinks({ navigation, route }) {
                   size="small"
                   onToggle={() => updateState({ isTakeaway: !isTakeaway })}
                 />
-              </View>
-              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              </View>}
+              
+              {!!!!appData?.profile?.preferences?.delivery_check  &&  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text
                   style={{
                     marginBottom: moderateScaleVertical(8),
@@ -1136,7 +1139,7 @@ export default function WebLinks({ navigation, route }) {
                   size="small"
                   onToggle={() => updateState({ isDelivery: !isDelivery })}
                 />
-              </View>
+              </View>}
             </View>
             <View
               style={{
