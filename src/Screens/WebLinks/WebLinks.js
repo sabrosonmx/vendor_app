@@ -252,7 +252,7 @@ export default function WebLinks({ navigation, route }) {
         name: fullname,
         email: email,
         phoneNumber: phoneNumber,
-        vendorTitle: title,
+        // vendorTitle: title,
         newPassword: password,
         confirmPassword: confirm_password,
         vendorLogo: vendorLogo,
