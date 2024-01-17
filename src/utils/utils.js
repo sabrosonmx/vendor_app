@@ -5,6 +5,7 @@ import navigationStrings from '../navigation/navigationStrings';
 import {enums} from './enums';
 import {sessionHandler} from './helperFunctions';
 
+
 export async function getHeaders() {
   let userData = await AsyncStorage.getItem('userData');
   if (userData) {
@@ -202,6 +203,6 @@ export const checkIsAdmin = (navigation_, navigation, userData) => {
     // resetStackAndNavigate(navigation_, navigationStrings.TABROUTESVENDORNEW);
     navigation.push(navigationStrings.TABROUTESVENDORNEW);
   } else {
-    navigation.push(navigationStrings.TAB_ROUTES);
+    navigation.push(navigationStrings.TABROUTESVENDORNEW);
   }
 };

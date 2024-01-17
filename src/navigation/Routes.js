@@ -9,7 +9,7 @@ import {
   WebLinks,
   ForgotPassword,
   AppIntro,
-  Location
+  Location, VerifyAccount
 } from '../Screens';
 
 import { navigationRef } from './NavigationService';
@@ -72,7 +72,11 @@ export default function Routes() {
           component={Location}
           options={{ headerShown: false }}
         />
-
+        <Stack.Screen
+          name={navigationStrings.VERIFY_ACCOUNT}
+          component={VerifyAccount}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
     // </AppearanceProvider>
