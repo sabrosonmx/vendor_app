@@ -13,7 +13,8 @@ import {
   ChatScreen,
   ChatScreenForVendor,
   ChatRoom,
-  ChatRoomForVendor
+  ChatRoomForVendor,
+   VerifyAccount
 } from '../Screens';
 
 import { navigationRef } from './NavigationService';
@@ -77,6 +78,11 @@ export default function Routes() {
           component={Location}
           options={{ headerShown: false }}
         />
+         <Stack.Screen
+          name={navigationStrings.VERIFY_ACCOUNT}
+          component={VerifyAccount}
+          options={{ headerShown: false }}
+        />
         {/*  screens for chat ********* */}
         <Stack.Screen
           name={navigationStrings.CHAT_SCREEN}
@@ -99,6 +105,7 @@ export default function Routes() {
           component={ChatRoomForVendor}
           options={{ headerShown: false }}
         />
+       
       </Stack.Navigator>
     </NavigationContainer>
     // </AppearanceProvider>
