@@ -307,5 +307,9 @@ export default {
   inactiveTruck: require('../assets/images/ic_truck1.png'),
   ic_splash: require('../assets/images/ic_splash.png'),
   icMap: require("../assets/images/VendorAppImages/ic_map.png"),
+  icUserChat: require("../assets/images/ic_userchat.png"),
+  send: require('../assets/images/ic_send.png'),
+  icVendorChat: require('../assets/images/ic_vendorchat.png'),
+  icDriverChat: require('../assets/images/ic_driver.png'),
 
 };

@@ -9,12 +9,17 @@ import {
   WebLinks,
   ForgotPassword,
   AppIntro,
-  Location
+  Location,
+  ChatScreen,
+  ChatScreenForVendor,
+  ChatRoom,
+  ChatRoomForVendor
 } from '../Screens';
 
 import { navigationRef } from './NavigationService';
 import navigationStrings from './navigationStrings';
 import TabRoutesVendor from './VendorApp/TabRoutesVendor';
+
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
@@ -72,7 +77,28 @@ export default function Routes() {
           component={Location}
           options={{ headerShown: false }}
         />
+        {/*  screens for chat ********* */}
+        <Stack.Screen
+          name={navigationStrings.CHAT_SCREEN}
+          component={ChatScreen}
+          options={{ headerShown: false }}
+        />
 
+        <Stack.Screen
+          name={navigationStrings.CHAT_SCREEN_FOR_VENDOR}
+          component={ChatScreenForVendor}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={navigationStrings.CHAT_ROOM}
+          component={ChatRoom}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={navigationStrings.CHAT_ROOM_FOR_VENDOR}
+          component={ChatRoomForVendor}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
     // </AppearanceProvider>

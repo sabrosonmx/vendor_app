@@ -264,6 +264,7 @@ export default function Login({ navigation }) {
       fcm_token: !!fcmToken ? fcmToken : DeviceInfo.getUniqueId(),
       dialCode: mobilNo.focus ? mobilNo.callingCode : '',
       countryData: mobilNo.focus ? mobilNo.cca2 : '',
+      is_vendor_app: 1,
     };
     updateState({ isLoading: true });
     console.log('chck login data >>>', data);
@@ -277,18 +278,35 @@ export default function Login({ navigation }) {
       .then((res) => {
         console.log(res, "resssloginnn")
         if (!!res.data) {
-
-          res.data.is_phone
-            ? navigation.navigate(navigationStrings.OTP_VERIFICATION, {
+          if (!!res?.data?.is_phone) {
+            navigation.navigate(navigationStrings.OTP_VERIFICATION, {
               username: mobilNo?.phoneNo,
               dialCode: mobilNo?.callingCode,
               countryData: mobilNo?.cca2,
               data: res.data,
-            })
-            : checkIfEmailVerification(res.data);
-        }
+            });
+          }
+          else {
+            resetStackAndNavigate(
+              navigation_,
+              navigationStrings.TABROUTESVENDORNEW,
+            );
+          }
         updateState({ isLoading: false });
         getCartDetail();
+        }
+        // if (!!res.data) {
+
+        //   res.data.is_phone
+        //     ? navigation.navigate(navigationStrings.OTP_VERIFICATION, {
+        //       username: mobilNo?.phoneNo,
+        //       dialCode: mobilNo?.callingCode,
+        //       countryData: mobilNo?.cca2,
+        //       data: res.data,
+        //     })
+        //     : checkIfEmailVerification(res.data);
+        // }
+        
       })
       .catch(errorMethod);
   };

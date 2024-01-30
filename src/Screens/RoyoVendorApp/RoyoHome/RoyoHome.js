@@ -53,6 +53,7 @@ import {retrieveSetupIntent} from '@stripe/stripe-react-native';
 import useInterval from '../../../utils/useInterval';
 import { string } from 'prop-types';
 import { getUserData } from '../../../utils/utils';
+import socketServices from '../../../utils/scoketService';
 
 let vendorLimit = 50;
 
@@ -86,7 +87,6 @@ const RoyoHome = (props) => {
     isRejectResonModal: false,
     rejectedOrder: null,
     reason: '',
-    userData:null
   });
 
   const {
@@ -105,7 +105,6 @@ const RoyoHome = (props) => {
     isRejectResonModal,
     rejectedOrder,
     reason,
-    userData
   } = state;
 
   const updateState = (data) => setState((state) => ({...state, ...data}));
@@ -137,6 +136,15 @@ const RoyoHome = (props) => {
     });
     return focus, blur;
   }, []);
+
+
+  useEffect(async () => {
+     let userData =  await  getUserData()
+     console.log(userData,'userDatauserData>>>>');
+    if (!!userData?.auth_token && !!appData?.profile?.socket_url) {
+        socketServices.initializeSocket(appData?.profile?.socket_url);
+    }
+}, [appData]);
 
   useEffect(() => {
     fetchAllVendors();
@@ -171,11 +179,7 @@ const RoyoHome = (props) => {
       showError(error?.message || error?.error);
     }
   };
-  useEffect(() => {
-   var data=getUserData()
-  //  setState(data.)
-    console.log(data,"userDatauserDatauserData")
-  }, [])
+
   useEffect(() => {
     const apiInterval = setInterval(() => {
       availVendorCount(currentVendor?.id);

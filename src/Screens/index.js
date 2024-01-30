@@ -24,5 +24,8 @@ export {default as QrOrders} from './RoyoVendorApp/QrOrders/QrOrders';
 export { default as QrOrderDetail } from './RoyoVendorApp/QrOrders/QrOrderDetail';
 export {default as Settings} from './RoyoVendorApp/Settings/Settings';
 export {default as VendorScheduling} from './RoyoVendorApp/VendorScheduling/VendorScheduling';
-
+export {default as ChatScreen} from './ChatScreen/ChatScreen';
+export {default as ChatScreenForVendor} from './ChatScreen/ChatScreenForVendor';
+export {default as ChatRoom} from './ChatRoom/ChatRoom';
+export {default as ChatRoomForVendor} from './ChatRoom/ChatRoomForVendor';
 

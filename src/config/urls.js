@@ -1,5 +1,5 @@
 //  export const API_BASE_URL = 'https://api.royoorders.com/api/v1';
-// export const API_BASE_URL = 'http://192.168.100.199:8001/api/v1';
+// export const API_BASE_URL = 'http://192.168.102.226:8001/api/v1';
 export const API_BASE_URL = 'https://sabroson.com.mx/api/v1';
 
 export const getApiUrl = (endpoint) => API_BASE_URL + endpoint;
@@ -186,3 +186,16 @@ export const UPDATE_VENDOR_SLOTS=getApiUrl('/vendor-slot-update')
 export const DELETE_VENDOR_SLOTS=getApiUrl('/vendor-slot-destroy')
 export const GET_VENDOR_SLOTS=getApiUrl('/vendor-slots')
 // vendor-slots?vendor_id=121
+
+
+//Chat Apis
+export const START_CHAT = getApiUrl("/chat/startChat");
+export const SEND_NOTIFCATION = getApiUrl("/chat/sendNotificationToUser");
+
+export const USER_CHAT = "/api/room/fetchRoomByUserId";
+export const AGENT_CHAT = "/api/room/fetchRoomByUserId";
+export const VENDOR_CHAT = "/api/room/fetchRoomByVendor";
+export const SEND_MESSAGE = "/api/chat/sendMessageJoin";
+export const GET_ALL_MESSAGES = "/api/chat";
+export const ALL_ROOM_USER = "/api/chat/getRoomUser";
+export const ALL_ROOM_VENDOR = "/chat/vendorUserChatRoom";

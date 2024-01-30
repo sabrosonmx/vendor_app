@@ -1005,6 +1005,13 @@ EDIT_FOR_ALL:"Editar para todos los",
     SELECT_DATE:'Seleccionar fecha',
     ENTER_REASON_FOR_REJECT:'¿Cuál es la razón?',
     ENTER_REASON:'Escribe…',
-
+    STORES_CAHT: 'Tiendas Chat',
+    DRIVER_CHAT: 'Charla del conductor',
+    USER_CHAT: 'Chat con cliente',
+    VENDOR_CHAT: 'Chat de proveedores',
+    CHAT_EMPTY_ROOM: 'Sala de chat vacía',
+    CHAT_ROOM: 'Chat con cliente',
+    PARTICIPANTS: 'participantes',
+    TYPE_A_MESSAGE:'Escribe un mensaje'
   };
   

@@ -99,6 +99,7 @@
     "react-native-geocoding": "^0.5.0",
     "react-native-geolocation-service": "^5.2.0",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-gifted-chat": "0.16.3",
     "react-native-google-maps": "^1.0.0",
     "react-native-google-places": "^3.1.2",
     "react-native-google-places-autocomplete": "^2.2.0",
@@ -167,6 +168,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "rn-fetch-blob": "^0.12.0",
+    "socket.io-client": "2.1.1",
     "toastify-react-native": "^2.0.0",
     "toggle-switch-react-native": "^3.2.0",
     "translate-json-object": "^2.3.7"

@@ -45,9 +45,9 @@ const RoyoOrderDetail = (props) => {
 
   );
   const userData = useSelector((state) => state?.auth?.userData);
-  const {additional_preferences, digit_after_decimal} =
-  appData?.profile?.preferences || {};
-const {preferences} = appData?.profile;
+  const { additional_preferences, digit_after_decimal } =
+    appData?.profile?.preferences || {};
+  const { preferences } = appData?.profile;
   const [state, setState] = useState({
     address: '',
     isLoadingB: false,
@@ -93,7 +93,7 @@ const {preferences} = appData?.profile;
   const onWhatsapp = async () => {
     const vendorPhoneNumber = orderInfo?.user?.phone_number.replace(/\s/g, "")
     let url = `whatsapp://send?phone=${orderInfo?.user?.dial_code}${vendorPhoneNumber}`;
- 
+
     Linking.openURL(url)
       .then((data) => {
         console.log("WhatsApp Opened successfully " + data); //<---Success
@@ -187,6 +187,45 @@ const {preferences} = appData?.profile;
           isLoadingB: false,
         });
       });
+  };
+
+  // on chat functions 
+
+  const onChat = (item) => {
+    console.log('item+++', item);
+    navigation.navigate(navigationStrings.CHAT_SCREEN, { data: { ...item } });
+  };
+
+  const createRoom = async (item, type) => {
+    try {
+      const apiData = {
+        sub_domain: '192.168.101.88', //this is static value
+        client_id: String(appData?.profile.id),
+        db_name: appData?.profile?.database_name,
+        user_id: String(userData?.id),
+        type: type,
+        order_vendor_id: String(item?.id),
+        vendor_id: String(item?.vendor_id),
+        order_id: String(item?.order_id),
+      };
+      updateState({ isLoading: true });
+
+      console.log('sending api data', apiData);
+      const res = await actions.onStartChat(apiData, {
+        code: appData?.profile?.code,
+        currency: currencies?.primary_currency?.id,
+        language: languages?.primary_language?.id,
+      });
+      console.log('start chat res', res);
+      updateState({ isLoading: false });
+      if (!!res?.roomData) {
+        onChat(res.roomData);
+      }
+    } catch (error) {
+      console.log('error raised in start chat api', error);
+      showError(error?.message);
+      updateState({ isLoading: false });
+    }
   };
 
   const updateState = (data) => setState((state) => ({ ...state, ...data }));
@@ -303,7 +342,7 @@ const {preferences} = appData?.profile;
               <View style={{ flex: 0.8 }}>
                 <Text style={styles.font16Medium}>
                   {/* {item?.translation?.title} */}
-                  {item?.translation?.title || item?.product_addons[0]?.addon_title }
+                  {item?.translation?.title || item?.product_addons[0]?.addon_title}
                 </Text>
               </View>
               {!!appData?.profile?.preferences?.update_order_product_price ? (
@@ -329,7 +368,8 @@ const {preferences} = appData?.profile;
               <View style={{ marginVertical: moderateScaleVertical(8) }}>
                 {!!appData?.profile?.socket_url ? (
                   <TouchableOpacity
-                    onPress={() => createRoom(item)}
+                    // onPress={() => createRoom(item)}
+                    onPress={() => createRoom(item, 'vendor_to_user')}
                     style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={styles.startChatText}>
                       {strings.START_CHAT}
@@ -396,7 +436,7 @@ const {preferences} = appData?.profile;
     );
   }, []);
 
- 
+
   return (
     <WrapperContainer
       isLoading={isLoadingB}
@@ -667,8 +707,8 @@ const {preferences} = appData?.profile;
               {strings.DELIEVERY_ADDRESS}
             </Text>
             <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity 
-                  onPress={() => dialCall(orderInfo?.user?.phone_number)}
+              <TouchableOpacity
+                onPress={() => dialCall(orderInfo?.user?.phone_number)}
               // onPress={() => dialCall(1234567890)}
               >
                 <Image source={imagePath.callRoyo} />

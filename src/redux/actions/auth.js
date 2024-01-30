@@ -178,6 +178,8 @@ export const loginUsername = (data, headers = {}) => {
   });
 };
 
+
+
 export const verifyAccount = (data, headers = {}) => {
   return new Promise((resolve, reject) => {
     apiPost(VERIFY_ACCOUNT, data, headers)

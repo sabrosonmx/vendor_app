@@ -128,5 +128,9 @@ export default {
   KONGOPAY: 'KongoPay',
   QR_ORDERS: 'QrOrders',
   QR_ORDER_DETAIL: 'QrOrderDetail',
-  VENDOR_SCHEDULING: 'VendorScheduling'
+  VENDOR_SCHEDULING: 'VendorScheduling',
+  CHAT_SCREEN: 'ChatScreen',
+  CHAT_ROOM: 'chatRoom',
+  CHAT_SCREEN_FOR_VENDOR: 'chatScreenForVendor',
+  CHAT_ROOM_FOR_VENDOR: 'chatRoomForVendor',
 };

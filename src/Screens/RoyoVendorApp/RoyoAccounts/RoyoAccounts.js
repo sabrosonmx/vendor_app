@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import actions from '../../../redux/actions';
 import colors from '../../../styles/colors';
 import fontFamily from '../../../styles/fontFamily';
 import DeviceInfo from 'react-native-device-info';
+import ListItemHorizontal from '../../../Components/ListItemHorizontalWithImage';
 
 import {
   moderateScale,
@@ -35,12 +36,15 @@ const RoyoAccounts = (props) => {
 
   const { selectedVendor, vendor_list, isLoading, isRefreshing, vendorDetail } =
     state;
+  const [allVendors, setAllVendors] = useState([]);
   const { appData, currencies, languages } = useSelector(
     (state) => state?.initBoot,
   );
   let businessType = appData?.profile?.preferences?.business_type || null;
 
   const userData = useSelector((state) => state.auth.userData);
+
+  const appMainData = useSelector((state) => state?.home?.appMainData);
   const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
   const { storeSelectedVendor } = useSelector((state) => state?.order);
@@ -230,18 +234,19 @@ const RoyoAccounts = (props) => {
       image: imagePath.signoutRoyo,
       onPress: userlogout,
     },
+
   ];
 
 
   const updateVendorProfile = () => {
-    console.log(vendorDetail?.show_slot,'vendorDetail?.show_slot');
+    console.log(vendorDetail?.show_slot, 'vendorDetail?.show_slot');
     updateState({
       isLoading: true,
     });
-    let data ={
+    let data = {
       vendor_id: vendorDetail?.id,
       is_available: !!vendorDetail?.is_available ? 0 : 1
-    } 
+    }
     actions
       .updateVendorProfile(
         data,
@@ -252,7 +257,7 @@ const RoyoAccounts = (props) => {
         },
       )
       .then(res => {
-        console.log('updateVendorProfile', res, 'res',vendorDetail?.show_slot,data);
+        console.log('updateVendorProfile', res, 'res', vendorDetail?.show_slot, data);
         updateState({
           isRefreshing: false,
           isLoading: false,
@@ -263,6 +268,58 @@ const RoyoAccounts = (props) => {
         console.log('updateVendorProfile', error, 'res');
       });
   };
+
+  // functions chat **********************
+
+
+  //Share your app
+
+  useEffect(() => {
+    if (!!appMainData?.is_admin) {
+      fetchAllVendors();
+    }
+  }, [appMainData?.is_admin]);
+
+  const fetchAllVendors = async (value = null) => {
+    let query = `?limit=${100000}&page=${1}`;
+    let headers = {
+      code: appData?.profile?.code,
+      currency: currencies?.primary_currency?.id,
+      language: languages?.primary_language?.id,
+    };
+    try {
+      const res = await actions.storeVendors(query, headers);
+      if (res?.data?.data) {
+        setAllVendors(res.data.data);
+        return;
+      }
+      console.log('available >>>>>', res);
+    } catch (error) {
+      console.log('error riased', error);
+      showError(error?.message);
+    }
+  };
+
+  const goToChatRoom = (type) => {
+
+    console.log(type, 'sdfsdf',);
+    if (!!appMainData?.is_admin && type == 'vendor_chat') {
+      navigation.navigate(navigationStrings.CHAT_ROOM, {
+        type: type,
+        allVendors: allVendors,
+      });
+    } else {
+      navigation.navigate(navigationStrings.CHAT_ROOM, { type: type });
+    }
+  };
+
+  const goToChatRoomForVendor = useCallback(() => {
+    navigation.navigate(navigationStrings.CHAT_ROOM_FOR_VENDOR, {
+      type: 'vendor_chat',
+    });
+  }, []);
+
+
 
   return (
     <WrapperContainer
@@ -339,6 +396,35 @@ const RoyoAccounts = (props) => {
         </View>
         <View style={{ marginTop: moderateScaleVertical(22) }}>
           {data.map((val, index) => {
+            if (index == data?.length -2) {
+              return (
+                <>
+                  {/* {!!userData?.auth_token && !!appData?.profile?.socket_url && (
+                    <ListItemHorizontal
+                      centerContainerStyle={{ flexDirection: 'row' }}
+                      leftIconStyle={{ flex: 0.1, alignItems: 'center' }}
+                      onPress={() => goToChatRoom('agent_chat')}
+                      iconLeft={imagePath.icDriverChat}
+                      centerHeading={strings.DRIVER_CHAT}
+                      containerStyle={{ ...styles.containerStyle2, marginTop: moderateScaleVertical(10) }}
+                      centerHeadingStyle={{...styles.font15Semibold,  marginLeft: moderateScale(-16),}}
+                    />
+                  )} */}
+
+                  {!!userData?.auth_token && !!appData?.profile?.socket_url && (
+                    <ListItemHorizontal
+                      centerContainerStyle={{ flexDirection: 'row' }}
+                      leftIconStyle={{ flex: 0.1, alignItems: 'center' }}
+                      onPress={() => goToChatRoom('vendor_chat')}
+                      iconLeft={imagePath.icVendorChat}
+                      centerHeading={strings.USER_CHAT}
+                      containerStyle={styles.containerStyle2}
+                      centerHeadingStyle={{...styles.font15Semibold,  marginLeft: moderateScale(-16),}}
+                    />
+                  )}
+                </>
+              )
+            }
             return (
               <TouchableOpacity
                 onPress={val.onPress}
@@ -360,6 +446,50 @@ const RoyoAccounts = (props) => {
               </TouchableOpacity>
             );
           })}
+
+
+          {/* chat screen options below **************************************** */}
+
+          {/* {!!userData?.auth_token &&
+            !!appMainData?.is_admin &&
+            businessType != 4 &&
+            !!appData?.profile?.socket_url && (
+              <ListItemHorizontal
+                centerContainerStyle={{ flexDirection: 'row' }}
+                leftIconStyle={{ flex: 0.1, alignItems: 'center' }}
+                onPress={goToChatRoomForVendor}
+                // iconLeft={imagePath.icStoreChat}
+                centerHeading={strings.STORES_CAHT}
+                containerStyle={styles.containerStyle2}
+                centerHeadingStyle={{
+                  fontSize: textScale(14),
+                  fontFamily: fontFamily.regular,
+                }}
+              // iconRight={imagePath.goRight}
+              // rightIconStyle={{tintColor: colors.textGreyLight}}
+              />
+            )} */}
+
+          {/* {!!userData?.auth_token &&
+            !!appMainData?.is_admin &&
+            !!appData?.profile?.socket_url && (
+              <ListItemHorizontal
+                centerContainerStyle={{ flexDirection: 'row' }}
+                leftIconStyle={{ flex: 0.1, alignItems: 'center' }}
+                onPress={() => goToChatRoom('vendor_chat')}
+                // iconLeft={imagePath.icUserChat}
+                centerHeading={ "Vendor chat"}
+                containerStyle={styles.containerStyle2}
+                centerHeadingStyle={{
+                  fontSize: textScale(14),
+                  fontFamily: fontFamily.regular,
+                }}
+              />
+            )} */}
+
+
+          {/* chat screen options till here  ***************************** */}
+
         </View>
         <View
           style={{
@@ -371,7 +501,7 @@ const RoyoAccounts = (props) => {
           }}>
           <Text
             style={{
-            //  ...commonStyles.regularFont11,
+              //  ...commonStyles.regularFont11,
               color: colors.textGrey,
             }}>
             App Version {`${DeviceInfo.getVersion()}`}{' '}
@@ -383,7 +513,7 @@ const RoyoAccounts = (props) => {
             <Text
               onPress={onDeleteAccount}
               style={{
-              //  ...commonStyles.regularFont11,
+                //  ...commonStyles.regularFont11,
                 color: colors.redB,
                 marginTop: moderateScaleVertical(4),
               }}>
@@ -433,5 +563,14 @@ const styles = StyleSheet.create({
     fontSize: textScale(15),
     color: colors.blackOpacity66,
     marginLeft: moderateScale(16),
+  },
+  containerStyle2: {
+    paddingVertical: 0,
+    marginLeft: 0,
+    height: moderateScaleVertical(40),
+    alignItems: 'center',
+    borderBottomColor: colors.transparent,
+    borderBottomWidth: 0.7,
+    // flexDirection:'row'
   },
 });

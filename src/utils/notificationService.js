@@ -54,7 +54,6 @@ export async function requestUserPermission(callback = () => { }) {
 
 
 const getFcmToken = async () => {
-  console.log(fcmToken, 'here');
   let fcmToken = await AsyncStorage.getItem('fcmToken');
   console.log(fcmToken, 'the old token');
   if (!fcmToken) {

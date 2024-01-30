@@ -105,7 +105,6 @@ export default function ShortCode({ route, navigation }) {
 
     if (!!res?.primary_language?.id) {
       header = {
-        //code: 'dda7d5',
         code: shortCode,
         language: res?.primary_language?.id,
       };
