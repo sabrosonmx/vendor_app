@@ -111,6 +111,7 @@ export default function ChatRoom({navigation, route}) {
       data: {...item, id: item?.order_vendor_id},
     });
   }, []);
+  {console.log(languages?.primary_language?.id,'languages?.primary_language?.id');}
   const renderItem = useCallback(({item, index}) => {
     let isAnyMessage = _.isEmpty(item?.chat_Data);
     return (
@@ -126,7 +127,8 @@ export default function ChatRoom({navigation, route}) {
           </Text>
           {!isAnyMessage ? (
             <Text style={styles.timeStyle}>
-              {moment(item?.chat_Data[0]?.created_date).format('LLL')}
+              {/* {moment(item?.chat_Data[0]?.created_date).format('LLL')} */}
+              {moment(item?.chat_Data[0]?.created_date).locale(languages?.primary_language?.id == 148 ?'es' : 'en').format('LLL')}
             </Text>
           ) : null}
         </View>
