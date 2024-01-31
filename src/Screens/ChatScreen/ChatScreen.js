@@ -143,6 +143,29 @@ export default function ChatScreen({ route, navigation }) {
     }
   }
 
+  const sendToUserNotification = async (id, text,) => {
+    console.log(roomUsers,'roomUsers>>>');
+    console.log(roomUsers ,'roomUsersroomUsers 333');
+    let apiData = {
+      user_ids: roomUsers,
+      roomId: id,
+      roomIdText: paramData?.room_id,
+      text_message: text,
+      chat_type: paramData?.type,
+    }
+    console.log("sending api data", apiData)
+    try {
+      const res = await actions.sendNotification(apiData, {
+        code: appData?.profile?.code,
+        currency: currencies?.primary_currency?.id,
+        language: languages?.primary_language?.id,
+      })
+      console.log("res sendNotification", res)
+    } catch (error) {
+      console.log('error raised in sendToUserNotification api', error)
+    }
+  }
+
   const onSend = useCallback(async (messages = []) => {
     if (String(messages[0].text).trim().length < 1) {
       return;
@@ -191,34 +214,15 @@ export default function ChatScreen({ route, navigation }) {
       //     '200/200',
       //   )
       // };
-      await sendToUserNotification(paramData?._id, messages[0].text)
+      await fetchAllRoomUser()
+      await sendToUserNotification(paramData?._id, messages[0].text,)
       // setMessages(previousMessages => GiftedChat.append(previousMessages, message))
     } catch (error) {
       console.log('error raised in fetchAllMessages api', error)
     }
-  }, [])
+  }, [paramData, appData, currencies, languages, roomUsers])
 
-  const sendToUserNotification = async (id, text) => {
-    console.log(roomUsers,'roomUsers>>>');
-    let apiData = {
-      user_ids: roomUsers,
-      roomId: id,
-      roomIdText: paramData?.room_id,
-      text_message: text,
-      chat_type: paramData?.type,
-    }
-    console.log("sending api data", apiData)
-    try {
-      const res = await actions.sendNotification(apiData, {
-        code: appData?.profile?.code,
-        currency: currencies?.primary_currency?.id,
-        language: languages?.primary_language?.id,
-      })
-      console.log("res sendNotification", res)
-    } catch (error) {
-      console.log('error raised in sendToUserNotification api', error)
-    }
-  }
+  
   const showRoomUser = useCallback((props) => {
     if (_.isEmpty(roomUsers)) {
       return null
@@ -355,8 +359,6 @@ export default function ChatScreen({ route, navigation }) {
     }
   };
 
-
-  console.log("roomUsersroomUsers",roomUsers)
 
   // this funtion use for camera handle
   const cameraHandle = async (index = 0) => {
