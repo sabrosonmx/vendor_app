@@ -125,6 +125,7 @@ export default function ChatRoom({navigation, route}) {
           <Text style={styles.textStyle}>
             <Text>{strings.ORDER}</Text> # {item?.room_id}
           </Text>
+          {console.log(languages,"languages>>>")}
           {!isAnyMessage ? (
             <Text style={styles.timeStyle}>
               {/* {moment(item?.chat_Data[0]?.created_date).format('LLL')} */}

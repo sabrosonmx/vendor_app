@@ -6,11 +6,18 @@ console.disableYellowBox = true;
 import messaging from '@react-native-firebase/messaging';
 import {StartPrinting} from './src/Screens/PrinterConnection/PrinteFunc';
 import actions from './src/redux/actions';
+import { navigate } from './src/navigation/NavigationService';
 
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   const {data, notification} = remoteMessage;
   console.log("received in background messages",remoteMessage)
+
+  if (!!data?.room_id) {
+    navigate(navigationStrings.CHAT_SCREEN, {
+      data: {_id: data?.room_id, room_id: data?.room_id_text},
+    });
+  }
   if (
     Platform.OS == 'android' &&
     notification.android.sound == 'notification'

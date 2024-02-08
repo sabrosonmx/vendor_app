@@ -235,8 +235,17 @@ export const notificationListener = async () => {
   //Backgorund
   messaging().onNotificationOpenedApp(remoteMessage => {
 
-    const { notification } = remoteMessage;
+    const { notification, data } = remoteMessage;
     console.log(remoteMessage, 'remoteMessageremoteMessage')
+    if (!!data?.room_id) {
+      setTimeout(() => {
+        NavigationService.navigate(navigationStrings.CHAT_SCREEN, {
+          data: {_id: data?.room_id, room_id: data?.room_id_text},
+        });
+
+      }, 1200);
+
+    }
     if (!!remoteMessage?.data && remoteMessage?.data?.redirect_type == "2") {
       if (remoteMessage?.data?.redirect_type_value == 'Subcategory') {
         setTimeout(() => {
@@ -305,12 +314,18 @@ export const notificationListener = async () => {
           'remote message inital notification',
           JSON.stringify(remoteMessage),
         );
-        const { notification } = remoteMessage;
+        const { notification, data } = remoteMessage;
         console.log(
           'Notification caused app to open from quit state:',
           remoteMessage,
         );
 
+        if (!!data?.room_id) {
+          setTimeout(() => {
+            NavigationService.navigate(navigationStrings.CHAT_SCREEN, {
+              data: {_id: data?.room_id, room_id: data?.room_id_text},
+            });
+          }, 3000) }
 
         if (!!remoteMessage?.data && remoteMessage?.data?.redirect_type == "2") {
           if (remoteMessage?.data?.redirect_type_value == 'Subcategory') {
