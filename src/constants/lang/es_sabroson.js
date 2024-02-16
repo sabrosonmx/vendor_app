@@ -184,7 +184,7 @@ export default {
     DISCOUNT: 'Descuento',
     LOYALTY: 'Lealtad (500 puntos)',
     SORT_MODAL_TITLE: 'Ordenar por',
-    TAX_AMOUNT: 'Impuestos',
+    TAX_AMOUNT: 'Tarifa de Servicio',
     TOTAL: 'Total',
     EXTRA: 'Complementos:',
     APPLY_PROMO_CODE: 'Aplicar cupones promocionales',
