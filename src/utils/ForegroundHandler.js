@@ -10,19 +10,29 @@ import { Platform } from 'react-native';
 import actions from '../redux/actions';
 import { StartPrinting } from '../Screens/PrinterConnection/PrinteFunc';
 import { redirectFromNotification } from './helperFunctions';
+import { navigate } from '../navigation/NavigationService';
+import navigationStrings from '../navigation/navigationStrings';
 
 
 const ForegroundHandler = (props) => {
   useEffect(() => {
     return notifee.onForegroundEvent(({ type, detail }) => {
+      let { data } = detail?.notification || {}
+      let clickActionUrl = detail?.pressAction
       switch (type) {
         case EventType.DISMISSED:
           console.log('User dismissed notification', detail.notification);
           break;
         case EventType.PRESS:
           console.log('User pressed notification', detail);
-          let clickActionUrl = detail?.notification?.data?.click_action || null;
-          redirectFromNotification(clickActionUrl);
+          if (!!data?.room_id && !!clickActionUrl) {
+            setTimeout(() => {
+              navigate(navigationStrings.CHAT_SCREEN, {
+                data: { _id: data?.room_id, room_id: data?.room_id_text },
+              });
+            }, 400)
+          }
+          // redirectFromNotification(clickActionUrl);
           break;
       }
     });

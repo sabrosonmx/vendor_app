@@ -1010,6 +1010,9 @@ EDIT_FOR_ALL:"Editar para todos los",
     CHAT_EMPTY_ROOM: 'Sala de chat vacía',
     CHAT_ROOM: 'Chat con cliente',
     PARTICIPANTS: 'participantes',
-    TYPE_A_MESSAGE:'scribe un mensaje…'
+    TYPE_A_MESSAGE:'scribe un mensaje…',
+    USER:"Cliente",
+    AGENT:"Repartidor",
+    ADMIN:"Soporte",
   };
   

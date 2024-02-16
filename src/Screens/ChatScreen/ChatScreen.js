@@ -11,7 +11,7 @@ import colors from '../../styles/colors';
 import { MyDarkTheme } from '../../styles/theme';
 import WrapperContainer from '../../Components/WrapperContainer';
 import actions from '../../redux/actions';
-import { getImageUrl } from '../../utils/helperFunctions';
+import { getImageUrl, getuserType } from '../../utils/helperFunctions';
 import { height, moderateScale, moderateScaleVertical, textScale, width } from '../../styles/responsiveSize';
 import FastImage from 'react-native-fast-image';
 import moment from 'moment';
@@ -256,7 +256,7 @@ export default function ChatScreen({ route, navigation }) {
               fontFamily: fontFamily.medium,
               textTransform: 'capitalize',
               color: isDarkMode ? colors.white : colors.black,
-            }}>{currentMessage?.username || currentMessage?.phone_num} {`(${currentMessage?.user_type})`}</Text> : null}
+            }}>{currentMessage?.username || currentMessage?.phone_num} {languages?.primary_language?.id == 148 ? `(${getuserType(currentMessage?.user_type)})` :`(${currentMessage?.user_type})`}</Text> : null}
 
               <View style={{ alignItems: 'center', flex: 1 }}>
                 <Text style={{
@@ -281,6 +281,7 @@ export default function ChatScreen({ route, navigation }) {
           }}
           style={styles.cahtUserImage}
         />
+        {console.log(languages,"languageslanguages", currentMessage?.user_type)}
         <View key={String(currentMessage?._id)} style={{
           ...styles.chatStyle,
           alignSelf: 'flex-start',
@@ -295,7 +296,7 @@ export default function ChatScreen({ route, navigation }) {
               fontFamily: fontFamily.medium,
               textTransform: 'capitalize',
               color: isDarkMode ? colors.white : colors.black,
-            }}>{currentMessage?.username || currentMessage?.phone_num} {`(${currentMessage?.user_type})`}</Text> : null}
+            }}>{currentMessage?.username || currentMessage?.phone_num} {languages?.primary_language?.id == 148 ? `(${getuserType(currentMessage?.user_type)})` :`(${currentMessage?.user_type})`}</Text> : null}
 
             <Text style={{
               ...styles.descText,

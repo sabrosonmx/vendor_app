@@ -562,6 +562,19 @@ const getTabBarVisibility = (route, navigation, screen) => {
   }
 };
 
+export function getuserType(type) {
+  let typeuser = type.toLowerCase()
+  console.log(typeuser, "dfjgndkjf");
+  switch (typeuser) {
+    case "user": return strings.USER
+    case "agent": return strings.AGENT
+    case "admin": return strings.ADMIN
+    case "vendor": return strings.VENDOR
+    default:
+      return type
+  }
+}
+
 export {
   showError,
   showSuccess,

@@ -319,13 +319,13 @@ export const notificationListener = async () => {
           'Notification caused app to open from quit state:',
           remoteMessage,
         );
-
+        
         if (!!data?.room_id) {
           setTimeout(() => {
             NavigationService.navigate(navigationStrings.CHAT_SCREEN, {
               data: {_id: data?.room_id, room_id: data?.room_id_text},
             });
-          }, 3000) }
+          }, 4000) }
 
         if (!!remoteMessage?.data && remoteMessage?.data?.redirect_type == "2") {
           if (remoteMessage?.data?.redirect_type_value == 'Subcategory') {

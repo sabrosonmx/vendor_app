@@ -1214,4 +1214,7 @@ EDIT_FOR_ALL:"Edit for all",
   CHAT_ROOM: 'Chat Room',
   PARTICIPANTS: 'Participants',
   TYPE_A_MESSAGE:'Type a message...',
+  USER:"User",
+  AGENT:"Agent",
+  ADMIN:"Admin",
 };
