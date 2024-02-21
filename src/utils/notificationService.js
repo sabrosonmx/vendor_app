@@ -8,6 +8,8 @@ import { getItem } from './utils';
 import { PERMISSIONS } from 'react-native-permissions';
 import { redirectFromNotification } from './helperFunctions';
 import * as NavigationService from '../navigation/NavigationService';
+import { onBackgroundNotification } from './BackgroundHandler';
+import notifee from '@notifee/react-native';
 
 export async function requestUserPermission(callback = () => { }) {
 
@@ -25,7 +27,7 @@ export async function requestUserPermission(callback = () => { }) {
           buttonNegative: 'Cancel',
           buttonPositive: 'OK',
         },
-        console.log(granted,"granted")
+        console.log(granted, "granted")
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log("here in enabled1")
@@ -44,7 +46,7 @@ export async function requestUserPermission(callback = () => { }) {
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
-      
+
       getFcmToken();
       callback(false);
     } else callback(true);
@@ -61,6 +63,18 @@ const getFcmToken = async () => {
       const fcmToken = await messaging().getToken();
       if (fcmToken) {
         console.log(fcmToken, 'the new genrated token');
+
+        await notifee.requestPermission();
+        // Create a channel (required for Android)
+        const channelId = await notifee.createChannel({
+          id: 'sound-channel-id',
+          name: 'Default Channel',
+          sound: 'notification',
+          vibration: true,
+          vibrationPattern: [300, 500],
+        });
+
+        // onBackgroundNotification()
         // user has a device token
         await AsyncStorage.setItem('fcmToken', fcmToken);
       }
@@ -240,7 +254,7 @@ export const notificationListener = async () => {
     if (!!data?.room_id) {
       setTimeout(() => {
         NavigationService.navigate(navigationStrings.CHAT_SCREEN, {
-          data: {_id: data?.room_id, room_id: data?.room_id_text},
+          data: { _id: data?.room_id, room_id: data?.room_id_text },
         });
 
       }, 1200);
@@ -249,21 +263,21 @@ export const notificationListener = async () => {
     if (!!remoteMessage?.data && remoteMessage?.data?.redirect_type == "2") {
       if (remoteMessage?.data?.redirect_type_value == 'Subcategory') {
         setTimeout(() => {
-          NavigationService.navigate(navigationStrings.VENDOR_DETAIL, {data: remoteMessage?.data?.redirect_data, fromNotification: true})
-       
+          NavigationService.navigate(navigationStrings.VENDOR_DETAIL, { data: remoteMessage?.data?.redirect_data, fromNotification: true })
+
         }, 1200);
       }
       else if (remoteMessage?.data?.redirect_type_value == 'Product') {
         setTimeout(() => {
           NavigationService.navigate(navigationStrings.PRODUCT_LIST,
-          {data: remoteMessage?.data?.redirect_data,}
-        )
-        
+            { data: remoteMessage?.data?.redirect_data, }
+          )
+
         }, 1200);
       }
       else if (remoteMessage?.data?.redirect_type_value == 'Vendor') {
         setTimeout(() => {
-          NavigationService.navigate(navigationStrings.VENDOR,{data: remoteMessage?.data?.redirect_data,},)
+          NavigationService.navigate(navigationStrings.VENDOR, { data: remoteMessage?.data?.redirect_data, },)
         }, 1200);
       }
     }
@@ -271,12 +285,12 @@ export const notificationListener = async () => {
     else if (!!remoteMessage?.data && remoteMessage?.data?.redirect_type == "3") {
 
       setTimeout(() => {
-        NavigationService.navigate( navigationStrings.PRODUCT_LIST,
-        {
-              data: remoteMessage?.data?.redirect_data, fromNotification: true,
-            },
-          )
-     
+        NavigationService.navigate(navigationStrings.PRODUCT_LIST,
+          {
+            data: remoteMessage?.data?.redirect_data, fromNotification: true,
+          },
+        )
+
       }, 1200);
 
     }
@@ -319,13 +333,14 @@ export const notificationListener = async () => {
           'Notification caused app to open from quit state:',
           remoteMessage,
         );
-        
+        console.log(data, 'remoteNotificaton data >>>');
         if (!!data?.room_id) {
           setTimeout(() => {
             NavigationService.navigate(navigationStrings.CHAT_SCREEN, {
-              data: {_id: data?.room_id, room_id: data?.room_id_text},
+              data: { _id: data?.room_id, room_id: data?.room_id_text },
             });
-          }, 4000) }
+          }, 4000)
+        }
 
         if (!!remoteMessage?.data && remoteMessage?.data?.redirect_type == "2") {
           if (remoteMessage?.data?.redirect_type_value == 'Subcategory') {
@@ -339,7 +354,7 @@ export const notificationListener = async () => {
                   },
                 },
               })
-             
+
             }, 1200);
           }
           else if (remoteMessage?.data?.redirect_type_value == 'Product') {
@@ -353,7 +368,7 @@ export const notificationListener = async () => {
                   },
                 },
               })
-          
+
             }, 1200);
           }
           else if (remoteMessage?.data?.redirect_type_value == 'Vendor') {
@@ -367,7 +382,7 @@ export const notificationListener = async () => {
                   },
                 },
               })
-            
+
             }, 1200);
           }
         }
@@ -384,7 +399,7 @@ export const notificationListener = async () => {
                 },
               },
             })
-           
+
           }, 1200);
 
         }
