@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import SunmiV2Printer from 'react-native-sunmi-v2-printer';
+import { isSunmiPrinterConnected, showError } from '../../../utils/helperFunctions';
 import {useSelector} from 'react-redux';
 import Header from '../../../Components/Header';
 import {loaderOne} from '../../../Components/Loaders/AnimatedLoaderFiles';
@@ -25,7 +25,7 @@ import {
   moderateScaleVertical,
   textScale,
 } from '../../../styles/responsiveSize';
-import {showError} from '../../../utils/helperFunctions';
+// import {showError} from '../../../utils/helperFunctions';
 import {getItem} from '../../../utils/utils';
 import stylesFunc from './styles';
 import _, {debounce, isEmpty} from 'lodash';
@@ -180,7 +180,8 @@ const RoyoOrder = (props) => {
   const _getBleDevice = async () => {
     if (Platform.OS == 'android') {
       const res = await getItem('BleDevice');
-      const sunmiPrinterAvail = await SunmiV2Printer.hasPrinter;
+      const sunmiPrinterAvail = await isSunmiPrinterConnected();
+      console.log(sunmiPrinterAvail,'sunmiPrinterAvailsunmiPrinterAvail')
       if (!!res || sunmiPrinterAvail) {
         updateState({
           isBleDevice: true,

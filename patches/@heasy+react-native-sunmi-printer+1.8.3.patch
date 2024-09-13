@@ -1,0 +1,643 @@
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build.gradle b/node_modules/@heasy/react-native-sunmi-printer/android/build.gradle
+index f76ee37..da1373a 100644
+--- a/node_modules/@heasy/react-native-sunmi-printer/android/build.gradle
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build.gradle
+@@ -55,5 +55,5 @@ repositories {
+ dependencies {
+   //noinspection GradleDynamicVersion
+   implementation "com.facebook.react:react-native:+"  // From node_modules
+-  implementation "com.sunmi:printerlibrary:1.0.13"
++  implementation "com.sunmi:printerlibrary:1.0.18"
+ }
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/3db79e190f13ece60695974dfa824527/results.bin b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/3db79e190f13ece60695974dfa824527/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/3db79e190f13ece60695974dfa824527/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/3db79e190f13ece60695974dfa824527/transformed/classes/classes_dex/classes.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/3db79e190f13ece60695974dfa824527/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..e1674fd
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/3db79e190f13ece60695974dfa824527/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/64e184f85bc9d341a8744786c160fb47/results.bin b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/64e184f85bc9d341a8744786c160fb47/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/64e184f85bc9d341a8744786c160fb47/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/64e184f85bc9d341a8744786c160fb47/transformed/classes/classes_dex/classes.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/64e184f85bc9d341a8744786c160fb47/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..350cba3
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/64e184f85bc9d341a8744786c160fb47/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/results.bin b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/results.bin
+new file mode 100644
+index 0000000..9e53e72
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/results.bin
+@@ -0,0 +1 @@
++o/release
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/desugar_graph.bin b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/desugar_graph.bin
+new file mode 100644
+index 0000000..844ee36
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/desugar_graph.bin differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/BuildConfig.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/BuildConfig.dex
+new file mode 100644
+index 0000000..20f29b1
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/BuildConfig.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/ESCUtil.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/ESCUtil.dex
+new file mode 100644
+index 0000000..2462029
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/ESCUtil.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule$1.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule$1.dex
+new file mode 100644
+index 0000000..26ad3e9
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule$1.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule$2.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule$2.dex
+new file mode 100644
+index 0000000..5da2b06
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule$2.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule.dex
+new file mode 100644
+index 0000000..2dd5b63
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterModule.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterPackage.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterPackage.dex
+new file mode 100644
+index 0000000..1893bfc
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiPrinterPackage.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule$1.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule$1.dex
+new file mode 100644
+index 0000000..1195820
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule$1.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule$2.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule$2.dex
+new file mode 100644
+index 0000000..452ba98
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule$2.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule.dex
+new file mode 100644
+index 0000000..b3c57cd
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/721cd67953496475ee4d6695627a3e0a/transformed/release/release_dex/com/reactnativesunmiprinter/SunmiScanModule.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/991de7f8110aded609e030b83372211f/results.bin b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/991de7f8110aded609e030b83372211f/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/991de7f8110aded609e030b83372211f/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/991de7f8110aded609e030b83372211f/transformed/classes/classes_dex/classes.dex b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/991de7f8110aded609e030b83372211f/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..c86e956
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/.transforms/991de7f8110aded609e030b83372211f/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/source/buildConfig/debug/com/reactnativesunmiprinter/BuildConfig.java b/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/source/buildConfig/debug/com/reactnativesunmiprinter/BuildConfig.java
+new file mode 100644
+index 0000000..99bdbd9
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/source/buildConfig/debug/com/reactnativesunmiprinter/BuildConfig.java
+@@ -0,0 +1,10 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package com.reactnativesunmiprinter;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = Boolean.parseBoolean("true");
++  public static final String LIBRARY_PACKAGE_NAME = "com.reactnativesunmiprinter";
++  public static final String BUILD_TYPE = "debug";
++}
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/source/buildConfig/release/com/reactnativesunmiprinter/BuildConfig.java b/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/source/buildConfig/release/com/reactnativesunmiprinter/BuildConfig.java
+new file mode 100644
+index 0000000..4055c89
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/source/buildConfig/release/com/reactnativesunmiprinter/BuildConfig.java
+@@ -0,0 +1,10 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package com.reactnativesunmiprinter;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = false;
++  public static final String LIBRARY_PACKAGE_NAME = "com.reactnativesunmiprinter";
++  public static final String BUILD_TYPE = "release";
++}
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..93ab18b
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.reactnativesunmiprinter" >
++
++    <uses-sdk android:minSdkVersion="23" />
++
++    <original-package android:name="woyou.aidlservice.jiuiv5" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json
+new file mode 100644
+index 0000000..c5fbbf7
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "com.reactnativesunmiprinter",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/release/aapt/AndroidManifest.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/release/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..93ab18b
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/release/aapt/AndroidManifest.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.reactnativesunmiprinter" >
++
++    <uses-sdk android:minSdkVersion="23" />
++
++    <original-package android:name="woyou.aidlservice.jiuiv5" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/release/aapt/output-metadata.json b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/release/aapt/output-metadata.json
+new file mode 100644
+index 0000000..15a4fd6
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aapt_friendly_merged_manifests/release/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "com.reactnativesunmiprinter",
++  "variantName": "release",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aar_metadata/debug/aar-metadata.properties b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aar_metadata/debug/aar-metadata.properties
+new file mode 100644
+index 0000000..1211b1e
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aar_metadata/debug/aar-metadata.properties
+@@ -0,0 +1,6 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
++coreLibraryDesugaringEnabled=false
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aar_metadata/release/aar-metadata.properties b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aar_metadata/release/aar-metadata.properties
+new file mode 100644
+index 0000000..1211b1e
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/aar_metadata/release/aar-metadata.properties
+@@ -0,0 +1,6 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
++coreLibraryDesugaringEnabled=false
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/annotation_processor_list/release/annotationProcessors.json b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/annotation_processor_list/release/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/annotation_processor_list/release/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_library_classes_jar/debug/classes.jar b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_library_classes_jar/debug/classes.jar
+new file mode 100644
+index 0000000..3aedd4b
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_library_classes_jar/debug/classes.jar differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_library_classes_jar/release/classes.jar b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_library_classes_jar/release/classes.jar
+new file mode 100644
+index 0000000..e643b20
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_library_classes_jar/release/classes.jar differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_r_class_jar/debug/R.jar b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_r_class_jar/debug/R.jar
+new file mode 100644
+index 0000000..e1a75a2
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_r_class_jar/debug/R.jar differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_r_class_jar/release/R.jar b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_r_class_jar/release/R.jar
+new file mode 100644
+index 0000000..e1a75a2
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_r_class_jar/release/R.jar differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_symbol_list/debug/R.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_symbol_list/debug/R.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_symbol_list/release/R.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/compile_symbol_list/release/R.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..a67ac86
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1 @@
++#Wed Jul 31 17:27:17 IST 2024
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..bf67dc3
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/res/resValues/debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..932aaed
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/debug/jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeDebugShaders/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+new file mode 100644
+index 0000000..b920d2c
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/debug/shaders"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..75986f3
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/jniLibs"/></dataSet><dataSet config="release" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/release/jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeReleaseShaders/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeReleaseShaders/merger.xml
+new file mode 100644
+index 0000000..e4756e7
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/mergeReleaseShaders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/shaders"/></dataSet><dataSet config="release" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/release/shaders"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/packageDebugAssets/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+new file mode 100644
+index 0000000..43e435a
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/debug/assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/shader_assets/debug/out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/packageReleaseAssets/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/packageReleaseAssets/merger.xml
+new file mode 100644
+index 0000000..cc4b251
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/packageReleaseAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/assets"/></dataSet><dataSet config="release" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/release/assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/shader_assets/release/out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/release/packageReleaseResources/compile-file-map.properties b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/release/packageReleaseResources/compile-file-map.properties
+new file mode 100644
+index 0000000..671cd28
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/release/packageReleaseResources/compile-file-map.properties
+@@ -0,0 +1 @@
++#Wed Jul 31 18:53:41 IST 2024
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/release/packageReleaseResources/merger.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/release/packageReleaseResources/merger.xml
+new file mode 100644
+index 0000000..cd00796
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/incremental/release/packageReleaseResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/release/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release" generated-set="release$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/release/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/res/resValues/release"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/build/generated/res/resValues/release"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/BuildConfig.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/BuildConfig.class
+new file mode 100644
+index 0000000..c471619
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/BuildConfig.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/ESCUtil.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/ESCUtil.class
+new file mode 100644
+index 0000000..1dc6fea
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/ESCUtil.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule$1.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule$1.class
+new file mode 100644
+index 0000000..036825d
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule$1.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule$2.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule$2.class
+new file mode 100644
+index 0000000..726f286
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule$2.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule.class
+new file mode 100644
+index 0000000..d147083
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterModule.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterPackage.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterPackage.class
+new file mode 100644
+index 0000000..af6d3b0
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiPrinterPackage.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule$1.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule$1.class
+new file mode 100644
+index 0000000..beab94f
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule$1.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule$2.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule$2.class
+new file mode 100644
+index 0000000..3cf04c5
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule$2.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule.class
+new file mode 100644
+index 0000000..39da6d4
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/debug/classes/com/reactnativesunmiprinter/SunmiScanModule.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/BuildConfig.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/BuildConfig.class
+new file mode 100644
+index 0000000..39c1a66
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/BuildConfig.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/ESCUtil.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/ESCUtil.class
+new file mode 100644
+index 0000000..1dc6fea
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/ESCUtil.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule$1.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule$1.class
+new file mode 100644
+index 0000000..036825d
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule$1.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule$2.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule$2.class
+new file mode 100644
+index 0000000..726f286
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule$2.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule.class
+new file mode 100644
+index 0000000..d147083
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterModule.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterPackage.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterPackage.class
+new file mode 100644
+index 0000000..af6d3b0
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiPrinterPackage.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule$1.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule$1.class
+new file mode 100644
+index 0000000..beab94f
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule$1.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule$2.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule$2.class
+new file mode 100644
+index 0000000..3cf04c5
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule$2.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule.class
+new file mode 100644
+index 0000000..39da6d4
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/javac/release/classes/com/reactnativesunmiprinter/SunmiScanModule.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/local_only_symbol_list/debug/R-def.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
+new file mode 100644
+index 0000000..78ac5b8
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
+@@ -0,0 +1,2 @@
++R_DEF: Internal format may change without notice
++local
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/local_only_symbol_list/release/R-def.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/local_only_symbol_list/release/R-def.txt
+new file mode 100644
+index 0000000..78ac5b8
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/local_only_symbol_list/release/R-def.txt
+@@ -0,0 +1,2 @@
++R_DEF: Internal format may change without notice
++local
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..3cbafb5
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,11 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="com.reactnativesunmiprinter" >
++4
++5    <uses-sdk android:minSdkVersion="23" />
++6
++7    <original-package android:name="woyou.aidlservice.jiuiv5" />
++7-->/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:5-64
++7-->/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:23-62
++8
++9</manifest>
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt
+new file mode 100644
+index 0000000..3cbafb5
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt
+@@ -0,0 +1,11 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="com.reactnativesunmiprinter" >
++4
++5    <uses-sdk android:minSdkVersion="23" />
++6
++7    <original-package android:name="woyou.aidlservice.jiuiv5" />
++7-->/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:5-64
++7-->/Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:23-62
++8
++9</manifest>
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml
+new file mode 100644
+index 0000000..93ab18b
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.reactnativesunmiprinter" >
++
++    <uses-sdk android:minSdkVersion="23" />
++
++    <original-package android:name="woyou.aidlservice.jiuiv5" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/merged_manifest/release/AndroidManifest.xml b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/merged_manifest/release/AndroidManifest.xml
+new file mode 100644
+index 0000000..93ab18b
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/merged_manifest/release/AndroidManifest.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.reactnativesunmiprinter" >
++
++    <uses-sdk android:minSdkVersion="23" />
++
++    <original-package android:name="woyou.aidlservice.jiuiv5" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/navigation_json/debug/navigation.json b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/navigation_json/debug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/navigation_json/debug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/navigation_json/release/navigation.json b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/navigation_json/release/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/navigation_json/release/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/BuildConfig.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/BuildConfig.class
+new file mode 100644
+index 0000000..39c1a66
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/BuildConfig.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/ESCUtil.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/ESCUtil.class
+new file mode 100644
+index 0000000..1dc6fea
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/ESCUtil.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule$1.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule$1.class
+new file mode 100644
+index 0000000..036825d
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule$1.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule$2.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule$2.class
+new file mode 100644
+index 0000000..726f286
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule$2.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule.class
+new file mode 100644
+index 0000000..d147083
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterModule.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterPackage.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterPackage.class
+new file mode 100644
+index 0000000..af6d3b0
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiPrinterPackage.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule$1.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule$1.class
+new file mode 100644
+index 0000000..beab94f
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule$1.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule$2.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule$2.class
+new file mode 100644
+index 0000000..3cf04c5
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule$2.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule.class b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule.class
+new file mode 100644
+index 0000000..39da6d4
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_dir/release/com/reactnativesunmiprinter/SunmiScanModule.class differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar
+new file mode 100644
+index 0000000..3df30f5
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_jar/release/classes.jar b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_jar/release/classes.jar
+new file mode 100644
+index 0000000..7db9295
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/runtime_library_classes_jar/release/classes.jar differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+new file mode 100644
+index 0000000..7f7fdca
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+@@ -0,0 +1 @@
++com.reactnativesunmiprinter
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/symbol_list_with_package_name/release/package-aware-r.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/symbol_list_with_package_name/release/package-aware-r.txt
+new file mode 100644
+index 0000000..7f7fdca
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/intermediates/symbol_list_with_package_name/release/package-aware-r.txt
+@@ -0,0 +1 @@
++com.reactnativesunmiprinter
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..b0cc242
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,21 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:1:1-4:12
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:1:1-4:12
++	package
++		ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:2:11-48
++		INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:1:11-69
++original-package
++ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:5-64
++	android:name
++		ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:23-62
++uses-sdk
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/outputs/logs/manifest-merger-release-report.txt b/node_modules/@heasy/react-native-sunmi-printer/android/build/outputs/logs/manifest-merger-release-report.txt
+new file mode 100644
+index 0000000..b0cc242
+--- /dev/null
++++ b/node_modules/@heasy/react-native-sunmi-printer/android/build/outputs/logs/manifest-merger-release-report.txt
+@@ -0,0 +1,21 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:1:1-4:12
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:1:1-4:12
++	package
++		ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:2:11-48
++		INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:1:11-69
++original-package
++ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:5-64
++	android:name
++		ADDED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml:3:23-62
++uses-sdk
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/yashchouhan/Desktop/codebrew/royo_vendor_reactnative_copy/node_modules/@heasy/react-native-sunmi-printer/android/src/main/AndroidManifest.xml
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/@heasy/react-native-sunmi-printer/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+new file mode 100644
+index 0000000..311f896
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
+diff --git a/node_modules/@heasy/react-native-sunmi-printer/android/build/tmp/compileReleaseJavaWithJavac/previous-compilation-data.bin b/node_modules/@heasy/react-native-sunmi-printer/android/build/tmp/compileReleaseJavaWithJavac/previous-compilation-data.bin
+new file mode 100644
+index 0000000..3f8947b
+Binary files /dev/null and b/node_modules/@heasy/react-native-sunmi-printer/android/build/tmp/compileReleaseJavaWithJavac/previous-compilation-data.bin differ

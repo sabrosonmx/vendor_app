@@ -8,6 +8,7 @@ import {StartPrinting} from './src/Screens/PrinterConnection/PrinteFunc';
 import actions from './src/redux/actions';
 import { navigate } from './src/navigation/NavigationService';
 
+
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   const {data, notification} = remoteMessage;

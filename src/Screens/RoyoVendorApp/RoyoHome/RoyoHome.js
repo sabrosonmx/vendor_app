@@ -138,12 +138,19 @@ const RoyoHome = (props) => {
   }, []);
 
 
-  useEffect(async () => {
-     let userData =  await  getUserData()
+  
+  const getUserData = async () => {
+    let userData =  await  getUserData()
      console.log(userData,'userDatauserData>>>>');
     if (!!userData?.auth_token && !!appData?.profile?.socket_url) {
         socketServices.initializeSocket(appData?.profile?.socket_url);
     }
+
+  }
+
+
+  useEffect(() => {
+    getUserData()
 }, [appData]);
 
   useEffect(() => {

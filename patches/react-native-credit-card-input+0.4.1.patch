@@ -1,0 +1,73 @@
+diff --git a/node_modules/react-native-credit-card-input/src/CCInput.js b/node_modules/react-native-credit-card-input/src/CCInput.js
+index dde3aec..8f3b166 100644
+--- a/node_modules/react-native-credit-card-input/src/CCInput.js
++++ b/node_modules/react-native-credit-card-input/src/CCInput.js
+@@ -6,9 +6,8 @@ import {
+   TextInput,
+   TouchableOpacity,
+   StyleSheet,
+-  ViewPropTypes,
+ } from "react-native";
+-
++import { ViewPropTypes,TextPropTypes } from 'deprecated-react-native-prop-types';
+ const s = StyleSheet.create({
+   baseInputStyle: {
+     color: "black",
+@@ -26,8 +25,8 @@ export default class CCInput extends Component {
+     status: PropTypes.oneOf(["valid", "invalid", "incomplete"]),
+ 
+     containerStyle: ViewPropTypes.style,
+-    inputStyle: Text.propTypes.style,
+-    labelStyle: Text.propTypes.style,
++    inputStyle: TextPropTypes.style,
++    labelStyle: TextPropTypes.style,
+     validColor: PropTypes.string,
+     invalidColor: PropTypes.string,
+     placeholderColor: PropTypes.string,
+diff --git a/node_modules/react-native-credit-card-input/src/CreditCardInput.js b/node_modules/react-native-credit-card-input/src/CreditCardInput.js
+index 44f43c8..b3e3a4b 100644
+--- a/node_modules/react-native-credit-card-input/src/CreditCardInput.js
++++ b/node_modules/react-native-credit-card-input/src/CreditCardInput.js
+@@ -8,8 +8,8 @@ import ReactNative, {
+   ScrollView,
+   Dimensions,
+   TextInput,
+-  ViewPropTypes,
+ } from "react-native";
++import { ViewPropTypes,TextPropTypes } from 'deprecated-react-native-prop-types';
+ 
+ import CreditCard from "./CardView";
+ import CCInput from "./CCInput";
+@@ -48,8 +48,8 @@ export default class CreditCardInput extends Component {
+     labels: PropTypes.object,
+     placeholders: PropTypes.object,
+ 
+-    labelStyle: Text.propTypes.style,
+-    inputStyle: Text.propTypes.style,
++    labelStyle: TextPropTypes.style,
++    inputStyle: TextPropTypes.style,
+     inputContainerStyle: ViewPropTypes.style,
+ 
+     validColor: PropTypes.string,
+diff --git a/node_modules/react-native-credit-card-input/src/LiteCreditCardInput.js b/node_modules/react-native-credit-card-input/src/LiteCreditCardInput.js
+index a5f166b..6c78f77 100644
+--- a/node_modules/react-native-credit-card-input/src/LiteCreditCardInput.js
++++ b/node_modules/react-native-credit-card-input/src/LiteCreditCardInput.js
+@@ -13,7 +13,7 @@ import {
+ import Icons from "./Icons";
+ import CCInput from "./CCInput";
+ import { InjectedProps } from "./connectToState";
+-
++import {TextPropTypes} from 'deprecated-react-native-prop-types'
+ const INFINITE_WIDTH = 1000;
+ 
+ const s = StyleSheet.create({
+@@ -72,7 +72,7 @@ export default class LiteCreditCardInput extends Component {
+ 
+     placeholders: PropTypes.object,
+ 
+-    inputStyle: Text.propTypes.style,
++    inputStyle: TextPropTypes.style,
+ 
+     validColor: PropTypes.string,
+     invalidColor: PropTypes.string,

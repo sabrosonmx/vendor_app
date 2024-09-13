@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Modal, ViewPropTypes, Text} from 'react-native';
+import {StyleSheet, View, Modal, Text} from 'react-native';
+import {ViewPropTypes} from 'deprecated-react-native-prop-types'
 import PropTypes from 'prop-types';
 import LottieAnimation from 'lottie-react-native';
 import {defaultLoader} from './Loaders/AnimatedLoaderFiles';

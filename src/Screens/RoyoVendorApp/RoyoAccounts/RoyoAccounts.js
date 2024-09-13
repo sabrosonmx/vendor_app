@@ -1,13 +1,20 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import Header from '../../../Components/Header';
-import { loaderOne } from '../../../Components/Loaders/AnimatedLoaderFiles';
+import {loaderOne} from '../../../Components/Loaders/AnimatedLoaderFiles';
 import WrapperContainer from '../../../Components/WrapperContainer';
 import imagePath from '../../../constants/imagePath';
 import strings from '../../../constants/lang';
-import { resetStackAndNavigate } from '../../../navigation/NavigationService';
+import {resetStackAndNavigate} from '../../../navigation/NavigationService';
 import navigationStrings from '../../../navigation/navigationStrings';
 import actions from '../../../redux/actions';
 import colors from '../../../styles/colors';
@@ -18,13 +25,13 @@ import ListItemHorizontal from '../../../Components/ListItemHorizontalWithImage'
 import {
   moderateScale,
   moderateScaleVertical,
-  textScale
+  textScale,
 } from '../../../styles/responsiveSize';
-import { showError } from '../../../utils/helperFunctions';
-import { API_BASE_URL } from '../../../config/urls';
+import {showError} from '../../../utils/helperFunctions';
+import {API_BASE_URL} from '../../../config/urls';
 
-const RoyoAccounts = (props) => {
-  const { navigation } = props;
+const RoyoAccounts = props => {
+  const {navigation} = props;
 
   const [state, setState] = useState({
     selectedVendor: null,
@@ -34,20 +41,20 @@ const RoyoAccounts = (props) => {
     vendorDetail: {},
   });
 
-  const { selectedVendor, vendor_list, isLoading, isRefreshing, vendorDetail } =
+  const {selectedVendor, vendor_list, isLoading, isRefreshing, vendorDetail} =
     state;
   const [allVendors, setAllVendors] = useState([]);
-  const { appData, currencies, languages } = useSelector(
-    (state) => state?.initBoot,
+  const {appData, currencies, languages} = useSelector(
+    state => state?.initBoot,
   );
   let businessType = appData?.profile?.preferences?.business_type || null;
 
-  const userData = useSelector((state) => state.auth.userData);
+  const userData = useSelector(state => state.auth.userData);
 
-  const appMainData = useSelector((state) => state?.home?.appMainData);
-  const updateState = (data) => setState((state) => ({ ...state, ...data }));
+  const appMainData = useSelector(state => state?.home?.appMainData);
+  const updateState = data => setState(state => ({...state, ...data}));
 
-  const { storeSelectedVendor } = useSelector((state) => state?.order);
+  const {storeSelectedVendor} = useSelector(state => state?.order);
   useEffect(() => {
     updateState({
       selectedVendor: storeSelectedVendor,
@@ -60,7 +67,7 @@ const RoyoAccounts = (props) => {
   }, []);
   useEffect(() => {
     console.log('check selectedVendor', selectedVendor);
-    updateState({ isLoading: false });
+    updateState({isLoading: false});
     _getVendorProfile(selectedVendor);
   }, [selectedVendor]);
 
@@ -68,8 +75,8 @@ const RoyoAccounts = (props) => {
     let vendordId = !!storeSelectedVendor?.id
       ? storeSelectedVendor?.id
       : selectedVendor?.id
-        ? selectedVendor?.id
-        : '';
+      ? selectedVendor?.id
+      : '';
     console.log('res__getRevnueData>>>profile>>account', vendordId);
     let data = {};
     data['vendor_id'] = vendordId;
@@ -83,7 +90,7 @@ const RoyoAccounts = (props) => {
         currency: currencies?.primary_currency?.id,
         language: languages?.primary_language?.id,
       })
-      .then((res) => {
+      .then(res => {
         console.log(res, 'res__getRevnueData>>>profile>>account');
 
         updateState({
@@ -134,7 +141,7 @@ const RoyoAccounts = (props) => {
       );
       console.log('delete user account res', res);
       actions.userLogout();
-      resetStackAndNavigate(navigation, navigationStrings.LOGIN)
+      resetStackAndNavigate(navigation, navigationStrings.LOGIN);
       actions.cartItemQty('');
       actions.saveAddress('');
       actions.addSearchResults('clear');
@@ -159,21 +166,25 @@ const RoyoAccounts = (props) => {
             await actions.userLogout();
             actions.cartItemQty('');
             // navigation.navigate(navigationStrings.LOGIN);
-            resetStackAndNavigate(navigation, navigationStrings.LOGIN);
+            setTimeout(() => {
+              resetStackAndNavigate(navigation, navigationStrings.LOGIN);
+            }, 1000);
           },
         },
       ]);
     } else {
       // navigation.navigate(navigationStrings.LOGIN);
-      resetStackAndNavigate(navigation, navigationStrings.LOGIN);
+      setTimeout(() => {
+        resetStackAndNavigate(navigation, navigationStrings.LOGIN);
+      }, 1000);
     }
   };
   const _getListOfVendor = () => {
     let vendordId = !!storeSelectedVendor?.id
       ? storeSelectedVendor?.id
       : selectedVendor?.id
-        ? selectedVendor?.id
-        : '';
+      ? selectedVendor?.id
+      : '';
     actions
       ._getListOfVendorOrders(
         `?limit=${1}&page=${1}&selected_vendor_id=${vendordId}`,
@@ -184,29 +195,28 @@ const RoyoAccounts = (props) => {
           language: languages?.primary_language?.id,
         },
       )
-      .then((res) => {
+      .then(res => {
         console.log('vendor orders res', res);
         updateState({
           vendor_list: res.data.vendor_list,
           selectedVendor: !!storeSelectedVendor?.id
             ? storeSelectedVendor
-            : res.data.vendor_list.find((x) => x.is_selected),
+            : res.data.vendor_list.find(x => x.is_selected),
           isLoading: false,
           isRefreshing: false,
         });
       })
       .catch(errorMethod);
   };
-  const errorMethod = (error) => {
-    updateState({ isLoading: false, isRefreshing: false });
+  const errorMethod = error => {
+    updateState({isLoading: false, isRefreshing: false});
     showError(error?.message || error?.error);
   };
   const data = [
     appData?.profile?.preferences?.off_scheduling_at_cart != 1 && {
       text: strings.VENDOR_SCHEDULING,
       image: imagePath.time,
-      onPress: () =>
-        navigation.navigate(navigationStrings.VENDOR_SCHEDULING),
+      onPress: () => navigation.navigate(navigationStrings.VENDOR_SCHEDULING),
     },
     {
       text: strings.TRANSACTIONS,
@@ -217,8 +227,7 @@ const RoyoAccounts = (props) => {
     {
       text: strings.LANGUAGES,
       image: imagePath.settings,
-      onPress: () =>
-        navigation.navigate(navigationStrings.SETTIGS),
+      onPress: () => navigation.navigate(navigationStrings.SETTIGS),
     },
     businessType == 'laundry' && {
       text: strings.SCAN_QR,
@@ -234,9 +243,7 @@ const RoyoAccounts = (props) => {
       image: imagePath.signoutRoyo,
       onPress: userlogout,
     },
-
   ];
-
 
   const updateVendorProfile = () => {
     console.log(vendorDetail?.show_slot, 'vendorDetail?.show_slot');
@@ -245,19 +252,22 @@ const RoyoAccounts = (props) => {
     });
     let data = {
       vendor_id: vendorDetail?.id,
-      is_available: !!vendorDetail?.is_available ? 0 : 1
-    }
+      is_available: !!vendorDetail?.is_available ? 0 : 1,
+    };
     actions
-      .updateVendorProfile(
-        data,
-        {
-          code: appData?.profile?.code,
-          currency: currencies?.primary_currency?.id,
-          language: languages?.primary_language?.id,
-        },
-      )
+      .updateVendorProfile(data, {
+        code: appData?.profile?.code,
+        currency: currencies?.primary_currency?.id,
+        language: languages?.primary_language?.id,
+      })
       .then(res => {
-        console.log('updateVendorProfile', res, 'res', vendorDetail?.show_slot, data);
+        console.log(
+          'updateVendorProfile',
+          res,
+          'res',
+          vendorDetail?.show_slot,
+          data,
+        );
         updateState({
           isRefreshing: false,
           isLoading: false,
@@ -270,7 +280,6 @@ const RoyoAccounts = (props) => {
   };
 
   // functions chat **********************
-
 
   //Share your app
 
@@ -300,16 +309,15 @@ const RoyoAccounts = (props) => {
     }
   };
 
-  const goToChatRoom = (type) => {
-
-    console.log(type, 'sdfsdf',);
+  const goToChatRoom = type => {
+    console.log(type, 'sdfsdf');
     if (!!appMainData?.is_admin && type == 'vendor_chat') {
       navigation.navigate(navigationStrings.CHAT_ROOM, {
         type: type,
         allVendors: allVendors,
       });
     } else {
-      navigation.navigate(navigationStrings.CHAT_ROOM, { type: type });
+      navigation.navigate(navigationStrings.CHAT_ROOM, {type: type});
     }
   };
 
@@ -319,8 +327,6 @@ const RoyoAccounts = (props) => {
     });
   }, []);
 
-
-
   return (
     <WrapperContainer
       bgColor="white"
@@ -329,7 +335,7 @@ const RoyoAccounts = (props) => {
       statusBarColor="white"
       barStyle="dark-content">
       <Header
-        headerStyle={{ marginVertical: moderateScaleVertical(16) }}
+        headerStyle={{marginVertical: moderateScaleVertical(16)}}
         // centerTitle="Accounts | Foodies hub  "
         centerTitle={`${strings.ACCOUNT}| ${selectedVendor?.name} `}
         noLeftIcon
@@ -365,9 +371,9 @@ const RoyoAccounts = (props) => {
               <Text style={styles.addLogo}>{strings.ADD_LOGO}</Text>
             </View>
           )}
-          <View style={{ flex: 1, justifyContent: 'center' }}>
+          <View style={{flex: 1, justifyContent: 'center'}}>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text style={styles.font16Semibold}>{selectedVendor?.name}</Text>
               <TouchableOpacity
                 activeOpacity={0.9}
@@ -378,8 +384,8 @@ const RoyoAccounts = (props) => {
                       ? imagePath.icToggleon
                       : imagePath.icToggleoff
                   }
-                  resizeMode='contain'
-                  style={{ height: moderateScale(30), width: moderateScale(30) }}
+                  resizeMode="contain"
+                  style={{height: moderateScale(30), width: moderateScale(30)}}
                 />
               </TouchableOpacity>
             </View>
@@ -394,9 +400,9 @@ const RoyoAccounts = (props) => {
           </View>
           {/* <Image style={{alignSelf: 'center'}} source={imagePath.edit1Royo} /> */}
         </View>
-        <View style={{ marginTop: moderateScaleVertical(22) }}>
+        <View style={{marginTop: moderateScaleVertical(22)}}>
           {data.map((val, index) => {
-            if (index == data?.length -2) {
+            if (index == data?.length - 2) {
               return (
                 <>
                   {/* {!!userData?.auth_token && !!appData?.profile?.socket_url && (
@@ -413,17 +419,20 @@ const RoyoAccounts = (props) => {
 
                   {!!userData?.auth_token && !!appData?.profile?.socket_url && (
                     <ListItemHorizontal
-                      centerContainerStyle={{ flexDirection: 'row' }}
-                      leftIconStyle={{ flex: 0.1, alignItems: 'center' }}
+                      centerContainerStyle={{flexDirection: 'row'}}
+                      leftIconStyle={{flex: 0.1, alignItems: 'center'}}
                       onPress={() => goToChatRoom('vendor_chat')}
                       iconLeft={imagePath.icVendorChat}
                       centerHeading={strings.USER_CHAT}
                       containerStyle={styles.containerStyle2}
-                      centerHeadingStyle={{...styles.font15Semibold,  marginLeft: moderateScale(-16),}}
+                      centerHeadingStyle={{
+                        ...styles.font15Semibold,
+                        marginLeft: moderateScale(-16),
+                      }}
                     />
                   )}
                 </>
-              )
+              );
             }
             return (
               <TouchableOpacity
@@ -446,7 +455,6 @@ const RoyoAccounts = (props) => {
               </TouchableOpacity>
             );
           })}
-
 
           {/* chat screen options below **************************************** */}
 
@@ -487,9 +495,7 @@ const RoyoAccounts = (props) => {
               />
             )} */}
 
-
           {/* chat screen options till here  ***************************** */}
-
         </View>
         <View
           style={{

@@ -7,13 +7,9 @@ include ':react-native-splash-screen'
 project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
 include ':react-native-restart'
 project(':react-native-restart').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-restart/android')
-include ':@hariks789_react-native-background-geolocation-common'
-project(':@hariks789_react-native-background-geolocation-common').projectDir = new File(rootProject.projectDir, '../node_modules/@hariks789/react-native-background-geolocation/android/common')
-include ':@hariks789_react-native-background-geolocation'
-project(':@hariks789_react-native-background-geolocation').projectDir = new File(rootProject.projectDir, '../node_modules/@hariks789/react-native-background-geolocation/android/lib')
-// include ':react-native-charts-wrapper'
-// project(':react-native-charts-wrapper').projectDir = new File(rootProject.projectDir,'../node_modules/react-native-charts-wrapper/android'
-// )
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app', ':react-native-code-push'
 project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')
+include ':react-native-bluetooth-escpos-printer'
+project(':react-native-bluetooth-escpos-printer').projectDir = new File(rootProject.projectDir, '../node_modules/@brooons/react-native-bluetooth-escpos-printer/android')
+includeBuild('../node_modules/@react-native/gradle-plugin')

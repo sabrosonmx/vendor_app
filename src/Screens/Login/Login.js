@@ -521,9 +521,7 @@ export default function Login({ navigation }) {
       }
     }
   };
-  useEffect(() => {
-    // getListOfAllCmsLinks()
-  }, [])
+
   const getListOfAllCmsLinks = () => {
     actions
       .getListOfAllCmsLinks(
