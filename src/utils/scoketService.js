@@ -6,65 +6,92 @@ class WSService {
             this.socket = io(socketUrl, {
                 transports: ['websocket'],
             });
-            console.log('initializing socket', this.socket);
-            this.socket.on('connect', (data) => {
-                console.log('===== socket connected =====');
-                console.log(data)
-            });
-    
-            this.socket.on('disconnect', () => {
-                console.log('socket disconnected', this.socket);
-            });
 
-            this.socket.on('destroy', () => {
-                console.log('socket destroy', this.socket);
-            });
+            // Log the socket instance to verify initialization
+            console.log('Socket initialized:', this.socket);
 
-            this.socket.on('socketError', (err) => {
-                console.log('socket connection error: ', err);
-                // logger.data('socket connection error: ', err);
-            });
-            this.socket.on("parameterError", () => {
-                console.log('socket connection error: ', err);
-            })
-            this.socket.on('error', (error) => {
-                console.log(error, 'thea data');
-            });
+            if (this.socket) {
+                this.socket.on('connect', (data) => {
+                    console.log('===== Socket connected =====');
+                    console.log(data);
+                });
+
+                this.socket.on('disconnect', () => {
+                    console.log('Socket disconnected:', this.socket);
+                });
+
+                this.socket.on('destroy', () => {
+                    console.log('Socket destroyed:', this.socket);
+                });
+
+                this.socket.on('socketError', (err) => {
+                    console.log('Socket connection error: ', err);
+                });
+
+                this.socket.on("parameterError", (err) => {
+                    console.log('Socket connection error: ', err);
+                });
+
+                this.socket.on('error', (error) => {
+                    console.log('Socket error:', error);
+                });
+            } else {
+                console.log('Socket is not initialized correctly.');
+            }
 
         } catch (error) {
-            // logger.error('initialize token error: ', error);
-            console.log(error, 'hter tereo');
+            console.log('Error initializing socket:', error);
         }
     };
 
     emit(event, data = {}) {
-        this.socket.emit(event, data);
+        if (this.socket) {
+            this.socket.emit(event, data);
+        } else {
+            console.error('Cannot emit, socket is not initialized.');
+        }
     }
 
     on(event, cb) {
-        this.socket.on(event, cb);
+        if (this.socket) {
+            this.socket.on(event, cb);
+        } else {
+            console.error('Cannot attach listener, socket is not initialized.');
+        }
     }
-
 
     removeListener(listenerName) {
-        this.socket.removeListener(listenerName);
-    }
-
-    addEventListener(listenerName) {
-        this.socket.addEventListener(listenerName);
+        if (this.socket) {
+            this.socket.removeListener(listenerName);
+        } else {
+            console.error('Cannot remove listener, socket is not initialized.');
+        }
     }
 
     disconnectSocket() {
-        this.socket.disconnect();
+        if (this.socket) {
+            this.socket.disconnect();
+        } else {
+            console.error('Cannot disconnect, socket is not initialized.');
+        }
     }
 
     destroySocket() {
-        this.socket.destroy();
+        if (this.socket) {
+            this.socket.destroy();
+        } else {
+            console.error('Cannot destroy, socket is not initialized.');
+        }
     }
-    hasListeners(){
-        return this.socket.hasListeners()
+
+    hasListeners() {
+        if (this.socket) {
+            return this.socket.hasListeners();
+        } else {
+            console.error('Cannot check listeners, socket is not initialized.');
+            return false;
+        }
     }
-    
 }
 
 const socketServices = new WSService();
