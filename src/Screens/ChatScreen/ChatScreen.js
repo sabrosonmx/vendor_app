@@ -52,6 +52,8 @@ export default function ChatScreen({ route, navigation }) {
 
   const isFocused = useIsFocused();
 
+  
+
 
 
   useFocusEffect(
@@ -89,6 +91,8 @@ export default function ChatScreen({ route, navigation }) {
       fetchAllMessages()
     }
   }, [])
+
+ 
 
   const fetchAllMessages = useCallback(async () => {
     try {
@@ -151,7 +155,7 @@ export default function ChatScreen({ route, navigation }) {
       roomId: id,
       roomIdText: paramData?.room_id,
       text_message: text,
-      chat_type: paramData?.type,
+      chat_type: "vendor_to_user",
     }
     console.log("sending api data", apiData)
     try {
@@ -165,6 +169,48 @@ export default function ChatScreen({ route, navigation }) {
       console.log('error raised in sendToUserNotification api', error)
     }
   }
+
+  // const sendToUserNotification = (id, text) => {
+  //   let notificaionAgentIds =
+  //     allAgentIds.length == 0
+  //       ? [{ auth_user_id: !!paramData?.agent_id ? paramData?.agent_id : '' }]
+  //       : allAgentIds;
+
+  //   let apiData = {
+  //     user_ids:
+  //       allRoomUsersAppartFromAgent.length == 0
+  //         ? [{ auth_user_id: paramData?.vendor_id }]
+  //         : allRoomUsersAppartFromAgent,
+  //     roomId: id,
+  //     roomIdText: paramData?.room_id,
+  //     text_message: text,
+  //     chat_type: "vendor_to_user" ,
+  //     order_id: paramData?.order_id ,
+  //     all_agentids: notificaionAgentIds,
+  //     // all_agentids:
+  //     //   allAgentIds.length == 0
+  //     //     ? [{auth_user_id: !!paramData?.agent_id ? paramData?.agent_id : ''}]
+  //     //     : (allAgentIds.length > 1 && paramData?.type == "agent_to_user") ,
+  //     order_vendor_id: paramData?.order_vendor_id || roomUsers[0]?.order_vendor_id,
+  //     username: userData?.name,
+  //     vendor_id: paramData?.vendor_id || roomUsers[0]?.vendor_id,
+  //     auth_id: userData?.id,
+  //     web: false,
+  //   };
+  //   console.log(apiData,"apiDataapiDatasending to chat");
+  //   actions
+  //     .sendNotification(apiData, {
+  //       code: appData?.profile?.code,
+  //       currency: currencies?.primary_currency?.id,
+  //       language: languages?.primary_language?.id,
+  //     })
+  //     .then(res => {
+  //       console.log(res, 'response+++++', apiData);
+  //     })
+  //     .catch(error => {
+  //       console.log(error, 'errororr in notification');
+  //     });
+  // };
 
   const onSend = useCallback(async (messages = []) => {
     if (String(messages[0].text).trim().length < 1) {
