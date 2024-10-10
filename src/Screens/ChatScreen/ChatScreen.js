@@ -23,6 +23,7 @@ import { cameraHandler, getSubDomain } from '../../utils/commonFunction';
 import Voice from '@react-native-voice/voice';
 import { androidCameraPermission } from '../../utils/permissions';
 import strings from '../../constants/lang';
+import { getUserData } from '../../utils/utils';
 
 
 export default function ChatScreen({ route, navigation }) {
@@ -54,6 +55,20 @@ export default function ChatScreen({ route, navigation }) {
 
   
 
+  const getUserDataFromAsyn = async () => {
+    let userData =  await getUserData()
+     console.log(userData,'userDatauserData>>>>', socketServices.socket?.connected);
+     if (!!userData?.auth_token && !!appData?.profile?.socket_url && !socketServices.socket?.connected) {
+        socketServices.initializeSocket(appData?.profile?.socket_url);
+    }
+
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      getUserDataFromAsyn()
+    }, [ appData])
+  );
 
 
   useFocusEffect(

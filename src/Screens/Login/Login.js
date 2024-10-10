@@ -53,9 +53,7 @@ export default function Login({ navigation }) {
   const navigation_ = useNavigation();
   const { appData, themeColors, currencies, languages, appStyle } = useSelector(
     (state) => state?.initBoot );
-  const { apple_login, fb_login, twitter_login, google_login } = useSelector(
-    (state) => state?.initBoot?.appData?.profile?.preferences,
-  );
+ 
   const theme = useSelector((state) => state?.initBoot?.themeColor);
   const toggleTheme = useSelector((state) => state?.initBoot?.themeToggle);
   const darkthemeusingDevice = useDarkMode();

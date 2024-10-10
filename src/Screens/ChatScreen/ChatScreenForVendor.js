@@ -107,6 +107,7 @@ export default function ChatScreenForVendor({ route, navigation }) {
     }, [])
 
     const onSend = useCallback(async (messages = []) => {
+    
         if (String(messages[0].text).trim().length < 1) {
             return;
         }
