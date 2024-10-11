@@ -244,7 +244,7 @@ const RoyoOrder = (props) => {
     data['order_id'] = acceptRejectData?.id;
     data['vendor_id'] = storeSelectedVendor?.id;
     data['order_status_option_id'] = status;
-
+    console.log(data,"data>>>>>>Resppp");
     updateState({isLoadingB: true});
     actions
       .updateOrderStatus(data, {

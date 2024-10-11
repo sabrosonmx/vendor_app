@@ -73,7 +73,7 @@ export default function Login({ navigation }) {
     },
     mobilNo: {
       phoneNo: '',
-      callingCode: !!appData?.profile.country?.phonecode
+      callingCode: !!appData?.profile?.country?.phonecode
         ? appData?.profile?.country?.phonecode
         : '91',
       cca2: !!appData?.profile?.country?.code

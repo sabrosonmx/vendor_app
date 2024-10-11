@@ -15,6 +15,7 @@ import navigationStrings from '../navigation/navigationStrings';
 
 
 const ForegroundHandler = (props) => {
+ 
   useEffect(() => {
     return notifee.onForegroundEvent(({ type, detail }) => {
       let { data } = detail?.notification || {}
@@ -129,12 +130,15 @@ const ForegroundHandler = (props) => {
         notification.android.sound == 'notification' &&
         data.type != 'reached_location'
       ) {
+       
+        console.log("okiii>>>>");
+     
         actions.isVendorNotification(true);
         actions.refreshNotification(messageId);
         const { data } = remoteMessage.data;
         let _data = JSON.parse(data);
         if (_data.vendors[0].vendor.auto_accept_order == 1) {
-          StartPrinting(_data);
+          // StartPrinting(_data);
         }
       }
 

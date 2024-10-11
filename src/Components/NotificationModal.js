@@ -59,7 +59,7 @@ const NotificationModal = () => {
     reason,
     rejectedOrder,
   } = state;
-  console.log(rejectedOrder, 'reasonreason');
+  console.log(rejectedOrder, 'reasonreason',pendingNotifications);
   //update state
   const updateState = (data) => setState((state) => ({...state, ...data}));
 
@@ -116,6 +116,7 @@ const NotificationModal = () => {
   });
 
   const updateOrderStatus = (acceptRejectData, status, rejectReasonText) => {
+    actions.isVendorNotification(false);
     const {vendors} = acceptRejectData;
     console.log(
       'accept rejecte data',
@@ -145,11 +146,11 @@ const NotificationModal = () => {
         // systemuser: DeviceInfo.getUniqueId(),
       })
       .then((res) => {
-        console.log(res, 'res>>>acceptRejectOrder');
+        console.log(res, 'res>>>acceptRejectOrder', status);
         if (res && res.status == 'success') {
-          if (status == 7) {
-            StartPrinting({id: acceptRejectData?.id});
-          }
+          // if (status == 7) {
+          //   StartPrinting({id: acceptRejectData?.id});
+          // }
           updateLocalStatus(res, acceptRejectData);
           return;
         }
@@ -164,6 +165,7 @@ const NotificationModal = () => {
 
   const errorMethod = (error) => {
     console.log(error, 'error');
+    actions.isVendorNotification(false);
     updateState({
       isRefreshing: false,
       acceptLoader: false,
@@ -174,6 +176,7 @@ const NotificationModal = () => {
   };
 
   const updateLocalStatus = (res, acceptRejectData) => {
+    actions.isVendorNotification(false);
     let clonedArrayOrderList = cloneDeep(pendingNotifications);
     let updateOrders = clonedArrayOrderList.filter((i, inx) => {
       if (i?.id !== acceptRejectData?.id) {
@@ -181,7 +184,6 @@ const NotificationModal = () => {
       }
     });
     actions.pendingNotifications(updateOrders);
-    actions.isVendorNotification(false);
     updateState({
       acceptLoader: false,
       rejectLoader: false,
@@ -228,6 +230,8 @@ const NotificationModal = () => {
   const onclose = () => {
     actions.isVendorNotification(false);
   };
+
+  console.log(pendingNotifications,"sadfksj",isVendorNotification )
   return (
     <Modal
       isVisible={!!pendingNotifications.length && isVendorNotification}

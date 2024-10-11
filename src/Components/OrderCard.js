@@ -48,7 +48,7 @@ const OrderCard = (props) => {
               marginLeft: moderateScale(10),
               height: moderateScaleVertical(25),
             }}
-            onPress={() => StartPrinting({ id: item?.id })}
+            // onPress={() => StartPrinting({ id: item?.id })}
           />
           {/* <TouchableOpacity
                   onPress={() => StartPrinting({id: item?.id})}
