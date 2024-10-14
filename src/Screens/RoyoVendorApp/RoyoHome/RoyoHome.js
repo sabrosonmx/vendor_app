@@ -68,7 +68,8 @@ const RoyoHome = (props) => {
   const {appData, currencies, languages} = useSelector(
     (state) => state.initBoot
   );
-
+  const userData = useSelector((state) => state?.auth?.userData);
+  
   const [state, setState] = useState({
     pageActive: 1,
     limit: 10,
@@ -189,8 +190,10 @@ const RoyoHome = (props) => {
 
   useEffect(() => {
     const apiInterval = setInterval(() => {
-      availVendorCount(currentVendor?.id);
-      getAllVendorOrder(currentVendor?.id);
+      if ( !isEmpty(userData) && !!userData?.auth_token ) {
+        availVendorCount(currentVendor?.id);
+        getAllVendorOrder(currentVendor?.id);
+       }
     }, 5000);
     return () => {
       clearInterval(apiInterval);

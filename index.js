@@ -27,6 +27,8 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     if (_data.vendors[0].vendor.auto_accept_order == 1) {
       // StartPrinting(_data);
     } else {
+      let _data = JSON.parse(data.data);
+      actions.newVendorOrder(_data?.id)
       actions.isVendorNotification(true);
     }
   }
@@ -42,6 +44,8 @@ messaging().getInitialNotification(async (remoteMessage) => {
     if (_data.vendors[0].vendor.auto_accept_order == 1) {
       // StartPrinting(_data);
     } else {
+      let _data = JSON.parse(data.data);
+      actions.newVendorOrder(_data?.id)
       actions.isVendorNotification(true);
     }
   }

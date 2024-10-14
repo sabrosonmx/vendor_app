@@ -37,7 +37,9 @@ const NotificationModal = () => {
   const isVendorNotification = useSelector(
     (state) => state?.pendingNotifications?.isVendorNotification,
   );
-
+  const newOrderNotification = useSelector(
+    (state) => state?.pendingNotifications?.newVendorOrder,
+  );
   const [state, setState] = useState({
     pageActive: 1,
     acceptLoader: false,
@@ -62,7 +64,9 @@ const NotificationModal = () => {
   console.log(rejectedOrder, 'reasonreason',pendingNotifications);
   //update state
   const updateState = (data) => setState((state) => ({...state, ...data}));
-
+  useEffect(() => {
+    updateState({ pageActive: 1 })
+  }, [isVendorNotification, newOrderNotification ])
   // ========================RejectResonModal===============
   const onClose = () => {
     updateState({
@@ -78,7 +82,10 @@ const NotificationModal = () => {
     });
     updateOrderStatus(rejectedOrder, 8);
   };
+
+  
   useEffect(() => {
+    console.log(pageActive ,"sdfmgdlf>>>>>", newOrderNotification);
     if (!!userData?.auth_token) {
       (async () => {
         try {
@@ -103,11 +110,16 @@ const NotificationModal = () => {
         }
       })();
     }
-  }, [pageActive, isRefreshing, isVendorNotification]);
+  }, [pageActive, isRefreshing, isVendorNotification, newOrderNotification]);
   // console.log(appMainData, 'appMainData');
 
   const onEndReached = ({distanceFromEnd}) => {
-    updateState({pageActive: pageActive + 1});
+    console.log(pendingNotifications.Length,"pendingNotifications.Length", );
+    
+    if (pendingNotifications.Length > 0) {
+      updateState({pageActive: pageActive + 1});
+    }
+    
   };
 
   const onEndReachedDelayed = debounce(onEndReached, 1000, {

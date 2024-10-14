@@ -2,7 +2,8 @@ import types from '../types';
 
 const initial_state = {
     pendingNotifications: [],
-    isVendorNotification: false
+    isVendorNotification: false,
+    newVendorOrder:null
 };
 
 export default function (state = initial_state, action) {
@@ -19,6 +20,13 @@ export default function (state = initial_state, action) {
             return {
                 ...state,
                 isVendorNotification: data,
+            };
+        }
+        case types.NEW_VENDOR_ODRER: {
+            const data = action.payload;
+            return {
+                ...state,
+                newVendorOrder: data,
             };
         }
         default: {

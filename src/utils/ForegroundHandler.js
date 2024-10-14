@@ -124,22 +124,29 @@ const ForegroundHandler = (props) => {
       if (data?.title == 'bid_ride_request') {
         actions.notificationDataForBid(data)
       }
-
+      console.log(data, "dfdfgdf>>>>");
+        
+     
+      console.log( Platform.OS == 'android' &&
+        notification.android.sound == 'notification' &&
+        data.type != 'reached_location',"dfkgndkfgffd");
+      
       if (
         Platform.OS == 'android' &&
         notification.android.sound == 'notification' &&
         data.type != 'reached_location'
       ) {
-       
-        console.log("okiii>>>>");
-     
         actions.isVendorNotification(true);
-        actions.refreshNotification(messageId);
         const { data } = remoteMessage.data;
+
+        let orderId = remoteMessage?.data?.order_id 
+        actions.newVendorOrder(orderId)
         let _data = JSON.parse(data);
+     
         if (_data.vendors[0].vendor.auto_accept_order == 1) {
           // StartPrinting(_data);
         }
+        actions.refreshNotification(messageId);
       }
 
       // // function for custion notii beloww
@@ -154,10 +161,16 @@ const ForegroundHandler = (props) => {
       //     StartPrinting(_data)
       //   }
       // }
-console.log(data,"datadta")
+
       if (Platform.OS == 'ios' && notification.sound == 'notification.wav' && data.type != 'reached_location') {
-       
+        const { data } = remoteMessage.data;
+
+        let orderId = remoteMessage?.data?.order_id 
+        actions.newVendorOrder(orderId)
         actions.isVendorNotification(true);
+        actions.newVendorOrder(orderId)
+        
+        let _data = JSON.parse(data);
         actions.refreshNotification(messageId);
       }
     });

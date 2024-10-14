@@ -17,3 +17,10 @@ export function isVendorNotification(data = false) {
         payload: data,
     });
 }
+
+export function newVendorOrder (data) {
+    dispatch({
+        type: types.NEW_VENDOR_ODRER,
+        payload: data,
+    });
+}
