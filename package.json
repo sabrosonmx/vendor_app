@@ -7,7 +7,7 @@
     "sabrosonRelease": "cd android && ./gradlew assemblesabrosonRelease",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --experimental-debugger",
     "test": "jest",
     "lint": "eslint .",
     "clean": "cd ./android && ./gradlew clean",
