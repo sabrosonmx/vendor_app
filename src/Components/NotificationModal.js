@@ -61,7 +61,6 @@ const NotificationModal = () => {
     reason,
     rejectedOrder,
   } = state;
-  console.log(rejectedOrder, 'reasonreason',pendingNotifications);
   //update state
   const updateState = (data) => setState((state) => ({...state, ...data}));
   useEffect(() => {
@@ -85,8 +84,7 @@ const NotificationModal = () => {
 
   
   useEffect(() => {
-    console.log(pageActive ,"sdfmgdlf>>>>>", newOrderNotification);
-    if (!!userData?.auth_token) {
+    if (!!userData?.auth_token && (!!currencies?.primary_currency?.id && !!appData?.profile?.code)) {
       (async () => {
         try {
           const res = await actions.allPendingOrders(
@@ -243,7 +241,6 @@ const NotificationModal = () => {
     actions.isVendorNotification(false);
   };
 
-  console.log(pendingNotifications,"sadfksj",isVendorNotification )
   return (
     <Modal
       isVisible={!!pendingNotifications.length && isVendorNotification}

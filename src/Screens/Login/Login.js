@@ -96,7 +96,6 @@ export default function Login({ navigation }) {
   useEffect(() => {
     clonedState = cloneDeep(state);
   }, []);
-  console.log(languages, 'languageslanguageslanguages')
   //Update states
   const updateState = (data) => setState((state) => ({ ...state, ...data }));
   //Styles in app
@@ -543,7 +542,6 @@ export default function Login({ navigation }) {
       .catch(errorMethod);
   };
 
-console.log(cmsLinks,'cmsLinkscmsLinks')
   const vendorRegistartion = () => {
     navigation.navigate(navigationStrings.WEBLINKS, {
       id: cmsLinks?.id,

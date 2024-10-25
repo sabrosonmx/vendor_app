@@ -650,7 +650,6 @@ const RoyoHome = (props) => {
               onPress={() => onPressDashboard(3)}
             />
           </View>
-{console.log(String(revenueDate).slice(4, 7),'revenueDaterevenueDate')}
           <View style={styles.rowWrapSpace}>
             <View>
               <View style={styles.chartHeader}>

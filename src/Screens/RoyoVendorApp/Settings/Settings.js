@@ -41,7 +41,6 @@ export default function Settings({ route, navigation }) {
   const { userData } = useSelector((state) => state?.auth);
   const darkthemeusingDevice = useDarkMode();
   const isDarkMode = themeToggle ? darkthemeusingDevice : themeColor;
-  console.log(languages, 'languageslanguageslanguages');
   const [state, setState] = useState({
     isLoading: false,
     country: 'uk',
