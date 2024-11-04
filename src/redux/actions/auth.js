@@ -167,10 +167,7 @@ export const loginUsername = (data, headers = {}) => {
   return new Promise((resolve, reject) => {
     apiPost(LOGIN_BY_USERNAME, data, headers)
       .then((res) => {
-        setUserData(res.data).then((suc) => {
-          saveUserData(res.data);
-          resolve(res);
-        });
+        resolve(res);
       })
       .catch((error) => {
         reject(error);

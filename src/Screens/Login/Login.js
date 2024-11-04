@@ -43,11 +43,12 @@ import {
   handleAppleLogin,
   _twitterSignIn,
 } from '../../utils/socialLogin';
-import { checkIsAdmin, getUserData, setItem } from '../../utils/utils';
+import { checkIsAdmin, getUserData, setItem, setUserData } from '../../utils/utils';
 import validator from '../../utils/validations';
 import stylesFunc from './styles';
 import LanguageModal from '../../Components/LanguageModal';
 import Header from '../../Components/Header';
+import { saveUserData } from '../../redux/actions/auth';
 
 export default function Login({ navigation }) {
   const navigation_ = useNavigation();
@@ -274,6 +275,7 @@ export default function Login({ navigation }) {
       })
       .then((res) => {
         console.log(res, "resssloginnn")
+        updateState({ isLoading: false });
         if (!!res.data) {
           if (!!res?.data?.is_phone) {
             navigation.navigate(navigationStrings.OTP_VERIFICATION, {
@@ -284,12 +286,14 @@ export default function Login({ navigation }) {
             });
           }
           else {
+            setUserData(res.data).then((suc) => {
+              saveUserData(res.data);
+            });
             resetStackAndNavigate(
               navigation_,
               navigationStrings.TABROUTESVENDORNEW,
             );
           }
-        updateState({ isLoading: false });
         getCartDetail();
         }
         // if (!!res.data) {

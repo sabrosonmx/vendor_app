@@ -24,9 +24,10 @@ import {
 import validations from '../../utils/validations';
 import stylesFunc from './styles';
 import {loaderOne} from '../../Components/Loaders/AnimatedLoaderFiles';
-import {checkIsAdmin} from '../../utils/utils';
+import {checkIsAdmin, setUserData} from '../../utils/utils';
 import {useNavigation} from '@react-navigation/native';
 import { resetStackAndNavigate } from '../../navigation/NavigationService';
+import { saveUserData } from '../../redux/actions/auth';
 
 export default function OtpVerification({navigation, route}) {
   const navigation_ = useNavigation();
@@ -76,6 +77,9 @@ export default function OtpVerification({navigation, route}) {
       })
       .then(() => {
         updateState({isLoading: false});
+        setUserData(res.data).then((suc) => {
+          saveUserData(res.data);
+        });
       })
       .catch(errorMethod);
 
@@ -134,6 +138,10 @@ export default function OtpVerification({navigation, route}) {
         systemuser: DeviceInfo.getUniqueId(),
       })
       .then((res) => {
+        updateState({isLoading: false});
+        setUserData(res.data).then((suc) => {
+          saveUserData(res.data);
+        });
         resetStackAndNavigate(
           navigation_,
           navigationStrings.TABROUTESVENDORNEW,
@@ -148,7 +156,6 @@ export default function OtpVerification({navigation, route}) {
         //       : moveToNewScreen(navigationStrings.VERIFY_ACCOUNT, {})()
         //     : navigation.push(navigationStrings.TAB_ROUTES);
         // }
-        updateState({isLoading: false});
       })
       .catch(errorMethod);
   };

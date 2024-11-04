@@ -28,6 +28,8 @@ import {loaderOne} from '../../Components/Loaders/AnimatedLoaderFiles';
 import TextInputWithUnderlineAndLabel from '../../Components/TextInputWithUnderlineAndLabel';
 import {useDarkMode} from 'react-native-dynamic';
 import {getCartDetail} from '../../redux/actions/cart';
+import { setUserData } from '../../utils/utils';
+import { saveUserData } from '../../redux/actions/auth';
 
 export default function OtpVerificationTemplateFour({navigation, route}) {
   const paramData = route?.params;
@@ -80,6 +82,9 @@ export default function OtpVerificationTemplateFour({navigation, route}) {
       })
       .then(() => {
         updateState({isLoading: false});
+        setUserData(res.data).then((suc) => {
+          saveUserData(res.data);
+        });
       })
       .catch(errorMethod);
 
@@ -197,6 +202,7 @@ export default function OtpVerificationTemplateFour({navigation, route}) {
         systemuser: DeviceInfo.getUniqueId(),
       })
       .then((res) => {
+        updateState({isLoading: false});
         if (!!res.data) {
           res.data.is_phone
             ? navigation.navigate(navigationStrings.OTP_VERIFICATION, {
@@ -211,8 +217,11 @@ export default function OtpVerificationTemplateFour({navigation, route}) {
               ? navigation.push(navigationStrings.TAB_ROUTES)
               : moveToNewScreen(navigationStrings.VERIFY_ACCOUNT, {})()
             : navigation.push(navigationStrings.TAB_ROUTES);
+        }else{
+          setUserData(res.data).then((suc) => {
+            saveUserData(res.data);
+          });
         }
-        updateState({isLoading: false});
         getCartDetail();
       })
       .catch(errorMethod);
